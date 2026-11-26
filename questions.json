@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-hardcoding-quality-batch-32",
+  "revision": "2026-11-27-approved-system-architecture-batch-33",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 249,
+  "nextId": 268,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2499,6 +2499,196 @@
       "explanation": "コードの構造や依存関係を分析し、到達不能コード、未使用変数、潜在的な例外、セキュリティ上の問題、コーディング規約違反などを検出する。検出できる内容は解析ツールやルールに依存する。実行時の動作を確認するテストとは補完関係にある。",
       "point": "解析対象、検出ルール、重大度、誤検知の扱い、修正基準、CI/CD（Continuous Integration／Continuous DeliveryまたはContinuous Deployment）への組込みを確認する。静的解析だけで業務処理の正しさを保証できないため、テストも実施する。",
       "origin": "一般的なソフトウェア品質・静的解析知識（定義・具体例・レビュー観点）"
+    },
+    {
+      "id": "249",
+      "section_no": 8,
+      "category": "開発/調達",
+      "question": "システムアーキテクチャとは何か？",
+      "answer": "System Architecture。システムを構成する要素、その役割、相互関係、設計方針などを定めた全体的な構造。",
+      "explanation": "例えばWeb画面、業務アプリ、DB、外部連携、ネットワーク、認証、監視をどのように組み合わせるかを整理する。機能要件と非機能要件を実現するための構造であり、単なる製品一覧ではない。",
+      "point": "各構成要素の責務、データ・通信経路、依存関係、可用性、セキュリティ、運用責任が要件に整合するか確認する。",
+      "origin": "system-modernization-anonymized.md 第4・13章／modernization-knowledge-map.md 第1・2章／一般的なアーキテクチャの定義を補足"
+    },
+    {
+      "id": "250",
+      "section_no": 9,
+      "category": "開発/調達",
+      "question": "アプリケーションアーキテクチャとは何か？",
+      "answer": "Application Architecture。アプリケーションの機能、処理部品、データアクセス、連携方法などの構造や設計方針。",
+      "explanation": "例えば画面、API、業務ロジック、DBアクセスの責務を分離する。JavaではController、Service、Repositoryなどに役割を分ける構成がある。モノリシックやマイクロサービスなどの配置・分割方針も含む。",
+      "point": "業務機能の分割、依存関係、処理の責任分担、トランザクション境界、例外処理、変更影響、テスト可能性を確認する。",
+      "origin": "system-modernization-anonymized.md 第4・5・13章／一般的なアプリケーション設計知識（定義・分割方針を補足）"
+    },
+    {
+      "id": "251",
+      "section_no": 10,
+      "category": "開発/調達",
+      "question": "インフラアーキテクチャとは何か？",
+      "answer": "Infrastructure Architecture。サーバー、ネットワーク、ストレージ、クラウドサービスなどの基盤構成や設計方針。",
+      "explanation": "アプリケーションが稼働するための実行基盤、通信経路、データ保管、認証・監視、バックアップなどの構成を定める。クラウドではVMやPaaSなどのサービス選択と責任分界も重要となる。",
+      "point": "構成図とリソース一覧、通信・管理経路、環境分離、冗長化、性能、復旧方式、運用責任、費用を確認する。",
+      "origin": "azure-hub-spoke-design-review.md 第2～5章／system-modernization-anonymized.md 第8・13章／一般的なインフラ設計の定義を補足"
+    },
+    {
+      "id": "252",
+      "section_no": 11,
+      "category": "開発/調達",
+      "question": "コンポーネントとは何か？",
+      "answer": "Component。特定の役割や機能を担当するシステムの構成要素。",
+      "explanation": "アプリケーションの処理部品や、API、DB、監視サービスなど、対象とする設計の粒度に応じて様々な構成要素を指す。Reactの画面コンポーネントはその一例であり、一般的なコンポーネントの概念は画面部品に限定されない。",
+      "point": "構成図にある各コンポーネントの役割、接続先、入出力、依存関係、管理主体、障害時の影響を確認する。",
+      "origin": "azure-architecture-glossary.md 第9章・学習のコツと設計レビュー／modernization-knowledge-map.md 第1章／一般的な設計知識（定義を補足）"
+    },
+    {
+      "id": "253",
+      "section_no": 24,
+      "category": "Web/Java",
+      "question": "クライアントサーバー方式とは何か？",
+      "answer": "Client-Server Architecture。サービスを要求するクライアントと、処理を提供するサーバーに役割を分ける方式。",
+      "explanation": "例えばWebブラウザがサーバーへHTTP要求を送り、サーバーが処理結果を返す。クライアントとサーバーは論理的な役割を示すため、必ずしも別々の物理機器とは限らない。",
+      "point": "要求と応答の経路、クライアント側とサーバー側の処理分担、認証・認可、通信障害時の動作を確認する。",
+      "origin": "system-modernization-anonymized.md 第4章／modernization-knowledge-map.md 第1章／一般的なクライアントサーバー設計知識（定義を補足）"
+    },
+    {
+      "id": "254",
+      "section_no": 25,
+      "category": "Web/Java",
+      "question": "3層アーキテクチャとは何か？",
+      "answer": "Three-Tier Architecture。プレゼンテーション、アプリケーション、データの3つの層に分けるシステム構成方式。",
+      "explanation": "例えばReactによる画面表示、Javaによる業務処理、PostgreSQLによるデータ管理に役割を分ける。論理的な3層構造と、各層を独立して配置する3ティア構成は厳密には区別される場合があり、必ず3台のサーバーが必要という意味ではない。",
+      "point": "各層の責務、配置、通信経路、DBへの直接接続の制限、認証・認可、各層の性能・障害対策を確認する。",
+      "origin": "system-modernization-anonymized.md 第4章／modernization-knowledge-map.md 第1章／一般的な多層アーキテクチャ知識（定義・論理層と配置の区別を補足）"
+    },
+    {
+      "id": "255",
+      "section_no": 26,
+      "category": "Web/Java",
+      "question": "プレゼンテーション層とは何か？",
+      "answer": "Presentation Layer。利用者への画面表示や入力受付などを担当する層。",
+      "explanation": "例えばReactで画面、入力フォーム、一覧、画面遷移を実装し、バックエンドのAPIを呼び出す。画面側で入力チェックを行っても、重要な入力検証や認可をサーバー側で実施する必要がある。",
+      "point": "画面と業務ロジックの責務分離、入力検証、エラー表示、操作性、APIとの対応、アクセシビリティを確認する。",
+      "origin": "system-modernization-anonymized.md 第4・9章／一般的な多層アーキテクチャ知識（層の定義を補足）"
+    },
+    {
+      "id": "256",
+      "section_no": 27,
+      "category": "Web/Java",
+      "question": "アプリケーション層とは何か？",
+      "answer": "Application Layer。業務処理の実行や処理の制御などを担当する層。",
+      "explanation": "3層構成の一般例では、画面やAPIからの要求に応じ、業務ルールに従って処理し、DBアクセスなどを調整する。JavaのServiceなどが関連する。設計方式によっては業務ロジックをドメイン層として分離し、アプリケーション層は処理の進行管理を担当する。",
+      "point": "業務ルールと処理制御の配置、トランザクション境界、入力検証、認可、エラー処理、DBアクセスの責務分離を確認する。",
+      "origin": "system-modernization-anonymized.md 第4・5・13章／一般的な多層設計知識（層の定義・設計方式による違いを補足）"
+    },
+    {
+      "id": "257",
+      "section_no": 28,
+      "category": "Web/Java",
+      "question": "データアクセス層とは何か？",
+      "answer": "DAL（Data Access Layer：データアクセス層）。データベースなどへの検索、登録、更新、削除処理を担当する層。",
+      "explanation": "DAO（Data Access Object）やRepositoryなどを用いて、業務ロジックからDBアクセス処理を分離する構成がある。データアクセス層はアプリケーション内のソフトウェア層であり、DB自体や物理的なデータ層と同一ではない。",
+      "point": "SQLやDBアクセスの責務、トランザクション管理、例外処理、接続管理、検索性能、業務ロジックとの分離を確認する。",
+      "origin": "system-modernization-anonymized.md 第4・5章（DAO／Repository）／一般的な多層設計知識（DALの正式名称・定義を補足）"
+    },
+    {
+      "id": "258",
+      "section_no": 29,
+      "category": "Web/Java",
+      "question": "モノリシックアーキテクチャとは何か？",
+      "answer": "Monolithic Architecture。複数の業務機能を一つのアプリケーションとしてまとめて配置・実行する構成方式。",
+      "explanation": "顧客管理や契約管理などの機能を一つのデプロイ単位にまとめる。内部を適切にモジュール分割することもできる。独立して配置するマイクロサービスより構成・運用が単純になる場合がある一方、変更や拡張の単位が大きくなる場合がある。",
+      "point": "業務機能の依存関係、変更時の影響範囲、デプロイ単位、性能・可用性、運用負荷を確認し、要件に応じて方式を選択する。",
+      "origin": "一般的なソフトウェアアーキテクチャ知識（定義・特徴）／system-modernization-anonymized.md 第4・13章（関連設計観点）"
+    },
+    {
+      "id": "259",
+      "section_no": 30,
+      "category": "Web/Java",
+      "question": "マイクロサービスアーキテクチャとは何か？",
+      "answer": "Microservices Architecture。システムを独立して開発・配置できる小さなサービスに分割し、相互に連携させる構成方式。",
+      "explanation": "業務機能ごとにサービスを分割し、APIやメッセージングで連携する。個別のデプロイや拡張が可能になる一方、通信障害、分散データの整合性、監視、運用の複雑さを考慮する必要がある。単にプログラムを小さく分けるだけではない。",
+      "point": "サービス境界、データの所有責任、API契約、障害分離、タイムアウト・再試行、分散トレーシング、独立デプロイの実現性を確認する。",
+      "origin": "一般的なソフトウェアアーキテクチャ知識（定義・特徴）／system-modernization-anonymized.md 第4・13章／azure-hub-spoke-design-review.md 第3章（関連連携設計観点）"
+    },
+    {
+      "id": "260",
+      "section_no": 26,
+      "category": "外部IF",
+      "question": "同期処理とは何か？",
+      "answer": "Synchronous Processing。呼出元が呼出先の処理結果などを待ってから、次の処理へ進む方式。",
+      "explanation": "例えば画面がAPIを呼び出し、検索結果を受け取ってから表示する。ここでの同期は呼出元の処理の進め方を指す。待ち時間が発生するため、呼出先の遅延や障害が呼出元へ波及する場合がある。",
+      "point": "応答時間、タイムアウト、エラー処理、再試行、連鎖的な障害影響、結果を即時に必要とする業務かを確認する。",
+      "origin": "system-modernization-anonymized.md 第4・9章（同期HTTP／REST APIの関連記述）／一般的な処理方式の定義・具体例を補足"
+    },
+    {
+      "id": "261",
+      "section_no": 27,
+      "category": "外部IF",
+      "question": "非同期処理とは何か？",
+      "answer": "Asynchronous Processing。呼出元が呼出先の処理完了を待たずに、別の処理を進められる方式。",
+      "explanation": "例えば要求をメッセージキューへ登録し、受信側が後から処理する。呼出元と呼出先の実行タイミングを分離できる一方、処理完了の確認や結果の整合性を考える必要がある。非同期であっても受付結果などを返す場合がある。",
+      "point": "処理完了通知、順序、重複、再試行、DLQ（Dead Letter Queue：デッドレターキュー）、冪等性、滞留監視を確認する。",
+      "origin": "azure-architecture-glossary.md 第5章／azure-hub-spoke-design-review.md 第3章／modernization-knowledge-map.md 第2章／一般的な処理方式の定義を補足"
+    },
+    {
+      "id": "262",
+      "section_no": 31,
+      "category": "Web/Java",
+      "question": "ステートフルとは何か？",
+      "answer": "Stateful。過去の要求や処理に関する状態を保持し、後続の処理に利用する方式。",
+      "explanation": "例えばサーバーがログインセッションや画面操作の途中状態を保持して、次の要求を処理する。状態をどこで保持するかによって、複数台構成や障害時の挙動が変わる。状態を保持すること自体が悪いわけではない。",
+      "point": "セッションの保存先、寿命、複数台間の共有、障害時の引継ぎ、画面間の一時データ、並行操作時の整合性を確認する。",
+      "origin": "system-modernization-anonymized.md 第4章／modernization-knowledge-map.md 第4-1節／一般的な状態管理知識（定義・例を補足）"
+    },
+    {
+      "id": "263",
+      "section_no": 19,
+      "category": "運用/非機能",
+      "question": "Active-Active構成とは何か？",
+      "answer": "Active-Active（アクティブ・アクティブ）。複数のサーバーやシステムを同時に稼働させ、処理を分担する構成。",
+      "explanation": "複数の稼働系が通常時から要求を処理する。負荷分散や冗長化に利用され、一部が停止した際に残りの系で処理を継続できるよう設計する。データの更新競合や残存系の処理能力は別途考慮する。",
+      "point": "負荷分散、ヘルスチェック、障害時の残存能力、セッション共有、データ整合性、共通部品の単一障害点を確認する。",
+      "origin": "azure-architecture-glossary.md 第8章（Active-Active）／system-modernization-anonymized.md 第11・13章／一般的な冗長構成知識を補足"
+    },
+    {
+      "id": "264",
+      "section_no": 20,
+      "category": "運用/非機能",
+      "question": "Active-Standby構成とは何か？",
+      "answer": "Active-Standby（アクティブ・スタンバイ）。主系と待機系を用意し、主系に障害が発生した際に待機系へ処理を引き継ぐ構成。",
+      "explanation": "通常は主系が対象サービスの処理を担当し、待機系が切替に備える。待機系の準備状態やデータ同期方式により復旧時間が異なる。切替は自動の場合も手動の場合もある。ホットスタンバイなどは待機の具体的な方式。",
+      "point": "障害検知条件、切替方法、データ同期、二重稼働防止、復旧目標、切替試験、主系へ戻す手順を確認する。",
+      "origin": "azure-architecture-glossary.md 第8章（Active-Standby）／system-modernization-anonymized.md 第11章／一般的な冗長構成知識を補足"
+    },
+    {
+      "id": "265",
+      "section_no": 21,
+      "category": "運用/非機能",
+      "question": "SPOFとは何か？",
+      "answer": "SPOF（Single Point of Failure：単一障害点）。その箇所が故障するとシステム全体や対象サービスが停止する原因となる構成要素。",
+      "explanation": "アプリサーバーを複数台にしても、共通するDB、ネットワーク機器、認証基盤などが単一障害点となる場合がある。機器の台数だけでなく、共通依存関係や障害の影響範囲を分析する必要がある。",
+      "point": "通信経路、DB、認証、DNS、電源などの共通依存を確認し、冗長化や代替手段、障害時の挙動、復旧手順を評価する。",
+      "origin": "一般的な可用性設計知識（SPOFの正式名称・定義）／system-modernization-anonymized.md 第11・13章／azure-hub-spoke-design-review.md 第4章（関連する障害対策観点）"
+    },
+    {
+      "id": "266",
+      "section_no": 41,
+      "category": "Azure/クラウド",
+      "question": "サーバーレスアーキテクチャとは何か？",
+      "answer": "Serverless Architecture。サーバーの管理をサービス提供者に任せ、利用者がアプリケーションの処理や機能の実装に集中できる構成方式。",
+      "explanation": "Azure Functionsなどを用いてイベントやHTTP要求を契機にコードを実行する例がある。サーバーが存在しないという意味ではなく、基盤の管理をサービス側に任せる。スケーリングや料金体系、実行制限はサービスやプランによって異なる。",
+      "point": "実行時間、起動遅延、負荷変動、ネットワーク接続、状態管理、監視、料金、運用責任の分担を確認する。",
+      "origin": "azure-architecture-glossary.md 第3章（Azure Functions）／system-modernization-anonymized.md 第6・8章／一般的なサーバーレス設計知識（定義・注意点を補足）"
+    },
+    {
+      "id": "267",
+      "section_no": 42,
+      "category": "Azure/クラウド",
+      "question": "ハイブリッドクラウドとは何か？",
+      "answer": "Hybrid Cloud。プライベートクラウドやオンプレミス環境とパブリッククラウドを組み合わせて利用する構成。",
+      "explanation": "例えば既存の社内基盤とAzure上のアプリケーションを接続し、データや処理を連携する構成がある。厳密なクラウド分類では異なるクラウド環境を結合する形態を指し、一般的なオンプレミスとの併用はハイブリッドITと呼ぶ場合もある。単に両方を保有するだけで連携が実現するわけではない。",
+      "point": "接続経路、DNS、認証、データ同期、暗号化、通信遅延、障害時の影響、オンプレミス側とクラウド側の責任分界を確認する。",
+      "origin": "system-modernization-anonymized.md 第8章／azure-hub-spoke-design-review.md 第2章／一般的なクラウド構成知識（定義・厳密な分類を補足）"
     }
   ],
   "archivedCards": [],
