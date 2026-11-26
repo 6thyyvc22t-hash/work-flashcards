@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-rewrite-testing-batch-29",
+  "revision": "2026-11-27-approved-environment-batch-30",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 231,
+  "nextId": 236,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2319,6 +2319,56 @@
       "explanation": "例えばある画面の修正が共通部品に影響し、別画面で登録ができなくなる場合などがある。性能低下も含め、変更に伴って以前より悪くなる現象を指す。回帰テストはこうした意図しない悪化を検出する手段の一つ。",
       "point": "修正箇所だけでなく共通部品・関連機能への影響を分析し、変更前後の期待結果を比較する。修正確認と回帰テストを区別し、再発防止策を整理する。",
       "origin": "一般的なソフトウェア開発・テスト知識（デグレードの定義・例）／system-modernization-anonymized.md 第13章（関連するレビュー観点）"
+    },
+    {
+      "id": "231",
+      "section_no": 10,
+      "category": "移行/テスト",
+      "question": "本番環境（PROD）とは何か？",
+      "answer": "PROD（Production Environment：本番環境）。実際の利用者が業務を行い、正式な業務データを処理する環境。",
+      "explanation": "実際の業務サービスを提供する環境であり、開発・検証環境とは目的が異なる。障害や誤操作が業務に直接影響するため、アクセス制御、変更承認、監視、バックアップ、可用性などが重要になる。PRODはProductionの略称。",
+      "point": "本番と非本番のネットワーク・権限・データの分離、変更承認、監視、バックアップ、障害時の対応手順を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第1・11章／system-modernization-anonymized.md 第9章／一般的な環境管理知識（正式名称・定義・具体例を補足）"
+    },
+    {
+      "id": "232",
+      "section_no": 11,
+      "category": "移行/テスト",
+      "question": "開発環境（DEV）とは何か？",
+      "answer": "DEV（Development Environment：開発環境）。プログラムの作成、修正、動作確認などを行うための環境。",
+      "explanation": "開発担当者がコードの実装、ビルド、デバッグ、単体テストなどを行う。開発者のPC上に用意する場合や、共有サーバー・クラウド上に設ける場合がある。本番データや本番システムに不用意な影響を与えないように分離する。DEVはDevelopmentの略称。",
+      "point": "開発者の権限、使用するデータ、開発ツール、環境の再現性、本番との構成差異、外部接続先を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第1・11章／system-modernization-anonymized.md 第9章／一般的な環境管理知識（正式名称・定義・具体例を補足）"
+    },
+    {
+      "id": "233",
+      "section_no": 12,
+      "category": "移行/テスト",
+      "question": "検証環境とは何か？",
+      "answer": "システムの機能、構成、設定変更、製品の互換性などが期待どおりに動作するか検証するための環境。",
+      "explanation": "本番への適用前に、新しい構成や製品、OS・ミドルウェアの更新、設定変更、性能などを確認する。テスト環境と兼用することもある。名称や対象範囲はプロジェクトによって異なり、一律の英語略称はない。英語ではVerification Environmentなどと表現される。",
+      "point": "検証の目的、対象構成、本番との差異、検証条件・合否基準、利用者、データ、外部接続、本番適用への承認手順を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第11章／system-modernization-anonymized.md 第9章／一般的な環境管理知識（定義・具体例を補足）"
+    },
+    {
+      "id": "234",
+      "section_no": 4,
+      "category": "開発/調達",
+      "question": "デプロイとは何か？",
+      "answer": "Deploy（名詞：Deployment）。作成したプログラムや設定などを対象環境に配置し、実行できる状態にすること。",
+      "explanation": "例えばビルド済みJavaアプリケーションを検証環境に配置し、設定を適用して起動する。開発・検証・本番など各環境への展開に用いられ、CI/CD（Continuous Integration／Continuous DeliveryまたはContinuous Deployment）で自動化することもある。デプロイしただけで利用者に機能を公開したとは限らない。",
+      "point": "配置対象とバージョン、環境別設定、承認、DB変更の順序、動作確認、失敗時の切戻し、実行履歴を確認する。",
+      "origin": "azure-architecture-glossary.md 第7章（Azure DevOps／CI/CD）／一般的なソフトウェア開発知識（用語定義・具体例・レビュー観点を補足）"
+    },
+    {
+      "id": "235",
+      "section_no": 5,
+      "category": "開発/調達",
+      "question": "環境変数とは何か？",
+      "answer": "Environment Variable。プログラムの実行環境から参照できる設定値で、接続先や動作条件などの切替に利用される。",
+      "explanation": "OSや実行基盤がプロセスに提供する名前と値の組である。例えば同じアプリケーションでも環境変数に設定したAPI接続先や動作モードにより、開発・検証・本番で異なる設定を使用できる。機密情報は不用意に平文で保存・表示せず、適切なシークレット管理を利用する。",
+      "point": "環境ごとの値、設定方法、変更権限、誤接続防止、機密情報の管理、設定漏れ時の動作を確認する。環境変数そのものは暗号化や秘密情報保護を保証しない。",
+      "origin": "一般的なOS・アプリケーション設定管理知識（定義・具体例）／legacy-host-operation-reference-patterns.md 第11章（環境分離・権限の関連観点）"
     }
   ],
   "archivedCards": [],
