@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-azure-definitions-batch-23",
+  "revision": "2026-11-27-approved-sku-batch-24",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 212,
+  "nextId": 213,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2129,6 +2129,16 @@
       "explanation": "Azure上のアプリケーションはマネージドIDを用いてアクセストークンを取得し、対応するKey VaultやStorageなどにアクセスできる。リソースに紐付くシステム割当型と独立して作成・割当てできるユーザー割当型がある。認証できても、アクセス権は別途付与する必要がある。",
       "point": "利用するIDの種類とライフサイクル、対象サービスの対応可否、最小権限、環境ごとのID分離、権限変更・削除時の影響を確認する。",
       "origin": "azure-architecture-glossary.md 第6章／azure-hub-spoke-design-review.md 第3章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview"
+    },
+    {
+      "id": "212",
+      "section_no": 38,
+      "category": "Azure/クラウド",
+      "question": "SKUとは何か？",
+      "answer": "Stock Keeping Unit（在庫管理単位）。Azureではサービスの製品区分、性能、機能、価格などの違いを識別するための単位。",
+      "explanation": "もともとは商品の種類を区別するための管理単位。Azureでは、サービスごとに選択可能な製品・構成の区分を表す。例えば仮想マシンではサイズや性能、App Serviceではプランの階層やサイズなどに関係する。同じサービスでもSKUによって利用できる機能、性能、料金が異なり、リージョンや可用性ゾーンによって選択できない場合もある。SKUの具体的な意味や設定項目はサービスごとに異なる。",
+      "point": "構成図や見積書に記載されたSKUが、要求性能、必要な機能、冗長化、対象リージョン・可用性ゾーン、利用上限、費用に適合するか確認する。サービス名が同じでもSKUの違いを見落とさない。",
+      "origin": "Microsoft Learn（SKUの正式名称）: https://learn.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/s/sku ／Azure Compute Resource SKUs: https://learn.microsoft.com/en-us/rest/api/compute/resource-skus/list?view=rest-compute-2025-04-01 ／SKUが使用できないエラー: https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/troubleshooting/error-sku-not-available ／一般的な設計レビュー観点"
     }
   ],
   "archivedCards": [],
