@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-encoding-communication-batch-15",
+  "revision": "2026-11-27-approved-network-batch-16",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 181,
+  "nextId": 182,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1819,6 +1819,16 @@
       "explanation": "ホスト通信の体系であり、FNA上でファイル転送を行うプロトコルとしてHICSがある。Linkexpressは対応する構成でFNA系の通信を利用できる。TCP/IPを基盤とするFTPなどとは通信方式が異なる。",
       "point": "移行時には実際の通信プロトコル、相手側の対応、LU（Logical Unit）の定義、必要なネットワーク製品、接続条件、TCP/IP系への変更可否、連携テストを確認する。",
       "origin": "富士通 FNA正式名称: https://resources.global.fujitsu/software/manual/c120-e200/06z2a/puioj04/puioj033.htm ／Linkexpress 用語集（FNA・HICS・LU）: https://resources.global.fujitsu/software/manual/j2x1-5930/06z200/unyoz1/unyo0651.html ／legacy-host-operation-reference-patterns.md 第9-2節"
+    },
+    {
+      "id": "181",
+      "section_no": 16,
+      "category": "ネットワーク",
+      "question": "NATとは何か？",
+      "answer": "Network Address Translation（ネットワークアドレス変換）。通信パケットのIPアドレスを別のIPアドレスへ変換する仕組み。",
+      "explanation": "例えば、内部ネットワークの端末が外部へ通信する際に送信元のプライベートIPアドレスを別のIPアドレスに変換する。送信元を変換するSNAT（Source Network Address Translation）と、宛先を変換するDNAT（Destination Network Address Translation）がある。ポート番号も変換する方式はNAPT（Network Address and Port Translation）と呼ばれる。Azure NAT Gatewayは送信方向のアドレス・ポート変換に利用される。",
+      "point": "構成図・通信要件で変換前後の送信元・宛先IP、変換する装置、戻り通信の経路、相手側の許可IP、ログの記録内容を確認する。NAT自体は暗号化やアクセス制御の代替ではない。",
+      "origin": "一般知識（NAT・SNAT・DNAT・NAPTの定義）／IETF RFC 3022 Traditional IP Network Address Translator: https://www.rfc-editor.org/rfc/rfc3022 ／azure-architecture-glossary.md 第2章（NAT Gatewayとの関連）／azure-hub-spoke-design-review.md 第2章（通信経路・制御の確認）"
     }
   ],
   "archivedCards": [],
