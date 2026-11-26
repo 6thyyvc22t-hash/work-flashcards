@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-workspace-activitylog-batch-26",
+  "revision": "2026-11-27-approved-requirements-batch-27",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 218,
+  "nextId": 224,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2189,6 +2189,66 @@
       "explanation": "Azureのサブスクリプション単位で参照できるプラットフォームログで、リソースの管理操作やサービス正常性などのイベントを確認できる。例えばVMの作成・削除や設定変更の記録を調査する。通常、既定で90日間保持され、診断設定を使ってLog Analytics Workspaceなどへ転送できる。アプリ内部の処理ログや個々のデータの読み書きを記録するログとは区別する。Activity Logは略語ではない。",
       "point": "誰がいつ何を変更したか調査できるか、必要な保存期間、転送先、閲覧権限、アラート、監査要件を確認する。アプリ操作やデータアクセスの監査に必要なログは別途収集する。",
       "origin": "Microsoft Learn（Azure Monitor activity log）: https://learn.microsoft.com/ja-jp/azure/azure-monitor/essentials/activity-log ／azure-architecture-glossary.md 第7章（監視・運用の関連知識）"
+    },
+    {
+      "id": "218",
+      "section_no": 3,
+      "category": "開発/調達",
+      "question": "機能要件とは何か？",
+      "answer": "Functional Requirement（機能要件）。システムが提供すべき業務処理、画面、帳票、データ連携などの機能に関する要件。",
+      "explanation": "例えば、利用者が顧客情報を検索・更新できること、指定条件で帳票を出力できること、他システムへデータを送信できることなどを定義する。実行条件、入力、処理内容、出力、例外時の動作を明確にする。何を実現するかを示すものであり、性能や可用性などの非機能要件とは区別する。",
+      "point": "業務要件と機能一覧の対応、入力・出力、正常系・異常系、権限制御、既存機能の移行漏れ、受入テストで確認できる条件を確認する。",
+      "origin": "system-modernization-anonymized.md 第12・13章／modernization-knowledge-map.md 第4章／一般的な要件定義知識"
+    },
+    {
+      "id": "219",
+      "section_no": 14,
+      "category": "運用/非機能",
+      "question": "非機能要件とは何か？",
+      "answer": "Non-functional Requirement（NFR）。性能、可用性、セキュリティ、運用性など、システムの品質や制約に関する要件。",
+      "explanation": "例えば応答時間を2秒以内にする、障害後1時間以内に復旧する、ログを1年間保持するなどの条件を定める（数値は一般例）。IPAの非機能要求グレードでは可用性、性能・拡張性、運用・保守性、移行性、セキュリティ、システム環境・エコロジーの6大項目に整理している。要件と、それを実現する構成・製品は区別する。",
+      "point": "要求値、測定条件、対象範囲、優先度、費用との兼ね合い、検証方法を明確にする。構成図や方式設計書、性能・障害試験の計画と照合する。",
+      "origin": "IPA 非機能要求グレード: https://www.ipa.go.jp/archive/digital/iot-en-ci/jyouryuu/hikinou/ent03-b.html ／system-modernization-anonymized.md 第11・13章"
+    },
+    {
+      "id": "220",
+      "section_no": 15,
+      "category": "運用/非機能",
+      "question": "非機能要求グレードとは何か？",
+      "answer": "IPA（Information-technology Promotion Agency, Japan：情報処理推進機構）が公開している、非機能要求項目を体系的に整理し、要求レベルを段階的に定義したツール。",
+      "explanation": "可用性、性能・拡張性、運用・保守性、移行性、セキュリティ、システム環境・エコロジーの6大項目に分類し、要求項目ごとのレベルを示す。発注者と受注者が要求を具体化し、認識のずれを減らすために利用する。全項目を最高レベルにすることが目的ではなく、業務の重要性や費用に応じて必要なレベルを選ぶ。",
+      "point": "RFP（Request for Proposal：提案依頼書）や要件定義で各項目の要求レベル、選択根拠、対象範囲、例外、検証方法を明確にし、ベンダーとの認識を合わせる。",
+      "origin": "IPA 非機能要求グレード: https://www.ipa.go.jp/archive/digital/iot-en-ci/jyouryuu/hikinou/ent03-b.html ／一般的な要件定義・設計レビュー観点"
+    },
+    {
+      "id": "221",
+      "section_no": 16,
+      "category": "運用/非機能",
+      "question": "DRとは何か？",
+      "answer": "Disaster Recovery（災害復旧）。大規模障害や災害が発生した際に、システムやデータを復旧するための対策。",
+      "explanation": "別拠点・別リージョンへのデータ複製、復旧用の実行基盤、通信経路、切替・復元手順などを整備する。RTO（Recovery Time Objective：目標復旧時間）とRPO（Recovery Point Objective：目標復旧時点）に基づいて設計する。同一リージョン内の冗長化やバックアップだけで災害復旧が実現できるとは限らない。",
+      "point": "想定する災害・障害の範囲、RTO・RPO、復旧先のアプリ・DB・ネットワーク、切替権限と手順、復旧訓練、通常運用への復帰方法を確認する。",
+      "origin": "system-modernization-anonymized.md 第11章／azure-hub-spoke-design-review.md 第4章／azure-architecture-glossary.md 第8章"
+    },
+    {
+      "id": "222",
+      "section_no": 17,
+      "category": "運用/非機能",
+      "question": "レスポンスタイムとは何か？",
+      "answer": "Response Time（応答時間）。要求を送信してから所定の応答を得るまでにかかる時間。",
+      "explanation": "画面検索やAPI呼出しでは、要求送信から応答受信までの時間などを測定する。ネットワーク通信、待ち行列、アプリ処理、DB検索などの時間が影響する。平均値だけでは遅い応答が隠れることがあるため、必要に応じて95パーセンタイルなども評価する。画面表示完了までを含むかなど、測定区間は要件で定義する。",
+      "point": "対象画面・API、測定開始・終了点、同時利用者数、データ量、ピーク負荷、目標値の達成割合を明確にする。実運用に近い条件で性能試験を実施する。",
+      "origin": "system-modernization-anonymized.md 第13章（性能要件・レビュー）／IPA 非機能要求グレード（性能・拡張性）: https://www.ipa.go.jp/archive/digital/iot-en-ci/jyouryuu/hikinou/ent03-b.html ／一般的な性能設計知識"
+    },
+    {
+      "id": "223",
+      "section_no": 18,
+      "category": "運用/非機能",
+      "question": "スループットとは何か？",
+      "answer": "Throughput。システムが単位時間あたりに処理できるデータ量や要求件数。",
+      "explanation": "例えば1秒あたりのAPI処理件数、1時間あたりのバッチ処理件数、1秒あたりのデータ転送量などで表す。レスポンスタイムは個々の要求にかかる時間、スループットは単位時間あたりの処理量であり、異なる性能指標である。処理能力の上限はCPU、DB、ストレージ、通信などのボトルネックに左右される。",
+      "point": "必要な処理件数・データ量、ピーク時の負荷、バッチの完了期限、測定単位、エラー率と応答時間を確認する。負荷試験で処理能力を測定し、ボトルネックと増強方法を検討する。",
+      "origin": "system-modernization-anonymized.md 第13章（性能要件・レビュー）／IPA 非機能要求グレード（性能・拡張性）: https://www.ipa.go.jp/archive/digital/iot-en-ci/jyouryuu/hikinou/ent03-b.html ／一般的な性能設計知識"
     }
   ],
   "archivedCards": [],
