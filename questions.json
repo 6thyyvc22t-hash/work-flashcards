@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-az900-batch-21",
+  "revision": "2026-11-27-approved-az900-fundamentals-batch-22",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 201,
+  "nextId": 203,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2019,6 +2019,26 @@
       "explanation": "Azure Portal、Azure CLI、PowerShellなどの管理要求を受け付け、認証・認可を行い、各リソースプロバイダーへ処理を渡す。ARMテンプレート（JSON形式）やBicepを利用すると、構成をコードで定義してデプロイできる。管理操作と、ストレージのデータ読書きなどのデータプレーン操作は区別する。",
       "point": "管理権限の範囲、Azure Policy、リソースの依存関係、IaC（Infrastructure as Code）の定義と実際の設定の整合性、変更承認・履歴を確認する。",
       "origin": "Microsoft Learn: https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview?source=recommendations ／https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/get-started/how-azure-resource-manager-works ／azure-architecture-glossary.md 第1・7章"
+    },
+    {
+      "id": "201",
+      "section_no": 29,
+      "category": "Azure/クラウド",
+      "question": "スケーラビリティとは何か？",
+      "answer": "Scalability（拡張性）。処理量の増加に応じてシステムの処理能力を拡張できる性質。",
+      "explanation": "クラウドでは、仮想マシンのCPU（Central Processing Unit）やメモリなどを増強するスケールアップ（垂直スケーリング）と、処理を担当するインスタンス数を増やすスケールアウト（水平スケーリング）などによって処理能力を高める。拡張性は処理能力を拡張できる性質であり、負荷に応じて資源を増減させる弾力性（Elasticity）とは区別する。",
+      "point": "将来の利用者数・データ量・バッチ処理量の増加を想定し、拡張方法、負荷試験、DBや外部IFのボトルネック、サービスの利用上限、増加する費用を確認する。",
+      "origin": "Microsoft Learn AZ-900学習ガイド: https://learn.microsoft.com/ja-jp/credentials/certifications/resources/study-guides/az-900 ／azure-architecture-glossary.md 第8章（スケールアップ・アウト・イン）／一般的なシステム設計知識"
+    },
+    {
+      "id": "202",
+      "section_no": 30,
+      "category": "Azure/クラウド",
+      "question": "Azureリソースとは何か？",
+      "answer": "Azure Resource。Azure上で作成・管理できる仮想マシン、ストレージ、ネットワークなどの個々のサービスや構成要素。",
+      "explanation": "例えばVM（Virtual Machine）、VNet（Virtual Network）、ストレージアカウントはAzureリソースである。一般的なリソースはリソースグループに所属し、ARM（Azure Resource Manager）を通じて作成・変更・削除などを管理する。リソース種別、名前、リソースIDなどで識別できる。",
+      "point": "構成図とリソース一覧を照合し、各リソースの役割、配置リージョン、所属するリソースグループ、依存関係、アクセス権、監視、管理責任を確認する。",
+      "origin": "Microsoft Learn Azure Resource Managerの概要: https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/management/overview ／azure-architecture-glossary.md 第1・9章／azure-hub-spoke-design-review.md 第5章"
     }
   ],
   "archivedCards": [],
