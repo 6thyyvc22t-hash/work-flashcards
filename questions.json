@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-environment-batch-30",
+  "revision": "2026-11-27-approved-build-development-batch-31",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 236,
+  "nextId": 244,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2369,6 +2369,86 @@
       "explanation": "OSや実行基盤がプロセスに提供する名前と値の組である。例えば同じアプリケーションでも環境変数に設定したAPI接続先や動作モードにより、開発・検証・本番で異なる設定を使用できる。機密情報は不用意に平文で保存・表示せず、適切なシークレット管理を利用する。",
       "point": "環境ごとの値、設定方法、変更権限、誤接続防止、機密情報の管理、設定漏れ時の動作を確認する。環境変数そのものは暗号化や秘密情報保護を保証しない。",
       "origin": "一般的なOS・アプリケーション設定管理知識（定義・具体例）／legacy-host-operation-reference-patterns.md 第11章（環境分離・権限の関連観点）"
+    },
+    {
+      "id": "236",
+      "section_no": 14,
+      "category": "Web/Java",
+      "question": "コーディングとは何か？",
+      "answer": "Coding。設計や仕様に基づいて、プログラミング言語でソースコードを記述すること。",
+      "explanation": "例えば業務ルールや画面・DBの設計に基づき、Javaで計算やデータ更新の処理を実装する。コーディングで記述したソースコードをビルドし、テストによって期待した動作を確認する。",
+      "point": "設計との整合性、コーディング規約、例外処理、レビュー、テストの実施、変更履歴の管理を確認する。",
+      "origin": "一般的なソフトウェア開発知識（定義・例）／system-modernization-anonymized.md 第3章（リライトの関連知識）"
+    },
+    {
+      "id": "237",
+      "section_no": 15,
+      "category": "Web/Java",
+      "question": "ソースコードとは何か？",
+      "answer": "Source Code。プログラミング言語で記述された、プログラムの元となるコード。",
+      "explanation": "Javaの.javaファイルやJavaScriptの.jsファイルなどが例である。コンパイルやビルドによって実行・配布用の成果物を生成する場合もあれば、実行時に処理される場合もある。変更履歴はGitなどで管理できる。",
+      "point": "移行元・移行先のソースの対応、バージョン管理、ビルドに必要なファイルの揃い方、機密情報の混入、成果物との対応関係を確認する。",
+      "origin": "一般的なソフトウェア開発知識（定義・例）／system-modernization-anonymized.md 第3章（リライトの関連知識）"
+    },
+    {
+      "id": "238",
+      "section_no": 16,
+      "category": "Web/Java",
+      "question": "コンパイルとは何か？",
+      "answer": "Compile。ソースコードを機械語やバイトコードなどの別の形式に変換すること。",
+      "explanation": "例えばJavaではjavacが.javaファイルをJVM（Java Virtual Machine：Java仮想マシン）で処理できるバイトコードの.classファイルに変換する。コンパイル時に構文や型などの誤りを検出する場合がある。コンパイル成功は業務処理の正しさを保証しない。",
+      "point": "コンパイラ・言語バージョン、依存ライブラリとの互換性、エラー・警告、生成物の実行環境、テスト結果を確認する。",
+      "origin": "一般的なプログラミング・Java開発知識（定義・例）／system-modernization-anonymized.md 第3章（言語変換の関連知識）"
+    },
+    {
+      "id": "239",
+      "section_no": 17,
+      "category": "Web/Java",
+      "question": "ビルドとは何か？",
+      "answer": "Build。ソースコードのコンパイル、依存ライブラリの取得、パッケージ化などを行い、実行・配布できる成果物を生成すること。",
+      "explanation": "例えばJavaアプリケーションではMavenなどのツールを用い、依存関係の解決、コンパイル、テスト、JAR（Java Archive）生成などを実施できる。実行内容はプロジェクトの設定によって異なる。ビルドで生成した成果物を対象環境に配置するのがデプロイである。",
+      "point": "ビルド手順、依存ライブラリとツールのバージョン、テスト結果、再現性、成果物の識別・保管、本番へ配置する版を確認する。",
+      "origin": "azure-architecture-glossary.md 第7章（ビルド・テスト・デプロイ）／一般的なソフトウェア開発知識（定義・具体例）"
+    },
+    {
+      "id": "240",
+      "section_no": 18,
+      "category": "Web/Java",
+      "question": "リンクとは何か？",
+      "answer": "Link（Linking：リンク処理）。コンパイルされたプログラムやライブラリなどを結合し、実行ファイルなどを生成する処理。",
+      "explanation": "例えばC言語などではコンパイルで生成したオブジェクトファイルをリンカで結合し、他の部品にある関数や変数への参照を解決する。共有ライブラリとの結合がロード時や実行時に行われる場合もある。JavaではJVMのクラスリンクなど、実行基盤によって仕組みが異なる。",
+      "point": "未解決の参照、ライブラリの版・互換性、静的リンクと動的リンクの扱い、実行環境に必要なライブラリを確認する。",
+      "origin": "一般的なプログラミング・コンパイラ知識（定義・例）"
+    },
+    {
+      "id": "241",
+      "section_no": 19,
+      "category": "Web/Java",
+      "question": "アーティファクトとは何か？",
+      "answer": "Artifact。ビルドや開発工程などで生成される、実行ファイルやパッケージなどの成果物。",
+      "explanation": "例えばJavaのJAR（Java Archive）ファイル、コンテナイメージ、テスト結果などがある。CI/CDでは生成した成果物を保管し、検証環境や本番環境へ展開する。検証済みの同じ成果物を各環境へ展開すると、再ビルドによる意図しない差異を抑えられる。",
+      "point": "成果物のバージョン、生成元コミット、保管先、アクセス権、改変防止、検証結果との対応、保存期間を確認する。",
+      "origin": "一般的なビルド・成果物管理知識（定義・例）／azure-architecture-glossary.md 第7章（CI/CDの関連知識）"
+    },
+    {
+      "id": "242",
+      "section_no": 6,
+      "category": "開発/調達",
+      "question": "CI/CDパイプラインとは何か？",
+      "answer": "CI/CD（Continuous Integration／Continuous DeliveryまたはContinuous Deployment）のパイプライン。ビルド、テスト、成果物の生成、デプロイなどを一連の処理として管理・自動化する仕組み。",
+      "explanation": "CIは継続的インテグレーション、CDは継続的デリバリーまたは継続的デプロイメントを指す。コード変更を契機にビルド・テストを実行し、条件を満たす成果物を対象環境に配置する。本番反映に手動承認を設ける構成もあり、すべてのパイプラインが本番まで全自動とは限らない。",
+      "point": "起動条件、テストの合格条件、成果物の版管理、環境ごとの承認・権限、秘密情報の管理、失敗時の切戻し、実行履歴を確認する。",
+      "origin": "azure-architecture-glossary.md 第7章（Azure DevOps／CI/CD）／一般的なCI/CD知識（正式名称・仕組み・レビュー観点を補足）"
+    },
+    {
+      "id": "243",
+      "section_no": 40,
+      "category": "Azure/クラウド",
+      "question": "Azure DevOpsとは何か？",
+      "answer": "ソースコード管理、ビルド、テスト、デプロイ、開発作業管理などを支援するMicrosoftのサービス群。",
+      "explanation": "代表例としてAzure Reposはソースコード管理、Azure Pipelinesはビルド・テスト・デプロイの自動化、Azure Boardsは作業管理、Azure Artifactsはパッケージ管理を支援する。DevOpsはDevelopment（開発）とOperations（運用）を組み合わせた言葉であり、一般的なDevOpsの考え方とAzure DevOpsという製品名は区別する。",
+      "point": "利用する機能の範囲、リポジトリとパイプラインの構成、アクセス権、環境別承認、成果物管理、監査証跡、運用責任を確認する。",
+      "origin": "azure-architecture-glossary.md 第7章（Azure DevOps／CI/CD）／一般的なAzure DevOpsの製品知識（機能例・レビュー観点を補足）"
     }
   ],
   "archivedCards": [],
