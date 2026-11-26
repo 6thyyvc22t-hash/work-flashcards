@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // A user can only see and change their own flashcard progress.
+    match /workUsers/{userId}/cards/{cardId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && cardId.matches('^[A-Za-z0-9_-]{1,64}$')
+        && request.resource.data.keys().hasOnly(['seen', 'correct', 'incorrect', 'needsReview', 'lastRatedAt'])
+        && request.resource.data.seen is bool
+        && request.resource.data.correct is int && request.resource.data.correct >= 0
+        && request.resource.data.incorrect is int && request.resource.data.incorrect >= 0
+        && request.resource.data.needsReview is bool
+        && request.resource.data.lastRatedAt is timestamp;
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
+    // Private personal note per stable card ID; not part of public questions.json.
+    match /workUsers/{userId}/notes/{cardId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && cardId.matches('^[A-Za-z0-9_-]{1,64}$')
+        && request.resource.data.keys().hasOnly(['text', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['text', 'updatedAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+    // Per-account card overrides. These never modify the public questions.json.
+    match /workUsers/{userId}/deckChanges/{cardId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && cardId.matches('^[A-Za-z0-9_-]{1,64}$')
+        && request.resource.data.keys().hasOnly(['status','card','updatedAt'])
+        && request.resource.data.keys().hasAll(['status','updatedAt'])
+        && request.resource.data.status in ['active','archived','purged']
+        && request.resource.data.updatedAt == request.time
+        && (request.resource.data.status == 'purged'
+          ? !('card' in request.resource.data)
+          : ('card' in request.resource.data
+            && request.resource.data.card is map
+            && request.resource.data.card.keys().hasOnly(['id','section_no','category','question','answer','explanation','point','origin'])
+            && request.resource.data.card.keys().hasAll(['id','section_no','category','question','answer','explanation','point','origin'])
+            && request.resource.data.card.id == cardId
+            && request.resource.data.card.section_no is int
+            && request.resource.data.card.section_no >= 0
+            && request.resource.data.card.category is string
+            && request.resource.data.card.category in ['メインフレーム','Web/Java','DB','バッチ/ジョブ','外部IF','帳票','Azure/クラウド','ネットワーク','認証/セキュリティ','運用/非機能','移行/テスト','開発/調達']
+            && request.resource.data.card.question is string
+            && request.resource.data.card.question.size() > 0
+            && request.resource.data.card.question.size() <= 400
+            && request.resource.data.card.answer is string
+            && request.resource.data.card.answer.size() > 0
+            && request.resource.data.card.answer.size() <= 400
+            && request.resource.data.card.explanation is string
+            && request.resource.data.card.explanation.size() <= 600
+            && request.resource.data.card.point is string
+            && request.resource.data.card.point.size() <= 600
+            && request.resource.data.card.origin is string
+            && request.resource.data.card.origin.size() <= 1000));
+      allow delete: if false;
+    }
+    match /workUsers/{userId}/operations/{operationId} {
+      allow get: if request.auth != null && request.auth.uid == userId;
+      allow list: if false;
+      allow create: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['cardId','kind','createdAt'])
+        && request.resource.data.cardId is string
+        && request.resource.data.cardId.matches('^[A-Za-z0-9_-]{1,64}$')
+        && request.resource.data.kind in ['correct','wrong']
+        && request.resource.data.createdAt is timestamp;
+      allow update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
