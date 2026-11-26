@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-requirements-batch-27",
+  "revision": "2026-11-27-approved-ihas-terminal-batch-28",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 224,
+  "nextId": 225,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2249,6 +2249,16 @@
       "explanation": "例えば1秒あたりのAPI処理件数、1時間あたりのバッチ処理件数、1秒あたりのデータ転送量などで表す。レスポンスタイムは個々の要求にかかる時間、スループットは単位時間あたりの処理量であり、異なる性能指標である。処理能力の上限はCPU、DB、ストレージ、通信などのボトルネックに左右される。",
       "point": "必要な処理件数・データ量、ピーク時の負荷、バッチの完了期限、測定単位、エラー率と応答時間を確認する。負荷試験で処理能力を測定し、ボトルネックと増強方法を検討する。",
       "origin": "system-modernization-anonymized.md 第13章（性能要件・レビュー）／IPA 非機能要求グレード（性能・拡張性）: https://www.ipa.go.jp/archive/digital/iot-en-ci/jyouryuu/hikinou/ent03-b.html ／一般的な性能設計知識"
+    },
+    {
+      "id": "224",
+      "section_no": 24,
+      "category": "メインフレーム",
+      "question": "IHAS端末とは何か？",
+      "answer": "IHAS（Interstage Host Access Service）を経由して、メインフレーム上の業務システムを利用する端末を指す呼称。",
+      "explanation": "IHASは富士通のホスト連携ミドルウェア。JavaアプリケーションからホストへアクセスするAPIを提供し、既存のホスト業務プログラムをWeb側から利用する構成を支援する。IHAS自体は中継側サーバーに導入するソフトウェアであり、端末そのものではない。IHAS端末は現場用語と考えられ、製品の正式な端末区分としては未確認。",
+      "point": "脱ホスト時には、IHASを経由する業務機能、画面操作の仲介、接続・セッション管理、認証・認可、タイムアウト、エラー処理、周辺連携の依存関係を洗い出し、代替方式を確認する。端末の具体的な定義や構成は承認済み設計資料で確認する。",
+      "origin": "aim-screen-study.md「IHASによるホスト画面のWeb化」（2026-11-27追記）／同資料記載の富士通製品発表: https://info.archives.global.fujitsu/jp/news/2008/10/20.html"
     }
   ],
   "archivedCards": [],
