@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-mainframe-batch-14",
+  "revision": "2026-11-27-approved-encoding-communication-batch-15",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 175,
+  "nextId": 181,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1759,6 +1759,66 @@
       "explanation": "固定長レコードと異なり、各レコードの実際の長さが変わり得る。ホストのファイル形式によっては長さ情報を持つヘッダーなどを使う。COBOL側のレコード定義と実ファイルの属性を合わせる必要がある。",
       "point": "長さ情報の形式、最小・最大長、バイト数、レコード境界、文字コード、データ項目の変換規則、異常長の扱いを確認する。",
       "origin": "IBM Enterprise COBOL Processing existing files: https://www.ibm.com/docs/en/cobol-zos/6.3.0?topic=program-processing-existing-files ／system-modernization-anonymized.md 第5章（レコード形式・バイト長・データ移行）／具体的な移行観点は一般知識による補足"
+    },
+    {
+      "id": "175",
+      "section_no": 20,
+      "category": "メインフレーム",
+      "question": "EBCDICとは何か？",
+      "answer": "Extended Binary Coded Decimal Interchange Code（拡張2進化10進コード）。主にメインフレームで使用される8ビットの文字コード体系。",
+      "explanation": "英数字などを1バイトで表現するコード体系で、ASCIIとは符号の割当てや並び順が異なる。例えば代表的なEBCDICコードページでは英大文字Aは16進数C1、ASCIIでは41となる。日本語などの多バイト文字を扱う体系と組み合わせて利用する場合もある。",
+      "point": "使用するコードページ、日本語文字との混在、外字、固定長項目のバイト数、変換不能文字、ソート順、外部IFとの整合性を確認する。既存の問題021は移行時の注意点を問うものであり、本問は用語自体の定義を問う。",
+      "origin": "mainframe-architecture-glossary.md 第2章／legacy-host-operation-reference-patterns.md 第8-3・9-1・9-4節／IBM EBCDIC: https://www.ibm.com/docs/ja/db2-for-zos/12.0.0?topic=schemes-ebcdic"
+    },
+    {
+      "id": "176",
+      "section_no": 21,
+      "category": "メインフレーム",
+      "question": "Unicodeとは何か？",
+      "answer": "世界中の文字や記号を統一的に扱うために、各文字などに符号位置（コードポイント）を割り当てる国際的な文字規格。",
+      "explanation": "Unicodeは文字の識別や表現に関する規格であり、UTF-8、UTF-16、UTF-32はその符号化方式である。例えば英大文字AのコードポイントはU+0041。Unicodeを採用していても、外字の対応や旧文字コードからの変換で課題が残る場合がある。",
+      "point": "内部処理と外部IFの符号化方式、外字の対応、文字の正規化、文字数とバイト数、変換後の検索・表示・印刷結果を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第9-1・9-4節／Unicode Consortium Technical Introduction: https://www.unicode.org/standard/principles.html（規格の定義・符号化方式）"
+    },
+    {
+      "id": "177",
+      "section_no": 22,
+      "category": "メインフレーム",
+      "question": "UTF-8とは何か？",
+      "answer": "Unicode Transformation Format（8-bit）。Unicodeの符号位置を1～4バイトで表現する符号化方式。Webシステムなどで広く利用される。",
+      "explanation": "ASCII範囲の文字は1バイトで表現され、多くの日本語の漢字・ひらがなは3バイト、一部の漢字や絵文字などは4バイトになる。文字数とバイト数は一致しない場合がある。",
+      "point": "固定長ファイルの項目長、DBの長さ制限、外部IFの文字コード、変換時の桁あふれ・途中切断、BOMの有無を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第9-1節／Unicode Consortium UTF FAQ: https://www.unicode.org/faq/utf_bom.html ／用語集: https://www.unicode.org/glossary/"
+    },
+    {
+      "id": "178",
+      "section_no": 23,
+      "category": "メインフレーム",
+      "question": "Shift_JISとは何か？",
+      "answer": "日本語を扱う文字コードの一つ。英数字や半角カナなどを1バイト、漢字やひらがななどを2バイトで表現する。JISはJapanese Industrial Standards（日本産業規格）。",
+      "explanation": "日本語のデータを扱う従来のシステムで使用される符号化方式。Windows-31J（CP932）など関連する拡張コード系とは文字の割当てや対応範囲に違いがある。UTF-8への変換では同じ文字でもバイト数が変わり得る。",
+      "point": "相手先の厳密なコード系、拡張文字・外字、変換表、固定長項目のバイト数、変換不能文字、文字化けの有無を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8-3・9-1節／富士通 Linkexpress 各システムが扱う文字コード系の概要: https://resources.global.fujitsu/software/manual/j2x1-5930/01z200/unyo05/unyo0378.html ／拡張コード系の区別は一般知識"
+    },
+    {
+      "id": "179",
+      "section_no": 24,
+      "category": "外部IF",
+      "question": "Linkexpress（リンクエクスプレス）とは何か？",
+      "answer": "富士通のデータ連携ミドルウェア。異なるシステム間のファイル転送、DB連携、関連業務の実行などを支援する。",
+      "explanation": "Linkexpressは製品名であり、通信プロトコルそのものではない。製品・版・構成によってFTP（File Transfer Protocol）やFTP+、FNA系のHICSなどの通信方式を利用できる。ファイル転送、データベース連携、関連処理の制御を行う。",
+      "point": "相手側の製品・版とプロトコルの互換性、転送形式、文字コード変換、暗号化、送達確認、障害時の再送・二重取込み防止、ジョブとの依存関係を確認する。",
+      "origin": "富士通 データ連携: https://global.fujitsu/ja-jp/capabilities/software/dataintegration ／Linkexpress 用語集: https://resources.global.fujitsu/software/manual/j2x1-5930/06z200/unyoz1/unyo0651.html ／legacy-host-operation-reference-patterns.md 第8-2・9-2節"
+    },
+    {
+      "id": "180",
+      "section_no": 25,
+      "category": "外部IF",
+      "question": "FNAとは何か？",
+      "answer": "Fujitsu Network Architecture。富士通が開発した独自のネットワークアーキテクチャ。ホストや端末間などの通信に利用される。",
+      "explanation": "ホスト通信の体系であり、FNA上でファイル転送を行うプロトコルとしてHICSがある。Linkexpressは対応する構成でFNA系の通信を利用できる。TCP/IPを基盤とするFTPなどとは通信方式が異なる。",
+      "point": "移行時には実際の通信プロトコル、相手側の対応、LU（Logical Unit）の定義、必要なネットワーク製品、接続条件、TCP/IP系への変更可否、連携テストを確認する。",
+      "origin": "富士通 FNA正式名称: https://resources.global.fujitsu/software/manual/c120-e200/06z2a/puioj04/puioj033.htm ／Linkexpress 用語集（FNA・HICS・LU）: https://resources.global.fujitsu/software/manual/j2x1-5930/06z200/unyoz1/unyo0651.html ／legacy-host-operation-reference-patterns.md 第9-2節"
     }
   ],
   "archivedCards": [],
