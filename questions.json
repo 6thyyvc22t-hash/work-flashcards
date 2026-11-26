@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-jcl-batch-19",
+  "revision": "2026-11-27-approved-aauto-batch-20",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 194,
+  "nextId": 196,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1949,6 +1949,26 @@
       "explanation": "IBM z/OSでは、例えばIEBGENERによるファイル複写時にSYSPRINT DD SYSOUT=*と指定して、情報・エラーメッセージをジョブの出力へ送る。SYSPRINTは慣用的なDD名であり、出力内容は使用するプログラムによって異なる。SYSOUTは出力データをスプール等へ送るための指定で、SYSPRINT自体が出力装置を意味するわけではない。System Printは名称の意味を示す説明であり、IBM公式資料で正式な略語展開は確認できていない。",
       "point": "移行時にジョブの処理結果・警告・エラーが新基盤のログへ漏れなく出力されるか確認する。監視対象、保存期間、検索方法、障害時の調査手順も明確にする。富士通ホスト固有の出力仕様は別途確認する。",
       "origin": "IBM z/OS Basic Skills: https://www.ibm.com/docs/en/zos-basic-skills?topic=sample-reusable-jcl-copying-sequential-data-set ／mainframe-architecture-glossary.md 第6章 ／legacy-host-operation-reference-patterns.md 第12-4節"
+    },
+    {
+      "id": "194",
+      "section_no": 19,
+      "category": "バッチ/ジョブ",
+      "question": "A-AUTOとは何か？",
+      "answer": "ユニリタが提供するジョブ管理製品。バッチジョブのスケジュール管理、自動実行、実行監視などを行う。",
+      "explanation": "A-AUTO（エーオート）は製品名。公式資料で略語の正式な展開は確認できていない。マスタに登録された実行日・起動条件・依存関係などを基に日別スケジュールを作成し、確定した予定に従ってジョブを実行・監視する。メインフレームやオープン系などのジョブを管理する製品であり、JCL（Job Control Language）や業務プログラムそのものとは役割が異なる。",
+      "point": "移行時にはマスタ定義、休日や基準日、日別スケジュール、先行条件、入力データ待ち、異常時のリラン・リカバリ、監視・操作権限を確認する。対応OSや移行可能な機能は対象バージョンで確認する。",
+      "origin": "ユニリタ公式 A-AUTO: https://www.unirita.co.jp/products/aauto.html ／メインフレーム版: https://www.unirita.co.jp/products/aautomainframe.html ／legacy-host-operation-reference-patterns.md 第4・12章"
+    },
+    {
+      "id": "195",
+      "section_no": 20,
+      "category": "バッチ/ジョブ",
+      "question": "A-AUTOのキューイングとは何か？",
+      "answer": "Queuing（待ち行列への登録）。確定・調整された日別実行ジョブ情報を、A-AUTOの実行管理側へコピーし、実行制御の対象とする処理。",
+      "explanation": "マスタから日別スケジュール情報を生成し、必要な開始時刻などの調整を行った後、実行ジョブ情報をA-AUTOモニタ側へキューイングする。例えば、ある日の開始予定時刻を変更したうえで実行管理へ登録する。キューイングしたことは、直ちにジョブの起動や完了を意味しない。起動条件などに従って実行される。",
+      "point": "スケジュール生成・調整・確定・キューイングの順序と担当、対象スケジュール日、登録内容の反映確認、登録失敗や重複時の取扱い、確定後の変更手順を確認する。移行先では日別予定と実行管理情報の整合性を確保する。",
+      "origin": "ユニリタ公式 A-AUTO（スケジュール調整機能・キューイングの例）: https://www.unirita.co.jp/products/aauto.html ／メインフレーム向け教育コース（A-AUTOモニタへのキューイング）: https://www.unirita.co.jp/seminar/aauto-skillup.html ／legacy-host-operation-reference-patterns.md 第12-2・12-7節"
     }
   ],
   "archivedCards": [],
