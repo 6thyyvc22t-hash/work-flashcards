@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-mainframe-batch-5",
+  "revision": "2026-11-27-approved-interface-batch-6",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 96,
+  "nextId": 114,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -969,6 +969,186 @@
       "explanation": "例えばIBMのJCLではSYSOUTパラメータでジョブの出力をシステム出力へ割り当てる。出力はスプールなどを通じて管理される。",
       "point": "出力クラスや出力先、ジョブログ・帳票の用途、保管期間、監視方法、移行後の代替出力を確認する。",
       "origin": "一般知識／mainframe-architecture-glossary.md 第6章（正式名称・IBM JCLの例は一般知識による補足）"
+    },
+    {
+      "id": "096",
+      "section_no": 6,
+      "category": "外部IF",
+      "question": "Push型連携とは何か？",
+      "answer": "データを保持する側が、連携先に対して能動的にデータを送る方式。",
+      "explanation": "データの更新や定時処理などを契機に、連携元が送信を開始する。データの流れる方向と通信の起動側は区別して整理する。",
+      "point": "送信契機、受信側の稼働条件、送信失敗時の再送、重複取込み防止を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章"
+    },
+    {
+      "id": "097",
+      "section_no": 7,
+      "category": "外部IF",
+      "question": "Pull型連携とは何か？",
+      "answer": "データを利用する側が、必要なデータを連携元から取得する方式。",
+      "explanation": "連携先が必要なタイミングで問い合わせや取得処理を開始する。定期的な取得や必要時の取得などの構成がある。",
+      "point": "取得周期、取得範囲、取得済みデータの管理、連携元への負荷、取得失敗時の再処理を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章"
+    },
+    {
+      "id": "098",
+      "section_no": 8,
+      "category": "外部IF",
+      "question": "FTPとは何か？",
+      "answer": "File Transfer Protocol。ネットワーク経由でファイルを送受信するためのプロトコル。通常のFTPでは通信が暗号化されない。",
+      "explanation": "ファイルの転送に利用する通信方式。通常のFTPでは認証情報や転送データが平文で通信されるため、通信保護が必要な場合は別途対策を検討する。",
+      "point": "接続先との互換性、認証、通信の暗号化要件、転送結果の監視、再送時の重複防止を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章／legacy-host-operation-reference-patterns.md 第8-2・9-2節（正式名称は一般知識による補足）"
+    },
+    {
+      "id": "099",
+      "section_no": 9,
+      "category": "外部IF",
+      "question": "MFTとは何か？",
+      "answer": "Managed File Transfer（管理型ファイル転送）。ファイル転送に加え、転送状況の監視、再送、監査などを管理する仕組み。",
+      "explanation": "システム間のファイル授受を管理し、転送結果や障害への対応を一元的に扱う構成に利用できる。具体的な機能は製品によって異なる。",
+      "point": "転送経路、プロトコル、認証・暗号化、到着確認、再送、監査証跡、運用責任を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章／legacy-host-operation-reference-patterns.md 第8-2節"
+    },
+    {
+      "id": "100",
+      "section_no": 10,
+      "category": "外部IF",
+      "question": "REST APIとは何か？",
+      "answer": "REST（Representational State Transfer）の設計原則に沿って、リソースや機能を利用できるようにするAPI。一般にHTTPを利用する。",
+      "explanation": "APIはApplication Programming Interface。HTTP（Hypertext Transfer Protocol）を用いる一般的なREST APIでは、URIでリソースを識別し、GETやPOSTなどのメソッドで操作する。RESTは通信プロトコルそのものではない。",
+      "point": "リソースの定義、要求・応答形式、HTTPメソッド、認証・認可、通信暗号化、異常時の応答を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章／legacy-host-operation-reference-patterns.md 第8-2・9-3節（正式名称・設計原則の説明は一般知識による補足）"
+    },
+    {
+      "id": "101",
+      "section_no": 11,
+      "category": "外部IF",
+      "question": "HTTPとは何か？",
+      "answer": "Hypertext Transfer Protocol。Webブラウザやアプリケーションとサーバーの間で、要求と応答をやり取りするためのプロトコル。",
+      "explanation": "クライアントが要求を送り、サーバーが応答を返す。要求にはメソッドなど、応答にはステータスコードなどが含まれる。HTTPSではTLSによって通信を保護する。TLSはTransport Layer Securityの略。",
+      "point": "通信方式、暗号化、タイムアウト、ステータスコード、異常時の再試行条件を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第5・8-2節（正式名称・通信の仕組みは一般知識による補足）"
+    },
+    {
+      "id": "102",
+      "section_no": 12,
+      "category": "外部IF",
+      "question": "エンドポイント（Endpoint）とは何か？",
+      "answer": "APIなどのサービスにアクセスするための具体的な接続先。URLなどで表される。",
+      "explanation": "API（Application Programming Interface）では、URL（Uniform Resource Locator）などで接続先や操作対象を指定する。ネットワーク分野でも接続先を指す場合があり、意味は文脈によって異なる。",
+      "point": "環境ごとの接続先、名前解決、認証、公開範囲、接続先変更時の影響を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第8-5・9-3節（用語の定義・正式名称は一般知識による補足）"
+    },
+    {
+      "id": "103",
+      "section_no": 13,
+      "category": "外部IF",
+      "question": "JSONとは何か？",
+      "answer": "JavaScript Object Notation。データをキーと値、配列などで表現するテキスト形式。API連携などに利用される。",
+      "explanation": "オブジェクト、配列、文字列、数値、真偽値、nullなどを表現できる。プログラミング言語に依存せずデータ交換に利用される。",
+      "point": "項目名、型、必須項目、nullや欠落項目の扱い、文字コード、データ形式の変更時の互換性を確認する。",
+      "origin": "一般知識／一般知識（JSONの定義・正式名称）／legacy-host-operation-reference-patterns.md 第8-2・8-3節（連携形式のレビュー観点）"
+    },
+    {
+      "id": "104",
+      "section_no": 14,
+      "category": "外部IF",
+      "question": "Apache Kafkaとは何か？",
+      "answer": "大量のイベントデータを分散して蓄積・配信し、複数のシステム間で連携するためのイベントストリーミング基盤。",
+      "explanation": "Producerが送信したイベントをTopic内のPartitionに保持し、Consumerが取得する。複数のBrokerで構成することで分散したデータ処理を実現する。",
+      "point": "処理量、保持期間、順序の保証範囲、連携遅延、障害時の再取得、重複処理への対策を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章（構成要素の動作は一般知識による補足）"
+    },
+    {
+      "id": "105",
+      "section_no": 15,
+      "category": "外部IF",
+      "question": "メッセージキューとは何か？",
+      "answer": "送信側から受け取ったメッセージを一時的に保持し、受信側が処理できるタイミングで受け取るための仕組み。",
+      "explanation": "送信側と受信側の処理タイミングを分離する非同期連携に利用する。受信側の処理能力に応じてメッセージを取り出す構成がある。",
+      "point": "メッセージの保持期間、処理順序、再試行、重複処理、処理不能メッセージの扱いを確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第5章／azure-hub-spoke-design-review.md 第3章（定義・動作は一般知識による補足）"
+    },
+    {
+      "id": "106",
+      "section_no": 16,
+      "category": "外部IF",
+      "question": "KafkaのProducerとは何か？",
+      "answer": "Kafkaにメッセージやイベントデータを送信する側のアプリケーション。",
+      "explanation": "Producerはイベントを指定したTopicへ送信する。Partitionへの振り分けや送信成功の確認などは設定や実装によって決まる。",
+      "point": "送信するデータ形式、Topic、振り分けキー、送信失敗時の再試行、重複の扱いを確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章（各構成要素の動作は一般知識による補足）"
+    },
+    {
+      "id": "107",
+      "section_no": 17,
+      "category": "外部IF",
+      "question": "KafkaのConsumerとは何か？",
+      "answer": "Kafkaからメッセージやイベントデータを取得して処理する側のアプリケーション。",
+      "explanation": "TopicのPartitionからイベントを読み取り、業務処理や連携先への書込みなどを実施する。Consumer GroupやOffsetによって読み取り位置や分担を管理する構成がある。",
+      "point": "読取り位置の管理、処理完了とOffset記録の関係、障害復旧時の再処理、重複更新防止を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章（各構成要素の動作は一般知識による補足）"
+    },
+    {
+      "id": "108",
+      "section_no": 18,
+      "category": "外部IF",
+      "question": "KafkaのBrokerとは何か？",
+      "answer": "Producerから受け取ったデータを保持し、Consumerからの取得要求などを処理するKafkaのサーバー。",
+      "explanation": "Kafkaクラスターを構成するサーバーで、Partitionのデータの保持や送受信に関わる処理を担当する。",
+      "point": "Brokerの配置、データの複製、容量、負荷分散、障害時のサービス継続性を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章（各構成要素の動作は一般知識による補足）"
+    },
+    {
+      "id": "109",
+      "section_no": 19,
+      "category": "外部IF",
+      "question": "KafkaのTopicとは何か？",
+      "answer": "Kafkaでメッセージやイベントデータを種類や用途ごとに分類する論理的な単位。",
+      "explanation": "ProducerはTopicを指定してイベントを送信し、Consumerは対象Topicのイベントを取得する。Topicは一つ以上のPartitionで構成される。",
+      "point": "Topicの分割方針、データ形式、保持期間、Partition数、送受信するアプリケーションのアクセス権を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章（各構成要素の動作は一般知識による補足）"
+    },
+    {
+      "id": "110",
+      "section_no": 20,
+      "category": "外部IF",
+      "question": "Kafka Connectとは何か？",
+      "answer": "Kafkaとデータベースなどの外部システムとの間で、データの取込みや書き出しを行うための連携フレームワーク。",
+      "explanation": "Source Connectorは外部システムからKafkaへデータを取り込み、Sink ConnectorはKafkaから外部システムへデータを書き出す。",
+      "point": "対応する連携先、Connectorの設定、変換処理、認証、障害時の再開、重複処理への対策を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章"
+    },
+    {
+      "id": "111",
+      "section_no": 21,
+      "category": "外部IF",
+      "question": "Debeziumとは何か？",
+      "answer": "データベースの追加・更新・削除などの変更を取得し、他のシステムへ連携するためのオープンソースのCDC技術。",
+      "explanation": "CDCはChange Data Capture。対象DBの変更ログなどを利用して変更イベントを取得する。Kafka Connectなどと組み合わせた連携構成がある。",
+      "point": "対象DBへの対応、初期データ取得、変更ログの保持、変更順序、障害中の蓄積、復旧後の再開を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第7章／legacy-host-operation-reference-patterns.md 第8-2節（取得方法・連携例は一般知識による補足）"
+    },
+    {
+      "id": "112",
+      "section_no": 22,
+      "category": "外部IF",
+      "question": "固定長ファイルとは何か？",
+      "answer": "レコードや項目の長さをあらかじめ一定に定義したデータファイル。ホストシステムとの連携などに利用される。",
+      "explanation": "固定された桁数やバイト長などの定義に従ってデータを格納する。項目長に満たないデータは空白やゼロなどで埋める方式がある。",
+      "point": "レコード長、項目位置、文字コード、文字数とバイト長、空白埋め、数値形式、変換後の照合を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第8-1・8-3・9-1節"
+    },
+    {
+      "id": "113",
+      "section_no": 23,
+      "category": "外部IF",
+      "question": "冪等性（べきとうせい／Idempotency）とは何か？",
+      "answer": "同じ要求や処理を複数回実行しても、意図した最終結果が一度実行した場合と変わらない性質。",
+      "explanation": "例えば同じ取引IDの登録要求が再送された際、既に処理済みなら二重登録を防ぐ設計がある。応答内容まで必ず同一になるという意味ではない。",
+      "point": "再送時の重複判定キー、処理済み情報の保持、同時実行時の競合、障害時の再処理を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第6章／legacy-host-operation-reference-patterns.md 第8-2節（連携の具体例は一般知識による補足）"
     }
   ],
   "archivedCards": [],
