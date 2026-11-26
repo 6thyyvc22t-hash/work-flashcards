@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-system-architecture-batch-33",
+  "revision": "2026-11-27-approved-application-design-batch-34",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 268,
+  "nextId": 276,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2689,6 +2689,86 @@
       "explanation": "例えば既存の社内基盤とAzure上のアプリケーションを接続し、データや処理を連携する構成がある。厳密なクラウド分類では異なるクラウド環境を結合する形態を指し、一般的なオンプレミスとの併用はハイブリッドITと呼ぶ場合もある。単に両方を保有するだけで連携が実現するわけではない。",
       "point": "接続経路、DNS、認証、データ同期、暗号化、通信遅延、障害時の影響、オンプレミス側とクラウド側の責任分界を確認する。",
       "origin": "system-modernization-anonymized.md 第8章／azure-hub-spoke-design-review.md 第2章／一般的なクラウド構成知識（定義・厳密な分類を補足）"
+    },
+    {
+      "id": "268",
+      "section_no": 12,
+      "category": "開発/調達",
+      "question": "アプリケーション方式設計とは何か？",
+      "answer": "アプリケーション全体で共通して使用する構造、処理方式、技術、実装ルールなどを定める設計。",
+      "explanation": "Application Architecture Designなどと表現される。画面制御、API、DBアクセス、認証・認可、セッション、排他、トランザクション、例外処理、ログ、設定管理などの共通方式を定める。個別業務機能の設計と区別するが、工程名や成果物の範囲はプロジェクトによって異なる。",
+      "point": "各方式の責務、採用技術、適用範囲、例外条件、非機能要件との整合性、個別設計への反映、テストでの検証方法を確認する。",
+      "origin": "system-modernization-anonymized.md 第4・5・9・13章（関連するアプリ設計観点）／一般的な設計知識（定義・成果物の範囲を補足）"
+    },
+    {
+      "id": "269",
+      "section_no": 32,
+      "category": "Web/Java",
+      "question": "オンライン処理とは何か？",
+      "answer": "Online Processing。利用者の画面操作などを契機として、業務処理を実行する方式。",
+      "explanation": "例えば画面で検索や登録を行い、要求に応じて業務プログラムがDBを参照・更新する。定められた時刻などにまとめて処理するバッチ処理とは区別される。オンライン処理からバッチを起動する場合もあり、すべての処理が即時完了するとは限らない。",
+      "point": "画面操作と処理の対応、応答時間、同時利用、トランザクション境界、排他、エラー処理、後続バッチや外部連携を確認する。",
+      "origin": "system-modernization-anonymized.md 第2・4章／aim-screen-study.md ホストオンライン処理の全体像・設計レビューの観点／一般的な処理方式の補足"
+    },
+    {
+      "id": "270",
+      "section_no": 33,
+      "category": "Web/Java",
+      "question": "セッションとは何か？",
+      "answer": "Session。利用者とシステムの一連のやり取りを識別し、ログイン状態や作業状態などを管理する単位。",
+      "explanation": "HTTPの個々の要求をまたいでログイン状態などを管理するため、セッションIDとサーバー側の状態を対応付ける方式などがある。認証セッションと業務上の一時データは区別して管理する。状態の保存先は方式によって異なる。",
+      "point": "セッションの識別方法、保存先、期限、ログアウト時の無効化、複数タブ・端末での操作、負荷分散や障害時の状態引継ぎを確認する。",
+      "origin": "system-modernization-anonymized.md 第4章／aim-screen-study.md 画面間の一時保存と排他制御／modernization-knowledge-map.md 第4-1節／一般的なWebセッション管理知識を補足"
+    },
+    {
+      "id": "271",
+      "section_no": 34,
+      "category": "Web/Java",
+      "question": "セッションIDとは何か？",
+      "answer": "Session Identifier（セッション識別子）。個々のセッションを識別するために使用する情報。IDはIdentifierまたはIdentificationの略として用いられる。",
+      "explanation": "サーバーが生成した推測困難な識別子をCookieなどでブラウザに渡し、後続の要求に含まれる識別子から対応するセッションを特定する方式がある。認証済みセッションのIDが漏れると第三者に悪用されるおそれがある。",
+      "point": "識別子の生成方法、通信時の保護、Cookie属性、認証時の再発行、期限・無効化、ログへの漏えい防止、業務状態を識別するキーとの区別を確認する。",
+      "origin": "一般的なWebセッション・セキュリティ知識（定義・仕組み）／aim-screen-study.md 画面間の一時保存と排他制御／system-modernization-anonymized.md 第4・9章（関連する設計観点）"
+    },
+    {
+      "id": "272",
+      "section_no": 35,
+      "category": "Web/Java",
+      "question": "セッションタイムアウトとは何か？",
+      "answer": "Session Timeout。無操作時間や有効期間などが所定の条件に達した場合に、セッションを無効にする仕組み。",
+      "explanation": "ログイン後に一定時間操作がない場合に再認証を求めるなど、セッションの有効期間を制限する。無操作時間による期限と、利用状況にかかわらない絶対有効期限は区別する。期限切れ時には入力途中のデータや未完了処理の扱いも必要になる。",
+      "point": "タイムアウト時間の根拠、サーバー側の無効化、再認証、期限切れ通知、入力途中データの扱い、認証基盤のセッション期限との整合性を確認する。",
+      "origin": "aim-screen-study.md 状態管理・IHASによるホスト画面のWeb化（セッション切れ・タイムアウトの関連観点）／一般的なWebセッション管理知識（定義・方式を補足）"
+    },
+    {
+      "id": "273",
+      "section_no": 36,
+      "category": "Web/Java",
+      "question": "Cookieとは何か？",
+      "answer": "Cookie（HTTP Cookie）。Webサイトがブラウザに保存させ、対応する通信で送信される小さなデータ。セッションの識別などに利用される。",
+      "explanation": "サーバーはSet-CookieレスポンスヘッダーなどでCookieを設定し、ブラウザは対象のドメインやパスなどの条件に従ってCookieリクエストヘッダーで送信する。セッションIDや利用者設定の保持などに利用される。Cookieそのものが認証を保証するわけではない。",
+      "point": "Cookieの保存内容、Domain・Path・有効期限、Secure（HTTPS通信に制限）、HttpOnly（JavaScriptからの読み取り制限）、SameSite（サイト間送信の制御）、ログアウト時の扱いを確認する。",
+      "origin": "一般的なHTTP・Webセキュリティ知識（定義・仕組み・属性）／system-modernization-anonymized.md 第4・9章（関連するセッション・認証設計観点）"
+    },
+    {
+      "id": "274",
+      "section_no": 37,
+      "category": "Web/Java",
+      "question": "フレームワークとは何か？",
+      "answer": "Framework。アプリケーション開発に必要な基本構造や共通機能を提供するソフトウェアの枠組み。",
+      "explanation": "例えばSpring FrameworkはJavaアプリケーションの依存関係管理、Web処理、トランザクション管理などを支援する。フレームワークが提供する構造や規約に沿って業務機能を実装することで、共通処理の再利用や開発の標準化を図れる。",
+      "point": "採用するフレームワークとバージョン、サポート期間、標準的な実装方式、共通機能の範囲、依存関係、脆弱性対応、保守・更新方法を確認する。",
+      "origin": "system-modernization-anonymized.md 第4章（Spring Bootによるアプリ開発）／一般的なソフトウェア開発知識（フレームワークの定義・特徴を補足）"
+    },
+    {
+      "id": "275",
+      "section_no": 38,
+      "category": "Web/Java",
+      "question": "キャッシュとは何か？",
+      "answer": "Cache。取得済みのデータや処理結果などを再利用し、応答時間の短縮や処理負荷の軽減を図る仕組み。",
+      "explanation": "例えば頻繁に参照するデータをメモリなどに一時保持し、毎回DBから取得する処理を減らす。ブラウザやアプリケーション、共有キャッシュなど様々な箇所に設けられる。元データの更新により古い値が残る可能性があるため、有効期限や無効化を設計する。",
+      "point": "キャッシュ対象、更新・無効化の条件、TTL（Time to Live：有効期間）、データ鮮度、障害時の代替動作、容量、利用者間のデータ分離を確認する。",
+      "origin": "一般的なWebアプリケーション・性能設計知識（定義・仕組み）／system-modernization-anonymized.md 第13章（関連する性能・アプリ設計観点）"
     }
   ],
   "archivedCards": [],
