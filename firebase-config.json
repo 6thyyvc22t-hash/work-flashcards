@@ -1,1 +1,8 @@
-{}
+{
+  "apiKey": "AIzaSyAHhVsH-yOEUQbvrERICvZBcUCYXM-KoqA",
+  "authDomain": "work-flashcards-sync.firebaseapp.com",
+  "projectId": "work-flashcards-sync",
+  "storageBucket": "work-flashcards-sync.firebasestorage.app",
+  "messagingSenderId": "1044742109497",
+  "appId": "1:1044742109497:web:fbf194de5ef0a6bb3950e8"
+}
