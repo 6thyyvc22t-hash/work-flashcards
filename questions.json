@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-interface-batch-6",
+  "revision": "2026-11-27-approved-auth-batch-7",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 114,
+  "nextId": 125,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1149,6 +1149,116 @@
       "explanation": "例えば同じ取引IDの登録要求が再送された際、既に処理済みなら二重登録を防ぐ設計がある。応答内容まで必ず同一になるという意味ではない。",
       "point": "再送時の重複判定キー、処理済み情報の保持、同時実行時の競合、障害時の再処理を確認する。",
       "origin": "一般知識／system-modernization-anonymized.md 第6章／legacy-host-operation-reference-patterns.md 第8-2節（連携の具体例は一般知識による補足）"
+    },
+    {
+      "id": "114",
+      "section_no": 9,
+      "category": "認証/セキュリティ",
+      "question": "認証（Authentication）とは何か？",
+      "answer": "利用者やシステムが誰であるか、何であるかを確認すること。",
+      "explanation": "パスワード、証明書、多要素認証などによって本人性や接続主体を確認する。認証に成功しても、すべての業務操作が許可されるわけではない。",
+      "point": "認証を行う基盤、本人確認方法、認証結果の検証、認可との責任分界を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/authentication-vs-authorization"
+    },
+    {
+      "id": "115",
+      "section_no": 10,
+      "category": "認証/セキュリティ",
+      "question": "認可（Authorization）とは何か？",
+      "answer": "利用者やシステムに対して、どの操作やデータへのアクセスを許可するかを決めること。",
+      "explanation": "認証された主体の権限や対象データ、操作などに基づいて許可・拒否を判定する。認証基盤と業務アプリの権限管理を分ける設計もある。",
+      "point": "操作・データ単位の権限制御、最小権限、権限変更・失効、未登録者への既定の拒否を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/authentication-vs-authorization"
+    },
+    {
+      "id": "116",
+      "section_no": 11,
+      "category": "認証/セキュリティ",
+      "question": "ADとは何か？",
+      "answer": "Active Directory。ユーザー、端末、グループなどの情報を管理し、認証やアクセス管理に利用するディレクトリサービス。",
+      "explanation": "一般にオンプレミスのAD DS（Active Directory Domain Services）では、ドメイン内の利用者やコンピューターなどを一元管理する。Microsoft Entra IDとは別のID基盤であり、連携する構成もある。",
+      "point": "利用者情報の正本、アカウントの登録・廃止、グループ管理、クラウドIDとの同期・責任分界を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章／azure-architecture-glossary.md 第6章（AD DSの正式名称・説明は一般知識による補足）"
+    },
+    {
+      "id": "117",
+      "section_no": 12,
+      "category": "認証/セキュリティ",
+      "question": "IdPとは何か？",
+      "answer": "Identity Provider（IDプロバイダ）。利用者を認証し、その結果をアプリケーションなどに提供する認証基盤。",
+      "explanation": "Microsoft Entra IDなどがIdPとして本人確認を担い、連携先へ認証結果や識別情報を提供する構成がある。",
+      "point": "認証結果の信頼関係、利用者識別子、認証基盤の障害時の対応、業務権限との責任分界を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章（正式名称は一般知識による補足）"
+    },
+    {
+      "id": "118",
+      "section_no": 13,
+      "category": "認証/セキュリティ",
+      "question": "SPとは何か？",
+      "answer": "Service Provider（サービスプロバイダ）。SAML認証などにおいて、IdPから認証情報を受け取り、利用者にサービスを提供する側。",
+      "explanation": "SAML（Security Assertion Markup Language）を用いる構成では、SPはIdP（Identity Provider）から受け取るアサーションを検証して利用者を識別する。ここでのSPはサービスプリンシパルとは別の用語。",
+      "point": "IdPとの信頼設定、署名・宛先・期限の検証、利用者の紐付け、業務権限を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章（IdPとの役割分担）／Microsoft Learn: https://learn.microsoft.com/entra/identity/enterprise-apps/saml-vs-oidc-decision-guide（SAML関連の一般知識による補足）"
+    },
+    {
+      "id": "119",
+      "section_no": 14,
+      "category": "認証/セキュリティ",
+      "question": "SAMLとは何か？",
+      "answer": "Security Assertion Markup Language。IdPとSPの間で認証・属性情報などを交換するための標準規格。企業のSSOなどに利用される。",
+      "explanation": "IdP（Identity Provider）が認証結果などをXML（Extensible Markup Language）形式のアサーションとしてSP（Service Provider）に渡す。SSOはSingle Sign-Onの略。",
+      "point": "IdP・SP間の信頼設定、署名検証、宛先、有効期限、利用者属性の対応を確認する。",
+      "origin": "一般知識／Microsoft Learn: https://learn.microsoft.com/entra/identity/enterprise-apps/saml-vs-oidc-decision-guide／system-modernization-anonymized.md 第9章（SSO・認証基盤の関連知識）"
+    },
+    {
+      "id": "120",
+      "section_no": 15,
+      "category": "認証/セキュリティ",
+      "question": "OAuth 2.0とは何か？",
+      "answer": "アプリケーションに対して、保護されたリソースへのアクセス権限を付与するための認可の枠組み。単体では認証の規格ではない。",
+      "explanation": "認可サーバーから取得したアクセストークンを使って、API（Application Programming Interface）などへアクセスする。利用者に代わるアクセスとアプリ自身の権限によるアクセスなどの方式がある。",
+      "point": "利用するフロー、トークンの宛先、権限の範囲、期限、通信暗号化、API側の検証方法を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第6章／system-modernization-anonymized.md 第9章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/authentication-vs-authorization"
+    },
+    {
+      "id": "121",
+      "section_no": 16,
+      "category": "認証/セキュリティ",
+      "question": "OIDCとは何か？",
+      "answer": "OpenID Connect。OAuth 2.0を基盤として、利用者の認証結果や識別情報をアプリケーションに提供する仕組み。",
+      "explanation": "認証結果はIDトークンなどを通じてクライアントアプリに伝えられる。APIへのアクセス権限を表すアクセストークンとは用途が異なる。",
+      "point": "IDトークンの署名、発行元、宛先、期限などを検証し、利用者の識別方法と業務認可を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc"
+    },
+    {
+      "id": "122",
+      "section_no": 17,
+      "category": "認証/セキュリティ",
+      "question": "アクセストークン（Access Token）とは何か？",
+      "answer": "APIなどの保護されたリソースへアクセスするための権限を示す情報。",
+      "explanation": "クライアントがアクセストークンを添えてAPIを呼び出す。API側は対象トークンの有効性や権限などを検証する。トークンの形式は必ずしもJWTに限らない。",
+      "point": "発行元、宛先、期限、署名（該当する場合）、権限、漏えい防止、通信暗号化を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第9章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/security-tokens"
+    },
+    {
+      "id": "123",
+      "section_no": 18,
+      "category": "認証/セキュリティ",
+      "question": "JWTとは何か？",
+      "answer": "JSON Web Token。利用者の識別情報や権限、有効期限などの情報を格納できるトークン形式。",
+      "explanation": "JSON（JavaScript Object Notation）で表すクレームを格納する形式。署名付きJWTでは改ざんの検知が可能だが、署名は暗号化とは異なり、内容が秘匿されるとは限らない。",
+      "point": "署名・発行元・宛先・有効期限・権限の検証、トークンの漏えい防止、用途の適切性を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第6章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/security-tokens（署名と暗号化の区別は一般知識による補足）"
+    },
+    {
+      "id": "124",
+      "section_no": 19,
+      "category": "認証/セキュリティ",
+      "question": "クライアントクレデンシャルフローとは何か？",
+      "answer": "Client Credentials Flow。利用者のログインを介さず、アプリケーション自身の資格情報を用いてアクセストークンを取得する方式。",
+      "explanation": "OAuth 2.0の方式の一つ。システム間連携などで、アプリ自身のIDと資格情報を用いてトークンを取得し、アプリに付与された権限でAPIを呼び出す。",
+      "point": "アプリの権限を必要最小限にし、資格情報の保管・更新、トークンの宛先・期限、API側の認可を確認する。",
+      "origin": "一般知識／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow／system-modernization-anonymized.md 第9章（システム用IDでのAPI呼出し）"
     }
   ],
   "archivedCards": [],
