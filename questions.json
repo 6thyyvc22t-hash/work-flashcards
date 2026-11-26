@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-dasd-integration-batch-35",
+  "revision": "2026-11-27-approved-racf-auth-batch-36",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 282,
+  "nextId": 288,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2829,6 +2829,66 @@
       "explanation": "例えば一方のシステムがDBから必要なデータを取得して他方へ渡す方式、DBの変更をCDC（Change Data Capture）で検出して配信する方式、共有DBを参照する方式などがある。DB連携という名称だけで、直接接続やリアルタイム連携を意味するとは限らない。",
       "point": "DBの管理責任、接続方法、対象データ、更新権限、連携タイミング、トランザクション・整合性、負荷、スキーマ変更の影響、再送・障害復旧を確認する。",
       "origin": "legacy-host-operation-reference-patterns.md 第5・8-2章（DB変更連携）／system-modernization-anonymized.md 第5・7章（DB・CDC）／一般的なDB連携知識（直接参照・抽出等を補足）"
+    },
+    {
+      "id": "282",
+      "section_no": 28,
+      "category": "メインフレーム",
+      "question": "RACFとは何か？",
+      "answer": "RACF（Resource Access Control Facility：資源アクセス制御機構）。IBMのメインフレームで利用者の認証やリソースへのアクセス権限を管理するセキュリティ機構。",
+      "explanation": "IBM z/OSなどで利用者の識別・認証、保護対象へのアクセス可否の判定、セキュリティイベントの記録などを担う。アプリケーション固有の業務権限とは区別する。",
+      "point": "移行時はRACFで保護している対象、利用者、権限、監査要件を洗い出し、新基盤のID管理・OS・DB・アプリ認可へ適切に対応付ける。他社ホストの機構をRACFと同一視しない。",
+      "origin": "IBM: https://www.ibm.com/docs/en/zos-basic-skills?topic=zos-what-is-racf ／system-modernization-anonymized.md 第9章（認証・認可の移行）"
+    },
+    {
+      "id": "283",
+      "section_no": 29,
+      "category": "メインフレーム",
+      "question": "RACF権限とは何か？",
+      "answer": "RACF（Resource Access Control Facility）が利用者やグループに認める、保護対象リソースへのアクセス権限。",
+      "explanation": "RACFは利用者の属性、グループ、リソースプロファイルなどの定義に基づいてアクセスを判定する。例えばデータセットにREAD（参照）やUPDATE（更新）の権限を設定できる。権限の種類や意味は対象によって異なる。",
+      "point": "対象リソース、実際の利用者・グループ、許可される操作、既定権限、特権による影響を確認する。移行時は許可だけでなく拒否される操作もテストする。",
+      "origin": "IBM: https://www.ibm.com/docs/en/zos/3.1.0?topic=racf-authorizing-users-access-protected-resources ／system-modernization-anonymized.md 第9章（レガシー権限の移行）"
+    },
+    {
+      "id": "284",
+      "section_no": 30,
+      "category": "メインフレーム",
+      "question": "RACFのユーザープロファイルとは何か？",
+      "answer": "User Profile。RACF（Resource Access Control Facility）に登録された利用者ID、既定グループ、セキュリティ属性などの定義情報。",
+      "explanation": "RACFデータベースで利用者を識別し、認証や権限管理に必要な属性を保持する。所属グループとの接続情報や保護対象側のアクセス設定も権限判定に関係するため、ユーザープロファイルだけで全権限が決まるわけではない。",
+      "point": "利用者IDの対応付け、グループ所属、管理者属性、無効化状態、退職・異動時の更新手順を確認する。不要なIDや権限を引き継がない。",
+      "origin": "IBM: https://www.ibm.com/docs/en/cics-ts/6.x?topic=racf-users-roles ／https://www.ibm.com/docs/en/cics-ts/5.6.0?topic=facilities-racf-profiles"
+    },
+    {
+      "id": "285",
+      "section_no": 31,
+      "category": "メインフレーム",
+      "question": "RACFのグループとは何か？",
+      "answer": "Group。RACF（Resource Access Control Facility）で複数の利用者をまとめ、アクセス権限などを管理する単位。",
+      "explanation": "利用者をグループに所属させ、保護対象のアクセスリストにグループを指定することで、権限をまとめて管理できる。実効権限は個別設定やセキュリティ属性などにも依存する。利用者のグループとリソースをまとめるグループは別概念。",
+      "point": "グループの目的、所属者、階層、付与権限を確認する。新環境では業務ロールやディレクトリグループへの対応を検討し、異動時の権限剥奪も確認する。",
+      "origin": "IBM: https://www.ibm.com/docs/en/cics-ts/6.x?topic=racf-users-roles ／https://www.ibm.com/docs/en/cics-ts/5.6.0?topic=facilities-racf-group-profiles"
+    },
+    {
+      "id": "286",
+      "section_no": 32,
+      "category": "メインフレーム",
+      "question": "RACFのリソースプロファイルとは何か？",
+      "answer": "Resource Profile。RACF（Resource Access Control Facility）で保護対象リソースとアクセス制御ルールを定義する情報。",
+      "explanation": "データセットプロファイルや一般リソースプロファイルなどがある。対象名、所有者、アクセスリスト、UACC（Universal Access Authority：既定アクセス権限）などを定義できる。個別の対象や名前のパターンで複数の対象を保護する場合もある。",
+      "point": "保護対象の分類、適用されるプロファイル、許可対象と権限、既定権限、監査設定を確認し、移行後に保護漏れや過剰権限が発生しないようにする。",
+      "origin": "IBM: https://www.ibm.com/docs/en/cics-ts/5.6.0?topic=facilities-racf-profiles ／https://www.ibm.com/docs/en/cics-ts/6.x?topic=securing-how-it-works-cics-racf"
+    },
+    {
+      "id": "287",
+      "section_no": 21,
+      "category": "認証/セキュリティ",
+      "question": "権限管理テーブルとは何か？",
+      "answer": "利用者やロールと、許可された機能・操作・データ範囲などの対応関係を管理するDB（Database：データベース）のテーブル。",
+      "explanation": "Webアプリは認証済みの利用者IDを基に権限管理テーブルを参照し、業務操作や対象データへのアクセス可否を判定する構成を取れる。例えば参照担当者には閲覧のみ、更新担当者には更新も許可する。複数の関連テーブルに分ける場合もある。ID基盤の認証やAzureリソースの管理権限とは別の役割を担う。",
+      "point": "利用者IDの一意性、ロール、操作・データ単位の権限、未登録時の拒否、異動・退職時の失効、API側での認可、権限変更の監査を確認する。画面ボタンの非表示だけで認可を済ませない。",
+      "origin": "system-modernization-anonymized.md 第9章（認証と認可を分離する、レガシー権限の移行）／azure-architecture-glossary.md 第6章（ID・セキュリティ）"
     }
   ],
   "archivedCards": [],
