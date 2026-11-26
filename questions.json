@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-batch-1",
+  "revision": "2026-11-27-approved-azure-batch-2",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 22,
+  "nextId": 51,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -229,6 +229,296 @@
       "explanation": "文字コード体系や照合順序の違いによって、変換結果や比較・並び替えの結果が変わり得る。内部がUnicodeでも外部IFが旧形式のままの場合がある。",
       "point": "通常文字だけでなく外字、混在文字、空白、桁長、同順・重複キーを含む現新比較テストを行う。",
       "origin": "一般知識／legacy-host-operation-reference-patterns.md; mainframe-architecture-glossary.md"
+    },
+    {
+      "id": "022",
+      "section_no": 5,
+      "category": "Azure/クラウド",
+      "question": "テナント（Tenant）とは何か？",
+      "answer": "組織のユーザーIDや認証情報などを管理する独立したディレクトリの単位。",
+      "explanation": "Microsoft EntraのテナントはIDディレクトリの管理境界となる。利用者やアプリのIDを管理し、Azureリソースへのアクセスの基礎となる。",
+      "point": "IDの管理境界とリソースの管理境界を区別し、利用者・管理者がどのテナントに属するか確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第1章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "023",
+      "section_no": 6,
+      "category": "Azure/クラウド",
+      "question": "リソースグループ（Resource Group）とは何か？",
+      "answer": "関連するAzureリソースを論理的にまとめて管理する単位。",
+      "explanation": "VMやネットワークなどのリソースを論理的にまとめ、権限やライフサイクルの管理に利用する。",
+      "point": "構成図ではどのリソースが同じ管理単位に属するか、権限や削除の影響範囲を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第1章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "024",
+      "section_no": 7,
+      "category": "Azure/クラウド",
+      "question": "リージョン（Region）とは何か？",
+      "answer": "Azureのデータセンター群が配置されている地理的な地域。",
+      "explanation": "リージョンはクラウドリソースの配置先を考える際の地理的な単位である。",
+      "point": "配置地域、通信遅延、データ保管要件、広域障害時の復旧方針を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第1章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "025",
+      "section_no": 8,
+      "category": "Azure/クラウド",
+      "question": "可用性ゾーン（Availability Zone）とは何か？",
+      "answer": "同一リージョン内にある、電源やネットワークなどが独立したデータセンター群の区画。",
+      "explanation": "複数の可用性ゾーンに処理やデータを分散することで、単一ゾーンの障害に対する耐性を高められる。",
+      "point": "対象サービスのゾーン対応と実際の配置を確認する。リージョン全体の障害への対策は別途検討する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第1章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "026",
+      "section_no": 3,
+      "category": "ネットワーク",
+      "question": "VNet（Virtual Network）とは何か？",
+      "answer": "Azure上に構築する、論理的に分離された仮想ネットワーク。",
+      "explanation": "Azureのリソースを接続するネットワークであり、内部のIPアドレス範囲やサブネットを設計する。",
+      "point": "他のVNetやオンプレミスと接続する場合は、アドレス範囲の重複、経路、通信制御を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "027",
+      "section_no": 4,
+      "category": "ネットワーク",
+      "question": "サブネット（Subnet）とは何か？",
+      "answer": "VNet内のIPアドレス範囲を分割したネットワークの区画。",
+      "explanation": "役割別のネットワーク区画を作り、リソース配置や通信制御の単位として利用する。",
+      "point": "用途ごとのIPアドレス範囲、必要な空き容量、NSGやルートテーブルの適用を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "028",
+      "section_no": 5,
+      "category": "ネットワーク",
+      "question": "VNetピアリングとは何か？",
+      "answer": "Azureのバックボーンネットワークを利用して、異なるVNet同士を接続する仕組み。",
+      "explanation": "VNet間でプライベート通信を行うための接続手段。接続だけで任意の中継経路やFirewall経由が保証されるわけではない。",
+      "point": "接続先、経路転送、名前解決、通信許可、Firewall経由の必要性を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "029",
+      "section_no": 6,
+      "category": "ネットワーク",
+      "question": "ExpressRouteとは何か？",
+      "answer": "オンプレミス環境とMicrosoftクラウドをプライベート接続するサービス。",
+      "explanation": "公開インターネットを経由しない接続を提供する。プライベート接続であること自体は通信内容の暗号化を保証しない。",
+      "point": "回線の冗長化、経路制御、障害時の接続方法、別途暗号化が必要かを確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "030",
+      "section_no": 7,
+      "category": "ネットワーク",
+      "question": "NVA（Network Virtual Appliance）とは何か？",
+      "answer": "ファイアウォールやルーターなどのネットワーク機能を仮想マシン上で提供する仕組み。",
+      "explanation": "物理ネットワーク装置の機能を仮想化して提供する類型であり、具体的な機能や管理方法は製品によって異なる。",
+      "point": "NVAを通過する経路、可用性、性能、更新管理の責任分界を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "031",
+      "section_no": 8,
+      "category": "ネットワーク",
+      "question": "Private DNS Zoneとは何か？",
+      "answer": "プライベートネットワーク内で、サービス名などをプライベートIPアドレスに名前解決するためのDNSゾーン。",
+      "explanation": "Private Endpointへの接続などで、サービス名をプライベートIPへ解決する構成に利用できる。",
+      "point": "VNetとのリンク、オンプレミス等からの名前解決経路、意図したIPへ解決されるかを確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "032",
+      "section_no": 9,
+      "category": "ネットワーク",
+      "question": "Azure Bastionとは何か？",
+      "answer": "管理対象VMにパブリックIPを付与せず、RDPやSSHによる安全な管理接続を提供するサービス。",
+      "explanation": "管理者はBastionを経由してVMの管理用接続を行う。VM自体を直接インターネットに公開する必要を減らせる。",
+      "point": "管理者のアクセス権限、接続経路、VM側の管理ポートへの通信制御を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "033",
+      "section_no": 10,
+      "category": "ネットワーク",
+      "question": "NAT Gatewayとは何か？",
+      "answer": "サブネットから外部への通信において、送信元IPアドレスを変換するサービス。",
+      "explanation": "アウトバウンド通信の送信元を指定されたパブリックIPなどに変換する。",
+      "point": "外部接続先でのIP制限、送信経路、通信許可を確認する。NATだけで通信内容の検査を代替しない。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "034",
+      "section_no": 11,
+      "category": "ネットワーク",
+      "question": "Application Gatewayとは何か？",
+      "answer": "HTTP・HTTPS通信を受け付け、接続先のWebサーバーなどに振り分けるL7負荷分散サービス。",
+      "explanation": "アプリケーション層のリバースプロキシとして動作し、WAFを組み合わせる構成も可能。",
+      "point": "Web入口、TLS終端、バックエンドの接続先、正常性確認、WAFの設定を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第2章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "035",
+      "section_no": 9,
+      "category": "Azure/クラウド",
+      "question": "App Service Planとは何か？",
+      "answer": "App Serviceが使用するCPU・メモリなどの計算資源やスケール条件を定めるプラン。",
+      "explanation": "App Serviceの実行に用いるコンピュート資源の管理単位となる。プランによって利用できる機能や性能条件が異なる。",
+      "point": "アプリの負荷、必要な性能、スケール条件、費用、同じプランを利用するアプリへの影響を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第3章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "036",
+      "section_no": 10,
+      "category": "Azure/クラウド",
+      "question": "Azure Functionsとは何か？",
+      "answer": "イベントなどを契機としてプログラムを実行するサーバーレスサービス。",
+      "explanation": "イベントやタイマーなどをきっかけとして関数コードを実行する基盤。",
+      "point": "起動条件、実行時間、失敗時の再試行、重複実行への対策を設計する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第3章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "037",
+      "section_no": 11,
+      "category": "Azure/クラウド",
+      "question": "VMSS（Virtual Machine Scale Sets）とは何か？",
+      "answer": "複数の仮想マシンをまとめて構成・管理し、台数の増減などを行うサービス。",
+      "explanation": "VM群をまとめて管理し、負荷などに応じたスケーリングの構成に利用できる。",
+      "point": "スケール条件、負荷分散、VM構成の整合性、更新時の業務影響を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第3章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "038",
+      "section_no": 12,
+      "category": "Azure/クラウド",
+      "question": "Azure Container Registry（ACR）とは何か？",
+      "answer": "コンテナイメージを保管・管理・配布するサービス。",
+      "explanation": "アプリケーションのコンテナイメージを登録し、実行基盤から取得できるようにする。ACR自体はコンテナの実行基盤ではない。",
+      "point": "イメージの版管理、取得権限、保管・配布経路を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第3章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "039",
+      "section_no": 13,
+      "category": "Azure/クラウド",
+      "question": "Storage Accountとは何か？",
+      "answer": "Blob StorageやAzure Filesなどのストレージサービスを管理する基本単位。",
+      "explanation": "ストレージの利用・管理に必要な設定をまとめるリソース。使用可能なサービスや機能は構成によって異なる。",
+      "point": "保管するデータの種類、冗長化、アクセス権限、ネットワーク公開範囲を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第4章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "040",
+      "section_no": 14,
+      "category": "Azure/クラウド",
+      "question": "Blob Storageとは何か？",
+      "answer": "画像、PDF、ログ、バックアップファイルなどをオブジェクト形式で保存するサービス。",
+      "explanation": "ファイルなどの非構造化データをオブジェクトとして保管する。通常の共有ファイルシステムと同じアクセス方式を前提としない。",
+      "point": "帳票などの保存先として使う場合、閲覧方法、保存期間、アクセス権限、復元方法を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第4章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "041",
+      "section_no": 15,
+      "category": "Azure/クラウド",
+      "question": "Azure Filesとは何か？",
+      "answer": "SMBなどのプロトコルを用いて、複数の端末やサーバーから利用できるファイル共有サービス。",
+      "explanation": "マネージドなファイル共有を提供し、対応するクライアントから共有ファイルへアクセスできる。",
+      "point": "既存アプリが必要とするファイル操作、接続方式、認証、同時アクセス、性能を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第4章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "042",
+      "section_no": 4,
+      "category": "DB",
+      "question": "Azure Database for PostgreSQLとは何か？",
+      "answer": "PostgreSQLをAzure上で利用でき、DB基盤の管理をサービス側に任せられるマネージドデータベースサービス。",
+      "explanation": "PostgreSQLの実行基盤をマネージドサービスとして利用する。利用者はデータ、スキーマ、クエリ、アクセス権などを管理する。",
+      "point": "対応するDB機能、性能、接続経路、バックアップと復元、運用責任の分担を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第4章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "043",
+      "section_no": 3,
+      "category": "外部IF",
+      "question": "APIM（API Management）とは何か？",
+      "answer": "APIの公開、アクセス制御、流量制限、監視などを集約して管理するサービス。",
+      "explanation": "API利用者からの要求を受け付け、設定したポリシーなどを適用してバックエンドAPIに連携する構成に利用できる。",
+      "point": "APIの認証・認可、流量制限、公開範囲、バックエンドの保護、障害監視を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第5章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "044",
+      "section_no": 4,
+      "category": "外部IF",
+      "question": "ADF（Azure Data Factory）とは何か？",
+      "answer": "複数のシステム間でデータの移動・変換などの処理を組み立て、自動実行するサービス。",
+      "explanation": "データ連携の処理手順や依存関係を組み立てて実行するデータ統合・オーケストレーション基盤。",
+      "point": "連携元と連携先、データ形式、実行条件、処理失敗時の再実行と監視を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第5章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "045",
+      "section_no": 2,
+      "category": "認証/セキュリティ",
+      "question": "Microsoft Entra IDとは何か？",
+      "answer": "利用者やアプリケーションのID、認証、アクセスを管理するクラウドID基盤。",
+      "explanation": "利用者やアプリのIDを管理し、認証やアクセス管理を支援する。アプリ内の業務権限は別途設計する場合がある。",
+      "point": "利用者認証、SSO、MFA、アプリへの権限付与、IDの登録・廃止の責任分界を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第6章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "046",
+      "section_no": 3,
+      "category": "認証/セキュリティ",
+      "question": "Azure RBAC（Role-Based Access Control）とは何か？",
+      "answer": "ロールに基づいて、利用者などにAzureリソースの操作権限を付与する仕組み。",
+      "explanation": "操作できる内容をロールとして定義し、対象リソースなどの適用範囲に対してIDへ権限を付与する。",
+      "point": "誰に、どの範囲で、何の操作権限を付与するかを確認し、最小権限を意識する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第6章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "047",
+      "section_no": 4,
+      "category": "認証/セキュリティ",
+      "question": "Azure Key Vaultとは何か？",
+      "answer": "パスワードなどの秘密情報、暗号鍵、証明書を安全に管理するサービス。",
+      "explanation": "秘密情報をアプリのコードなどへ直接記載する代わりに、管理された保管先から必要な情報を取得する構成に利用できる。",
+      "point": "取得権限、鍵や証明書の更新・期限管理、アクセス経路、監査ログを確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第6章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "048",
+      "section_no": 3,
+      "category": "運用/非機能",
+      "question": "Azure Monitorとは何か？",
+      "answer": "Azureリソースなどのメトリックやログを収集・監視し、異常時に通知するための基盤。",
+      "explanation": "性能や稼働状態などを観測し、収集したデータを分析したり、条件に応じてアラートを発生させたりする。",
+      "point": "監視対象、収集設定、しきい値、通知先、障害対応担当を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第7章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "049",
+      "section_no": 4,
+      "category": "運用/非機能",
+      "question": "Log Analyticsとは何か？",
+      "answer": "収集したログデータをクエリで検索・分析するための機能。",
+      "explanation": "ログを蓄積するワークスペースなどのデータに対してクエリを実行し、障害原因や稼働状況の分析に利用する。",
+      "point": "必要なログが収集されるか、保持期間、検索権限、調査手順を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第7章（用語集に基づく一般的な補足・実務確認例）"
+    },
+    {
+      "id": "050",
+      "section_no": 5,
+      "category": "運用/非機能",
+      "question": "Application Insightsとは何か？",
+      "answer": "アプリケーションの応答時間、リクエスト、例外、外部サービスへの依存関係などを監視する機能。",
+      "explanation": "Azure Monitorのアプリケーション監視機能として、アプリ内部の動作や性能、依存サービスとのやり取りを観測する。",
+      "point": "アプリの計測設定、監視対象、障害原因を追跡できる情報、機密情報をログに含めない設定を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md 第7章（用語集に基づく一般的な補足・実務確認例）"
     }
   ],
   "archivedCards": [],
