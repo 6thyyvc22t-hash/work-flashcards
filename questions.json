@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-sku-batch-24",
+  "revision": "2026-11-27-approved-db-basics-batch-25",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 213,
+  "nextId": 216,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2139,6 +2139,36 @@
       "explanation": "もともとは商品の種類を区別するための管理単位。Azureでは、サービスごとに選択可能な製品・構成の区分を表す。例えば仮想マシンではサイズや性能、App Serviceではプランの階層やサイズなどに関係する。同じサービスでもSKUによって利用できる機能、性能、料金が異なり、リージョンや可用性ゾーンによって選択できない場合もある。SKUの具体的な意味や設定項目はサービスごとに異なる。",
       "point": "構成図や見積書に記載されたSKUが、要求性能、必要な機能、冗長化、対象リージョン・可用性ゾーン、利用上限、費用に適合するか確認する。サービス名が同じでもSKUの違いを見落とさない。",
       "origin": "Microsoft Learn（SKUの正式名称）: https://learn.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/s/sku ／Azure Compute Resource SKUs: https://learn.microsoft.com/en-us/rest/api/compute/resource-skus/list?view=rest-compute-2025-04-01 ／SKUが使用できないエラー: https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/troubleshooting/error-sku-not-available ／一般的な設計レビュー観点"
+    },
+    {
+      "id": "213",
+      "section_no": 19,
+      "category": "DB",
+      "question": "インデックスとは何か？",
+      "answer": "Index（索引）。データベース内の目的のデータを効率的に検索するための補助的なデータ構造。",
+      "explanation": "本の索引と同様に、検索対象の列の値などから該当する行を探すための仕組み。PostgreSQLではB-treeなどのインデックス方式が利用でき、条件に応じてオプティマイザが使用するか判断する。インデックスを追加すると検索が速くなる場合がある一方、更新時の維持処理や保存容量が増える。",
+      "point": "頻繁に検索・結合する列、検索条件、データ分布、複合インデックスの列順、実行計画、更新負荷を確認する。実際のデータ量に近い環境で性能を検証する。",
+      "origin": "system-modernization-anonymized.md 第5章／PostgreSQL公式マニュアル（Indexes）: https://www.postgresql.org/docs/current/indexes.html"
+    },
+    {
+      "id": "214",
+      "section_no": 20,
+      "category": "DB",
+      "question": "トリガーとは何か？",
+      "answer": "Trigger。データの登録・更新・削除などの特定のイベントを契機として、DB側で自動的に処理を実行する仕組み。",
+      "explanation": "PostgreSQLではCREATE TRIGGERでイベント、実行タイミング（BEFORE、AFTERなど）、行単位または文単位などを定義し、トリガー関数を実行する。例えば更新履歴の記録やデータ整合性を保つ処理に利用する。アプリケーションが明示的に関数を呼び出さなくても、定義された条件で実行される。",
+      "point": "移行元と移行先で自動処理が漏れたり重複したりしないか、実行順序、トランザクションとの関係、エラー時の挙動、大量更新時の性能、バッチや移行処理への影響を確認する。",
+      "origin": "PostgreSQL公式マニュアル（Overview of Trigger Behavior）: https://www.postgresql.org/docs/current/trigger-definition.html ／一般的な移行・設計レビュー観点"
+    },
+    {
+      "id": "215",
+      "section_no": 21,
+      "category": "DB",
+      "question": "カーソルとは何か？",
+      "answer": "Cursor。SQLの検索結果を順次取得・処理するために利用する仕組み。",
+      "explanation": "PostgreSQLではDECLAREでカーソルを定義し、FETCHで指定した件数の行を取得し、CLOSEで閉じる。検索結果を一度にすべてクライアントへ取得せず、必要に応じて少しずつ処理できる。通常のSQLカーソルはトランザクション内で利用するが、WITH HOLDを指定するなど例外もある。",
+      "point": "大量データを処理する場合の取得件数、処理順序の明示、トランザクションの長期化、DBとアプリ間の通信回数、リソース解放を確認する。ホストのレコード単位の走査を移行する際は、集合単位のSQL処理のほうが適切かも検討する。",
+      "origin": "PostgreSQL公式マニュアル（DECLARE・FETCH）: https://www.postgresql.org/docs/current/sql-declare.html ／https://www.postgresql.org/docs/current/sql-fetch.html ／system-modernization-anonymized.md 第5章（移行時の走査・性能確認）"
     }
   ],
   "archivedCards": [],
