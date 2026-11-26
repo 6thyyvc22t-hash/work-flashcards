@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-report-products-batch-18",
+  "revision": "2026-11-27-approved-jcl-batch-19",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 191,
+  "nextId": 194,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1919,6 +1919,36 @@
       "explanation": "富士通のHOST PRINT V7.1L10のマニュアルでは、ホストから受信した帳票を対応プリンターに出力し、オーバレイやフォントなどの印刷資源を集中管理する。List CreatorやList Worksなどの関連製品との連携によりPDF出力や電子保存などにも対応する。",
       "point": "ホスト側の帳票生成・配信方式、FNAやTCP/IP等の実際の接続方式、帳票形式、印刷資源、プリンターの制御方式、電子保管への連携、新基盤で代替すべき機能を確認する。",
       "origin": "富士通 HOST PRINT V7.1L10 使用手引書 第1章1.1（本文取得で確認、PDFページ画像は取得不可）: https://software.fujitsu.com/jp/manual/manualfiles/M090096/B1WD2778/01Z000/hpusers.pdf ／legacy-host-operation-reference-patterns.md 第10-1・10-7節"
+    },
+    {
+      "id": "191",
+      "section_no": 16,
+      "category": "バッチ/ジョブ",
+      "question": "ジョブステップとは何か？",
+      "answer": "Job Step。一つのジョブを構成する個々の実行処理の単位。複数のジョブステップを組み合わせて一連の業務処理を実行する。",
+      "explanation": "IBM z/OSのJCL（Job Control Language）では、EXEC（Execute）文で実行するプログラムやプロシージャーを指定し、DD（Data Definition）文で必要な入出力資源を定義する。例えば、データ抽出、ソート、集計を別々のステップで実行する。ステップごとの終了結果によって後続処理を制御できる。ジョブネットは複数のジョブ間の依存関係を管理するものであり、ジョブステップとは管理単位が異なる。",
+      "point": "現行JCLのステップ数、実行順序、入出力資源、終了判定、異常時の再開単位を確認する。オープン系移行時は、スクリプトやバッチ基盤等に制御機能をどう引き継ぐかを確認する。富士通ホスト固有の仕様は別途確認する。",
+      "origin": "IBM z/OS Basic Skills: https://www.ibm.com/docs/en/zos-basic-skills?topic=concepts-jcl-statements-what-does-exec-statement-do ／legacy-host-operation-reference-patterns.md 第4・12章"
+    },
+    {
+      "id": "192",
+      "section_no": 17,
+      "category": "バッチ/ジョブ",
+      "question": "DSNとは何か？",
+      "answer": "Data Set Name（データセット名）。IBM z/OSのJCLで使用するデータセット名を指定するパラメータ。DSNAMEの省略形。",
+      "explanation": "DD文でDSN=INPUT.DATAのように指定すると、OSが対象データセットを識別する。DD名はプログラムが使用する論理的な入出力名であり、DSNは実際に割り当てるデータセットの名前を指定する。DISPなどの属性と組み合わせて利用する。",
+      "point": "移行対象のJCLごとに、参照先・出力先のデータセット、利用するプログラム、他ジョブとの依存関係を確認する。新環境でのファイルパスやDB等への対応付けを明確にする。富士通ホスト固有の指定方法は別途確認する。",
+      "origin": "IBM z/OS Basic Skills: https://www.ibm.com/docs/en/zos-basic-skills?topic=do-jcl-dd-statements-positional-frequently-used-parameters ／legacy-host-operation-reference-patterns.md 第12-3節"
+    },
+    {
+      "id": "193",
+      "section_no": 18,
+      "category": "バッチ/ジョブ",
+      "question": "SYSPRINTとは何か？",
+      "answer": "System Printに由来するDD名。プログラムやユーティリティーの実行結果、処理メッセージなどの出力先として使用される。",
+      "explanation": "IBM z/OSでは、例えばIEBGENERによるファイル複写時にSYSPRINT DD SYSOUT=*と指定して、情報・エラーメッセージをジョブの出力へ送る。SYSPRINTは慣用的なDD名であり、出力内容は使用するプログラムによって異なる。SYSOUTは出力データをスプール等へ送るための指定で、SYSPRINT自体が出力装置を意味するわけではない。System Printは名称の意味を示す説明であり、IBM公式資料で正式な略語展開は確認できていない。",
+      "point": "移行時にジョブの処理結果・警告・エラーが新基盤のログへ漏れなく出力されるか確認する。監視対象、保存期間、検索方法、障害時の調査手順も明確にする。富士通ホスト固有の出力仕様は別途確認する。",
+      "origin": "IBM z/OS Basic Skills: https://www.ibm.com/docs/en/zos-basic-skills?topic=sample-reusable-jcl-copying-sequential-data-set ／mainframe-architecture-glossary.md 第6章 ／legacy-host-operation-reference-patterns.md 第12-4節"
     }
   ],
   "archivedCards": [],
