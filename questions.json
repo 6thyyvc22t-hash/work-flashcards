@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-azure-batch-3",
+  "revision": "2026-11-27-approved-report-batch-4",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 69,
+  "nextId": 83,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -699,6 +699,146 @@
       "explanation": "TerraformやBicepなどでインフラ構成を記述し、構成の再現や変更内容の管理に利用する。",
       "point": "コードの版管理、レビュー、環境差分、適用前の変更確認、秘密情報の管理を確認する。",
       "origin": "一般知識／azure-architecture-glossary.md 第7章（略語・一般的な仕組み・実務確認例は補足）"
+    },
+    {
+      "id": "069",
+      "section_no": 1,
+      "category": "帳票",
+      "question": "オンライン帳票とは何か？",
+      "answer": "利用者の画面操作などを契機として生成される帳票。",
+      "explanation": "例えば画面から帳票出力を要求し、サーバーでPDF（Portable Document Format）を生成してブラウザに返す構成がある。",
+      "point": "PDFの生成場所、応答時間、プレビュー、印刷主体、ブラウザの制約、再印刷方法を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-2・10-3節"
+    },
+    {
+      "id": "070",
+      "section_no": 2,
+      "category": "帳票",
+      "question": "バッチ帳票とは何か？",
+      "answer": "定時処理などのバッチ処理によって生成される帳票。大量の帳票出力などに利用される。",
+      "explanation": "バッチで生成したデータファイルを帳票基盤へ転送し、到着検知後に印刷や電子ファイル生成を行う構成例がある。",
+      "point": "ジョブの実行条件、ファイル到着、処理順序、滞留、障害時の再実行、仕分けを確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-3節"
+    },
+    {
+      "id": "071",
+      "section_no": 3,
+      "category": "帳票",
+      "question": "電子帳票とは何か？",
+      "answer": "紙ではなく電子データとして保存・閲覧する帳票。検索などにも利用できる。",
+      "explanation": "PDF（Portable Document Format）などの形式で保管し、専用ビューアやWeb画面などから閲覧する構成がある。検索や権限管理は別途設計が必要な場合がある。",
+      "point": "保存形式、検索索引、閲覧権限、保存期限、証跡、再印刷方法を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-1・10-4節"
+    },
+    {
+      "id": "072",
+      "section_no": 4,
+      "category": "帳票",
+      "question": "帳票基盤とは何か？",
+      "answer": "帳票の生成、出力、配布、保管、閲覧などを支えるシステム基盤。",
+      "explanation": "業務データを帳票へ変換するエンジン、印刷制御、電子帳票の保管・閲覧などの機能を組み合わせる。担当範囲は構成によって異なる。",
+      "point": "各機能をどの製品・アプリケーションが担当するか整理し、機能の抜けや重複、責任分界を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-2・10-7節"
+    },
+    {
+      "id": "073",
+      "section_no": 5,
+      "category": "帳票",
+      "question": "フォームオーバレイとは何か？",
+      "answer": "罫線や固定文字などの帳票フォームに、業務データを重ね合わせて出力する仕組み。",
+      "explanation": "あらかじめ定義した帳票の背景や書式に、処理時に取得した可変データを所定の位置へ配置して帳票を作る。",
+      "point": "フォーム定義、用紙寸法、項目位置、罫線、フォント、改ページなどの現新比較を行う。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-5・10-7-1節"
+    },
+    {
+      "id": "074",
+      "section_no": 6,
+      "category": "帳票",
+      "question": "外字とは何か？",
+      "answer": "使用する標準文字集合などでは扱えないため、独自に追加・定義された文字。",
+      "explanation": "氏名などに使用される独自の文字が例として挙げられる。移行先の文字集合やフォントで同じ文字を表現できるとは限らない。",
+      "point": "外字を棚卸しし、標準文字への対応付け、代替文字、変換不能時の扱い、表示・印刷・検索への影響を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第9章・第10-5節（定義・例は一般知識による補足）"
+    },
+    {
+      "id": "075",
+      "section_no": 7,
+      "category": "帳票",
+      "question": "スプール（Spool）とは何か？",
+      "answer": "印刷などの出力データを一時的に蓄積し、装置が処理できるタイミングで出力する仕組み。",
+      "explanation": "帳票を生成する処理と印刷装置への出力を分離する。出力待ちデータの管理、出力順序、再出力などを扱う構成がある。",
+      "point": "出力待ちの滞留監視、保留、障害復旧、再出力、重複印刷防止、印刷履歴の管理を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-1・10-5・10-7節"
+    },
+    {
+      "id": "076",
+      "section_no": 8,
+      "category": "帳票",
+      "question": "出力ライタ（Output Writer）とは何か？",
+      "answer": "スプールなどに蓄積された出力データを、プリンタなどの出力先へ送る処理。",
+      "explanation": "出力対象のデータを取り出し、指定された出力装置などに渡す役割を担う。具体的な出力方法は基盤・製品によって異なる。",
+      "point": "出力先の指定、転送方式、障害検知、出力状況の確認、再出力時の扱いを確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-1・10-7節"
+    },
+    {
+      "id": "077",
+      "section_no": 9,
+      "category": "帳票",
+      "question": "印刷キュー（Print Queue）とは何か？",
+      "answer": "印刷待ちのジョブを蓄積し、印刷順序や処理状態を管理する仕組み。",
+      "explanation": "複数の印刷要求を待ち行列として管理し、プリンタの状態などに応じて処理する。保留や取消などの機能は実装によって異なる。",
+      "point": "プリンタごとのキュー、処理順序、滞留監視、取消・再印刷方法、障害時の復旧を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-7・10-7-1節"
+    },
+    {
+      "id": "078",
+      "section_no": 10,
+      "category": "帳票",
+      "question": "プリンタドライバとは何か？",
+      "answer": "OS（Operating System）やアプリケーションからの印刷要求を、プリンタが処理できる形式に変換・制御するソフトウェア。",
+      "explanation": "プリンタの機種や対応機能に応じて印刷データや制御情報を扱う。用紙サイズや給紙などの設定に関係する場合がある。",
+      "point": "対象プリンタとOSへの対応、ドライバの配布・更新、用紙・給紙設定、印刷結果の同等性を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-3・10-5節（ドライバの定義・仕組みは一般知識による補足）"
+    },
+    {
+      "id": "079",
+      "section_no": 11,
+      "category": "帳票",
+      "question": "プリントサーバーとは何か？",
+      "answer": "複数の端末やアプリケーションからの印刷要求を受け付け、プリンタへの出力を管理するサーバー。",
+      "explanation": "印刷要求の受付、キュー管理、出力先への送信などを集約する構成がある。担当する機能やドライバの配置は実装方式によって異なる。",
+      "point": "印刷要求の経路、プリンタとの接続方式、ドライバ管理、アクセス権、障害時の代替出力を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-2・10-5・10-7節（プリントサーバーの定義・仕組みは一般知識による補足）"
+    },
+    {
+      "id": "080",
+      "section_no": 12,
+      "category": "帳票",
+      "question": "JESとは何か？",
+      "answer": "Job Entry Subsystem。IBMのz/OSでジョブの受付、実行に向けた管理、スプールや出力管理などを担うサブシステム。",
+      "explanation": "ジョブの入力、実行に向けた処理、出力の管理などを担う。帳票の生成や宛先別の名寄せなどは別機能が担当する場合がある。",
+      "point": "ホスト標準のジョブ・スプール管理と追加の帳票管理機能の担当範囲を区別して、移行対象を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-7-1節（JESの正式名称・z/OSにおける役割は一般知識による補足）"
+    },
+    {
+      "id": "081",
+      "section_no": 13,
+      "category": "帳票",
+      "question": "帳票の名寄せとは何か？",
+      "answer": "複数の帳票や帳票データを、同じ宛先や配布先などの単位でまとめる処理。",
+      "explanation": "同じ宛先に届ける複数の帳票をひとまとめにするなど、帳票の生成や配布に必要な集約を行う。実施する処理段階は方式によって異なる。",
+      "point": "集約キー、宛先判定規則、並び順、異常データの扱い、業務ロジックと帳票製品の責任分界を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-1・10-5・10-7節"
+    },
+    {
+      "id": "082",
+      "section_no": 14,
+      "category": "帳票",
+      "question": "帳票の仕分けとは何か？",
+      "answer": "帳票を宛先、種類、配布先などの条件に基づいて分類する処理。",
+      "explanation": "帳票や帳票データを条件に応じて異なる出力先・配布単位へ振り分ける。帳票の見た目を生成する処理とは異なる。",
+      "point": "分類条件、出力先の対応表、判定不能時の処理、誤配布防止、設定変更の承認を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-1・10-5・10-7節"
     }
   ],
   "archivedCards": [],
