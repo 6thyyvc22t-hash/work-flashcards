@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-development-batch-13",
+  "revision": "2026-11-27-approved-mainframe-batch-14",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 168,
+  "nextId": 175,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1689,6 +1689,76 @@
       "explanation": "開発担当と運用担当が協力し、設計・開発・テスト・リリース・監視・改善を一体として進める。CI（Continuous Integration：継続的インテグレーション）やCD（Continuous Delivery／Continuous Deployment：継続的デリバリー／デプロイメント）、IaC（Infrastructure as Code）などの自動化は実践手段であり、DevOps自体は特定の製品やツールを指さない。",
       "point": "開発・運用間の責任分界、変更承認、自動テスト、リリースと切戻し、監視、障害対応、運用から開発へのフィードバックが整備されているか確認する。自動化とセキュリティ・監査要件を両立させる。",
       "origin": "一般知識（DevOpsの定義・CI/CDとの関係）／modernization-knowledge-map.md 第4-3節（保守・変更承認・責任分界との関連）／system-modernization-anonymized.md 第13章（設計レビュー観点）"
+    },
+    {
+      "id": "168",
+      "section_no": 13,
+      "category": "メインフレーム",
+      "question": "AIM/DCとは何か？",
+      "answer": "AIM（Advanced Information Manager）のオンライン・通信処理に関する機能。DCはData Communication（データ通信）。端末からの要求受付や業務プログラムの実行などを支える。",
+      "explanation": "端末や他のアプリケーションからの要求を受け付け、オンラインのトランザクション処理を制御する。AIMのデータベース管理機能とは役割が異なる。",
+      "point": "Web移行では要求受付、業務プログラム起動、画面入出力、状態管理、トランザクション制御、異常時処理を新基盤でどのように実現するか確認する。",
+      "origin": "aim-screen-study.md（動きの一般例）／富士通 AIM: https://global.fujitsu/ja-JP/about/corporate/museum/products/products/computer-software-aim ／富士通ラーニングメディア AIM概説: https://www.kcc.knowledgewing.com/icm/srv/course-application/init-detail?cd=FLM&cscd=UED64W&pcd=FLMC ／DCの展開は一般的なDB/DC用語"
+    },
+    {
+      "id": "169",
+      "section_no": 14,
+      "category": "メインフレーム",
+      "question": "AIM/NDBとは何か？",
+      "answer": "AIMのネットワーク型データベースに関する呼称。NDBはNetwork Database。レコード間の関連を利用した検索・更新などを支える。",
+      "explanation": "富士通の製品資料ではデータベース制御製品をAIM/DBと表記し、モダナイゼーション紹介資料では移行対象をAIM/NDBと表記している。ネットワーク型DBはOWNER・MEMBER・SETなどの関連に沿ってアクセスする。AIMはAdvanced Information Manager。",
+      "point": "実際の製品名・版、データ構造、アクセス経路、更新単位、排他制御を確認し、移行先のRDBMSで業務上の整合性と性能を再現できるか検証する。",
+      "origin": "system-modernization-anonymized.md 第5章／富士通 AIM/DB製品資料: https://docs.fujitsu/documents/003298/fujitsu-software-aim-db-brochure-ja.pdf ／Fujitsu PROGRESSION紹介資料（AIM/NDB表記、本文抽出で確認）: https://docs.fujitsu/documents/3-001266/fujitsu-progression-introduction-ja.pdf"
+    },
+    {
+      "id": "170",
+      "section_no": 15,
+      "category": "メインフレーム",
+      "question": "PSAMとは何か？",
+      "answer": "Presentation Service Access Method。富士通のホスト環境で、業務プログラムによる端末の画面入出力などを支援する仕組み。",
+      "explanation": "PSAM画面定義ファイルは、業務プログラムから画面にデータを表示するための定義を保持する。ホスト画面と業務プログラムの移行を検討する際に関連資産として確認する。",
+      "point": "画面定義の項目、配置、入力属性、キー操作、業務プログラムとの対応を確認し、Web画面への移行で操作や処理結果が適切に再現されるか検証する。",
+      "origin": "aim-screen-study.md（画面定義・Web化）／富士通「保守作業を効率化する保守用仕様書自動生成システムを開発」注6: https://info.archives.global.fujitsu/jp/news/2004/08/26-1.html"
+    },
+    {
+      "id": "171",
+      "section_no": 16,
+      "category": "メインフレーム",
+      "question": "ロードモジュールとは何か？",
+      "answer": "コンパイルやリンク編集などを経て作成された、実行環境へ読み込んで実行できる形式のプログラム。",
+      "explanation": "ソースコードをコンパイルして得たオブジェクトコードなどをリンク編集し、実行可能なモジュールを作る。実行時にはローダーが必要なモジュールをメモリへ読み込む。具体的な形式は実行環境によって異なる。",
+      "point": "ソースと実行モジュールの対応、依存する外部プログラム、ビルド条件、ライブラリ、現行稼働版の整合性を確認する。",
+      "origin": "mainframe-architecture-glossary.md 第4章（プログラムライブラリ）／IBM z/OS Load modules for executable programs: https://www.ibm.com/docs/en/zos-basic-skills?topic=zos-load-modules-executable-programs"
+    },
+    {
+      "id": "172",
+      "section_no": 17,
+      "category": "メインフレーム",
+      "question": "COBOLのコピー句（COPY）とは何か？",
+      "answer": "共通のデータ定義やプログラム記述を、コンパイル時に別のソースから取り込むための記述。",
+      "explanation": "COBOL（Common Business-Oriented Language）ではCOPY文により、コピーブックなどの記述をコンパイル対象に展開できる。実行時の外部プログラム呼出しとは異なる。",
+      "point": "COPYの参照先、共通定義の変更影響、置換指定、項目長・数値形式を確認し、展開後の実際の定義を移行対象として把握する。",
+      "origin": "IBM Enterprise COBOL COPYステートメント: https://www.ibm.com/docs/ja/cobol-zos/6.4.0?topic=statements-copy-statement ／system-modernization-anonymized.md 第2・5章（COBOL・データ形式）／略語の展開・レビュー観点は一般知識による補足"
+    },
+    {
+      "id": "173",
+      "section_no": 18,
+      "category": "メインフレーム",
+      "question": "JEFとは何か？",
+      "answer": "Japanese processing Extended Feature。富士通の日本語情報処理体系。メインフレームの日本語文字コードなどに関係する。",
+      "explanation": "富士通が日本語を扱える計算機環境として開発した体系で、JEF拡張漢字などの文字表現に関係する。JEFは単一の文字コードだけを指す名称ではない。",
+      "point": "Unicodeへの変換表、拡張漢字、利用者定義文字、バイト長、表示・印刷、外部連携での文字化けや変換不能文字を確認する。",
+      "origin": "富士通 日本語情報システム JEF: https://global.fujitsu/ja-jp/about/corporate/museum/products/products/computer-software-jef ／mainframe-architecture-glossary.md 第2章（ホスト系日本語文字コード）"
+    },
+    {
+      "id": "174",
+      "section_no": 19,
+      "category": "メインフレーム",
+      "question": "可変長レコードとは何か？",
+      "answer": "レコードごとにデータの長さが異なる形式。レコード長を識別する仕組みなどを用いて読み書きする。",
+      "explanation": "固定長レコードと異なり、各レコードの実際の長さが変わり得る。ホストのファイル形式によっては長さ情報を持つヘッダーなどを使う。COBOL側のレコード定義と実ファイルの属性を合わせる必要がある。",
+      "point": "長さ情報の形式、最小・最大長、バイト数、レコード境界、文字コード、データ項目の変換規則、異常長の扱いを確認する。",
+      "origin": "IBM Enterprise COBOL Processing existing files: https://www.ibm.com/docs/en/cobol-zos/6.3.0?topic=program-processing-existing-files ／system-modernization-anonymized.md 第5章（レコード形式・バイト長・データ移行）／具体的な移行観点は一般知識による補足"
     }
   ],
   "archivedCards": [],
