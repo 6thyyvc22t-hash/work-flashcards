@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-batch-job-batch-10",
+  "revision": "2026-11-27-approved-operations-batch-11",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 159,
+  "nextId": 165,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1599,6 +1599,66 @@
       "explanation": "業務フロー定義を生成元として、ホストで実行するジョブ制御定義を生成する構成がある。生成元と生成されたJCLは別々に管理される場合がある。",
       "point": "生成元と生成物の対応、版管理、入出力・実行条件、変更承認、生成物の検証、新基盤での代替方法を確認する。",
       "origin": "一般知識／legacy-host-operation-reference-patterns.md 第4・12-2・12-6・12-8節（JCLの正式名称は一般知識による補足）"
+    },
+    {
+      "id": "159",
+      "section_no": 7,
+      "category": "運用/非機能",
+      "question": "HAとは何か？",
+      "answer": "High Availability（高可用性）。冗長化や障害時の切替などによって、システムの停止時間を短くする考え方。",
+      "explanation": "サーバーやネットワーク、データベースなどを冗長構成にし、一部に障害が発生してもサービスを継続または速やかに再開できるようにする。HAは無停止を必ず保証するものではなく、広域災害への復旧対策やバックアップも別途検討する。",
+      "point": "目標可用性、単一障害点、障害検知・切替時間、切替時のデータ整合性、復旧試験を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第11章（可用性・冗長化）／legacy-host-operation-reference-patterns.md 第11-3・11-5節／HAの正式名称・定義は一般知識による補足"
+    },
+    {
+      "id": "160",
+      "section_no": 8,
+      "category": "運用/非機能",
+      "question": "フェイルオーバー（Failover）とは何か？",
+      "answer": "稼働中のシステムに障害が発生した際に、待機系などの別の稼働先へ切り替えること。",
+      "explanation": "稼働系の障害を検知し、別のサーバーやデータベースなどへ処理を引き継ぐ。自動切替と手動切替があり、切替中の停止時間やデータ損失は構成によって異なる。",
+      "point": "障害検知条件、切替対象、手動・自動の区別、二重稼働防止、接続先の変更、データ整合性、切替試験を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第11章／legacy-host-operation-reference-patterns.md 第6・11-3節（切替方式の詳細は一般知識による補足）"
+    },
+    {
+      "id": "161",
+      "section_no": 9,
+      "category": "運用/非機能",
+      "question": "ホットスタンバイとは何か？",
+      "answer": "待機系をあらかじめ稼働可能な状態にしておき、障害発生時に速やかに切り替えられるようにする構成。",
+      "explanation": "待機系を起動しておき、必要なデータや状態を同期するなどして切替に備える方式がある。通常はコールドスタンバイより短時間で切り替えやすいが、維持費用が発生する。",
+      "point": "待機系の起動状態、同期方式、切替時間、データ損失の可能性、必要な処理能力、維持費用、復旧試験を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第11章（冗長化・フェイルオーバー）／legacy-host-operation-reference-patterns.md 第11-3節（復旧目標）／ホットスタンバイの定義・構成例は一般知識による補足"
+    },
+    {
+      "id": "162",
+      "section_no": 10,
+      "category": "運用/非機能",
+      "question": "コールドスタンバイとは何か？",
+      "answer": "待機系を通常は停止状態などにしておき、障害発生後に起動・準備して切り替える構成。",
+      "explanation": "障害発生後に待機系を起動し、必要に応じて設定やデータの復元を行う。常時稼働させる方式より費用を抑えられる場合がある一方、準備に時間がかかる。",
+      "point": "起動・復元・切替に必要な時間、データの復旧時点、待機環境の準備状況、運用手順、復旧試験を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第11章（冗長化・復旧）／legacy-host-operation-reference-patterns.md 第11-3節（復旧目標）／コールドスタンバイの定義・構成例は一般知識による補足"
+    },
+    {
+      "id": "163",
+      "section_no": 11,
+      "category": "運用/非機能",
+      "question": "BCPとは何か？",
+      "answer": "Business Continuity Plan（事業継続計画）。災害や重大な障害が発生しても、重要な業務を継続・復旧するための計画。",
+      "explanation": "システムの復旧だけでなく、人員、代替業務、連絡体制、拠点、取引先との連携などを含めて重要業務の継続を計画する。DR（Disaster Recovery：災害復旧）はITシステムの復旧に関する対策としてBCPを支える。",
+      "point": "重要業務の優先順位、復旧目標、代替手段、関係者の役割、訓練・復旧試験、ITの復旧計画との整合性を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第6・11-3節／system-modernization-anonymized.md 第11章（DRとの関連）／BCP・DRの正式名称と具体例は一般知識による補足"
+    },
+    {
+      "id": "164",
+      "section_no": 12,
+      "category": "運用/非機能",
+      "question": "Zabbixとは何か？",
+      "answer": "サーバー、ネットワーク機器、アプリケーションなどの稼働状態や性能を監視するオープンソースの統合監視ソフトウェア。",
+      "explanation": "対象機器やサービスの稼働状態、CPU使用率、メモリ使用量などの情報を収集し、設定した条件に基づいて異常を検知・通知する。監視対象や情報取得方式は構成によって異なる。",
+      "point": "監視対象、情報取得方法、監視間隔、閾値、通知先、監視基盤自体の障害対策、他の監視サービスとの役割分担を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第11章／legacy-host-operation-reference-patterns.md 第11-4節（監視・通知）／監視ソフトウェアとしての詳細は一般知識による補足"
     }
   ],
   "archivedCards": [],
