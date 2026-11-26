@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-network-batch-16",
+  "revision": "2026-11-27-approved-cross-domain-batch-17",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 182,
+  "nextId": 184,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1829,6 +1829,26 @@
       "explanation": "例えば、内部ネットワークの端末が外部へ通信する際に送信元のプライベートIPアドレスを別のIPアドレスに変換する。送信元を変換するSNAT（Source Network Address Translation）と、宛先を変換するDNAT（Destination Network Address Translation）がある。ポート番号も変換する方式はNAPT（Network Address and Port Translation）と呼ばれる。Azure NAT Gatewayは送信方向のアドレス・ポート変換に利用される。",
       "point": "構成図・通信要件で変換前後の送信元・宛先IP、変換する装置、戻り通信の経路、相手側の許可IP、ログの記録内容を確認する。NAT自体は暗号化やアクセス制御の代替ではない。",
       "origin": "一般知識（NAT・SNAT・DNAT・NAPTの定義）／IETF RFC 3022 Traditional IP Network Address Translator: https://www.rfc-editor.org/rfc/rfc3022 ／azure-architecture-glossary.md 第2章（NAT Gatewayとの関連）／azure-hub-spoke-design-review.md 第2章（通信経路・制御の確認）"
+    },
+    {
+      "id": "182",
+      "section_no": 13,
+      "category": "Web/Java",
+      "question": "ステートレス（Stateless）とは何か？",
+      "answer": "サーバーが個々の要求を処理する際、前回までの通信状態に依存しない方式。",
+      "explanation": "各リクエストに処理に必要な情報を含め、特定のサーバーのメモリに保持されたセッション状態に依存しない設計にする。業務データや必要な状態はDBなどの外部ストアで管理できる。負荷分散時に別のサーバーでも要求を処理しやすく、スケールアウトや障害時の切替に適している。ステートレスはデータを一切保存しないという意味ではない。",
+      "point": "旧ホストの端末単位の状態や画面間の一時データをどこで保持するか、複数台構成でのセッション管理、二重送信対策、障害時の処理継続を確認する。",
+      "origin": "一般知識／modernization-knowledge-map.md 第4-1節（画面間の一時保持・セッション）／Microsoft Learn: https://learn.microsoft.com/en-us/azure/app-modernization-guidance/foundation/"
+    },
+    {
+      "id": "183",
+      "section_no": 23,
+      "category": "Azure/クラウド",
+      "question": "GZRSとは何か？",
+      "answer": "Geo-Zone-Redundant Storage（地理ゾーン冗長ストレージ）。主リージョン内の複数の可用性ゾーンと、別リージョンへのデータ複製を組み合わせたAzure Storageの冗長化方式。",
+      "explanation": "主リージョンではZRS（Zone-Redundant Storage）により複数の可用性ゾーン間で同期複製し、別のセカンダリリージョンへ非同期複製する。ゾーン障害とリージョン規模の災害の両方に備えられるが、非同期複製のため災害時に直近の更新が失われる可能性がある。セカンダリへの通常時の読み取りには対応サービスでRA-GZRSなどの設定が必要。",
+      "point": "対象リージョン・ストレージ種別の対応可否、RPO、フェイルオーバー手順、復旧先のアプリ・ネットワーク構成を確認する。GZRSだけで業務システム全体のDRや誤削除対策が完成するわけではない。",
+      "origin": "Microsoft Learn Azure Storage データの冗長性: https://learn.microsoft.com/ja-jp/azure/storage/common/storage-redundancy ／azure-architecture-glossary.md 第4・8章（ZRS・GRS・DRとの関連）"
     }
   ],
   "archivedCards": [],
