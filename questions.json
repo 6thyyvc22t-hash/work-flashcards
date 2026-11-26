@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-aauto-batch-20",
+  "revision": "2026-11-27-approved-az900-batch-21",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 196,
+  "nextId": 201,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1969,6 +1969,56 @@
       "explanation": "マスタから日別スケジュール情報を生成し、必要な開始時刻などの調整を行った後、実行ジョブ情報をA-AUTOモニタ側へキューイングする。例えば、ある日の開始予定時刻を変更したうえで実行管理へ登録する。キューイングしたことは、直ちにジョブの起動や完了を意味しない。起動条件などに従って実行される。",
       "point": "スケジュール生成・調整・確定・キューイングの順序と担当、対象スケジュール日、登録内容の反映確認、登録失敗や重複時の取扱い、確定後の変更手順を確認する。移行先では日別予定と実行管理情報の整合性を確保する。",
       "origin": "ユニリタ公式 A-AUTO（スケジュール調整機能・キューイングの例）: https://www.unirita.co.jp/products/aauto.html ／メインフレーム向け教育コース（A-AUTOモニタへのキューイング）: https://www.unirita.co.jp/seminar/aauto-skillup.html ／legacy-host-operation-reference-patterns.md 第12-2・12-7節"
+    },
+    {
+      "id": "196",
+      "section_no": 24,
+      "category": "Azure/クラウド",
+      "question": "リージョンペアとは何か？",
+      "answer": "Region Pair。Azureの一部のリージョンで、別のリージョンと組み合わせて災害対策などに利用できるよう定められた組合せ。",
+      "explanation": "例えば東日本と西日本はリージョンペアである。GRS（Geo-Redundant Storage）など一部のサービスはこの組合せを地理冗長化に利用する。ペアを持たないリージョンもあり、ペアへの配置だけでは自動的な災害復旧やフェイルオーバーは実現しない。",
+      "point": "対象サービスの複製先、復旧先のアプリ・DB・ネットワーク、切替手順、RTO（Recovery Time Objective）とRPO（Recovery Point Objective）を確認する。",
+      "origin": "Microsoft Learn: https://learn.microsoft.com/en-us/azure/reliability/regions-paired ／azure-hub-spoke-design-review.md 第4章（可用性・DR）"
+    },
+    {
+      "id": "197",
+      "section_no": 25,
+      "category": "Azure/クラウド",
+      "question": "管理グループとは何か？",
+      "answer": "Management Group。複数のAzureサブスクリプションを階層的にまとめ、共通のポリシーやアクセス権などを管理する単位。",
+      "explanation": "Azureの管理階層は管理グループ、サブスクリプション、リソースグループ、リソースの順で構成される。上位で割り当てたAzure PolicyやRBAC（Role-Based Access Control）の設定は下位の対象へ継承される。",
+      "point": "組織全体で適用するポリシーと業務単位の例外、本番・非本番環境の分離、権限の継承範囲、管理責任を確認する。",
+      "origin": "Microsoft Learn: https://learn.microsoft.com/en-us/azure/governance/management-groups/ ／https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview?source=recommendations ／azure-architecture-glossary.md 第1章"
+    },
+    {
+      "id": "198",
+      "section_no": 26,
+      "category": "Azure/クラウド",
+      "question": "パブリックエンドポイントとは何か？",
+      "answer": "Public Endpoint。パブリックIPアドレスを利用してAzureサービスに接続するための入口。実際のアクセス可否は設定に依存する。",
+      "explanation": "例えばAzure Storageの公開サービスエンドポイントは通常パブリックIPに名前解決される。ファイアウォールやネットワークアクセス設定、認証・認可によって利用を制限できる。Private EndpointはVNet内のプライベートIPで接続する入口であり、公開入口とは接続方式が異なる。",
+      "point": "公開経路が必要か、Public Network Accessの設定、許可する接続元、DNSの解決先、認証・認可を確認する。公開IPが存在するだけで誰でも利用できるとは判断しない。",
+      "origin": "Microsoft Learn: https://learn.microsoft.com/en-us/azure/storage/common/storage-network-security-overview ／https://learn.microsoft.com/en-us/azure/storage/files/storage-files-networking-overview ／azure-hub-spoke-design-review.md 第2・5章"
+    },
+    {
+      "id": "199",
+      "section_no": 27,
+      "category": "Azure/クラウド",
+      "question": "Azure Data Boxとは何か？",
+      "answer": "大量のデータを専用の物理装置などを利用してAzureへ移行するためのサービス。",
+      "explanation": "ネットワーク経由で大量データを転送するのに長時間かかる場合などに、専用装置へデータをコピーして配送し、Azure Storageへ取り込む。初回の大量移行を装置で実施し、以後の差分をネットワーク経由で転送する構成も考えられる。Azure Data Boxは製品名であり略語ではない。",
+      "point": "移行容量、コピー・配送・取込の所要時間、対応する保存先、暗号化・媒体管理、データ照合、移行中の更新差分の取扱いを確認する。",
+      "origin": "Microsoft Learn: https://learn.microsoft.com/en-us/azure/databox/data-box-overview ／https://learn.microsoft.com/en-us/azure/databox/data-box-quickstart-portal ／一般的なデータ移行設計"
+    },
+    {
+      "id": "200",
+      "section_no": 28,
+      "category": "Azure/クラウド",
+      "question": "ARMとは何か？",
+      "answer": "Azure Resource Manager。Azureリソースの作成、変更、削除などを管理するための管理基盤。",
+      "explanation": "Azure Portal、Azure CLI、PowerShellなどの管理要求を受け付け、認証・認可を行い、各リソースプロバイダーへ処理を渡す。ARMテンプレート（JSON形式）やBicepを利用すると、構成をコードで定義してデプロイできる。管理操作と、ストレージのデータ読書きなどのデータプレーン操作は区別する。",
+      "point": "管理権限の範囲、Azure Policy、リソースの依存関係、IaC（Infrastructure as Code）の定義と実際の設定の整合性、変更承認・履歴を確認する。",
+      "origin": "Microsoft Learn: https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview?source=recommendations ／https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/get-started/how-azure-resource-manager-works ／azure-architecture-glossary.md 第1・7章"
     }
   ],
   "archivedCards": [],
