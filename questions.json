@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-migration-test-batch-12",
+  "revision": "2026-11-27-approved-development-batch-13",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 167,
+  "nextId": 168,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1679,6 +1679,16 @@
       "explanation": "旧環境の更新停止、最終データ移行、移行結果の照合、接続先やジョブの切替、新環境の動作確認などを計画に沿って行う構成がある。一括切替だけでなく段階移行の各工程でも実施される。",
       "point": "切替手順と所要時間、データ同期、外部インターフェース・ジョブの切替、業務開始条件、切替可否の判断基準、切戻し条件・手順、担当者の責任分界を確認する。",
       "origin": "一般知識／system-modernization-anonymized.md 第12章（切替・切戻し）／modernization-knowledge-map.md 第2章（テスト・移行）／legacy-host-operation-reference-patterns.md 第8・9章（外部連携と移行）／英語表記・具体的な切替工程は一般知識による補足"
+    },
+    {
+      "id": "167",
+      "section_no": 2,
+      "category": "開発/調達",
+      "question": "DevOpsとは何か？",
+      "answer": "Development（開発）とOperations（運用）を組み合わせた言葉。開発と運用が連携し、自動化や継続的改善によって迅速かつ安定したサービス提供を目指す考え方。",
+      "explanation": "開発担当と運用担当が協力し、設計・開発・テスト・リリース・監視・改善を一体として進める。CI（Continuous Integration：継続的インテグレーション）やCD（Continuous Delivery／Continuous Deployment：継続的デリバリー／デプロイメント）、IaC（Infrastructure as Code）などの自動化は実践手段であり、DevOps自体は特定の製品やツールを指さない。",
+      "point": "開発・運用間の責任分界、変更承認、自動テスト、リリースと切戻し、監視、障害対応、運用から開発へのフィードバックが整備されているか確認する。自動化とセキュリティ・監査要件を両立させる。",
+      "origin": "一般知識（DevOpsの定義・CI/CDとの関係）／modernization-knowledge-map.md 第4-3節（保守・変更承認・責任分界との関連）／system-modernization-anonymized.md 第13章（設計レビュー観点）"
     }
   ],
   "archivedCards": [],
