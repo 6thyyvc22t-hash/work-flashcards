@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-auth-batch-7",
+  "revision": "2026-11-27-approved-web-java-batch-8",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 125,
+  "nextId": 135,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1259,6 +1259,106 @@
       "explanation": "OAuth 2.0の方式の一つ。システム間連携などで、アプリ自身のIDと資格情報を用いてトークンを取得し、アプリに付与された権限でAPIを呼び出す。",
       "point": "アプリの権限を必要最小限にし、資格情報の保管・更新、トークンの宛先・期限、API側の認可を確認する。",
       "origin": "一般知識／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow／system-modernization-anonymized.md 第9章（システム用IDでのAPI呼出し）"
+    },
+    {
+      "id": "125",
+      "section_no": 3,
+      "category": "Web/Java",
+      "question": "フロントエンド（Frontend）とは何か？",
+      "answer": "利用者が直接操作する画面側の仕組み。画面表示、入力、画面遷移、API呼出しなどを担当する。",
+      "explanation": "WebアプリではReactなどを利用して画面を構成し、利用者の操作に応じてAPI（Application Programming Interface）を通じてバックエンドと通信する構成がある。",
+      "point": "画面側とサーバー側の責任分界、入力チェック、画面遷移、通信異常時の表示、操作性を確認する。画面側の制御だけで認可を代替しない。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章／modernization-knowledge-map.md 第1章"
+    },
+    {
+      "id": "126",
+      "section_no": 4,
+      "category": "Web/Java",
+      "question": "バックエンド（Backend）とは何か？",
+      "answer": "利用者からの要求を受け付け、業務処理やデータベースの検索・更新などを行うサーバー側の仕組み。",
+      "explanation": "JavaやSpring Bootなどで業務ロジック、入力検証、データアクセス、外部連携を実装する構成がある。処理結果をAPI（Application Programming Interface）などを通じて画面側に返す。",
+      "point": "業務ロジック、認可、サーバー側の入力検証、トランザクション境界、異常時の応答や監視を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章／modernization-knowledge-map.md 第1章"
+    },
+    {
+      "id": "127",
+      "section_no": 5,
+      "category": "Web/Java",
+      "question": "JavaScriptとは何か？",
+      "answer": "Webページの画面操作や動的な表示、API通信などの処理を記述するプログラミング言語。",
+      "explanation": "ブラウザでは利用者の操作に応じた画面更新やサーバーとの通信に利用できる。Node.jsなどによりブラウザ外でも実行できる。Javaとは別のプログラミング言語である。",
+      "point": "ブラウザ対応、エラー処理、外部ライブラリの管理、画面側とサーバー側の処理分担を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（Web画面の構成）／JavaScriptの定義・実行環境は一般知識による補足"
+    },
+    {
+      "id": "128",
+      "section_no": 6,
+      "category": "Web/Java",
+      "question": "SPAとは何か？",
+      "answer": "Single Page Application。ページ全体を毎回読み直さず、必要な画面やデータを動的に更新するWebアプリケーションの方式。",
+      "explanation": "JavaScriptなどで画面の表示内容を切り替え、必要に応じてバックエンドのAPIからデータを取得する。ReactはSPAの実装に利用できるが、Reactを使うすべてのアプリがSPAとは限らない。",
+      "point": "画面遷移、初回読込み、再読込み、ブラウザの戻る操作、認証状態、複数タブでの状態管理を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（画面構成・状態管理）／SPAの正式名称・仕組みは一般知識による補足"
+    },
+    {
+      "id": "129",
+      "section_no": 7,
+      "category": "Web/Java",
+      "question": "Reactのコンポーネントとは何か？",
+      "answer": "ボタン、入力欄、一覧表など、画面を構成する再利用可能な部品。",
+      "explanation": "コンポーネントを組み合わせて画面を構築する。入力情報（Props）や状態（State）などに応じて表示内容を決定できる。",
+      "point": "共通部品と業務固有部品の分け方、再利用性、入力情報、状態管理、アクセシビリティ、テスト方法を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（Reactによる画面構成）／コンポーネントの定義・仕組みは一般知識による補足"
+    },
+    {
+      "id": "130",
+      "section_no": 8,
+      "category": "Web/Java",
+      "question": "Node.jsとは何か？",
+      "answer": "JavaScriptをブラウザの外でも実行できる実行環境。Reactアプリの開発やビルドなどにも利用される。",
+      "explanation": "サーバー側でのJavaScript実行や、開発用ツールの実行に利用できる。ReactのビルドにNode.jsを使うことは、本番環境でもNode.jsが必ず必要という意味ではない。",
+      "point": "開発・ビルド環境と本番実行環境を区別し、対応バージョン、依存ライブラリ、更新管理、成果物の配布方法を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（Reactを利用したWeb構成）／Node.jsの定義・用途は一般知識による補足"
+    },
+    {
+      "id": "131",
+      "section_no": 9,
+      "category": "Web/Java",
+      "question": "JVMとは何か？",
+      "answer": "Java Virtual Machine（Java仮想マシン）。Javaなどから生成されたバイトコードを実行する仕組み。",
+      "explanation": "コンパイル済みのバイトコードを実行し、メモリ管理やGC（Garbage Collection：不要になったオブジェクトの記憶領域の回収）などを担う。",
+      "point": "Javaの対応バージョン、メモリ設定、GCによる処理への影響、監視、性能試験、実行環境の更新管理を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（Javaの実行基盤との関連）／JVM・GCの正式名称と仕組みは一般知識による補足"
+    },
+    {
+      "id": "132",
+      "section_no": 10,
+      "category": "Web/Java",
+      "question": "Spring Frameworkとは何か？",
+      "answer": "Javaアプリケーションの開発を支援するフレームワーク。依存性の管理、Web処理、トランザクション管理などの機能を提供する。",
+      "explanation": "DI（Dependency Injection：依存性の注入）などを利用してオブジェクトを管理する。Spring BootはSpring Frameworkを基盤として、設定やアプリの起動を簡素化する仕組みを提供する。",
+      "point": "利用する機能、アプリの責務分担、トランザクション設定、依存関係、対応バージョンや保守方針を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（Spring Bootとアプリ構成）／Spring Framework・DIの詳細は一般知識による補足"
+    },
+    {
+      "id": "133",
+      "section_no": 11,
+      "category": "Web/Java",
+      "question": "DTOとは何か？",
+      "answer": "Data Transfer Object。画面とサーバーの間などで、必要なデータをまとめて受け渡すためのオブジェクト。",
+      "explanation": "APIの要求・応答などに必要な項目をまとめる。例えば画面へ返すデータをDTOとして定義し、DB内部の項目や不要な機密情報をそのまま公開しない構成がある。",
+      "point": "要求・応答の項目、型、必須条件、機密情報の除外、内部データとの変換、仕様変更時の互換性を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（API・JSONによるデータ受渡し）／DTOの正式名称・設計例は一般知識による補足"
+    },
+    {
+      "id": "134",
+      "section_no": 12,
+      "category": "Web/Java",
+      "question": "バリデーション（Validation）とは何か？",
+      "answer": "入力されたデータが必須項目、文字数、形式、値の範囲などの条件を満たしているか検証する処理。",
+      "explanation": "画面側のチェックは利用者の入力を支援するが、画面側を経由しない要求もあり得るため、サーバー側でも必要な入力検証を行う。",
+      "point": "項目ごとの検証条件、業務ルール、異常時のエラー表示、サーバー側の検証、境界値や不正入力のテストを確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（画面側入力チェック・サーバー側入力検証）／具体例は一般知識による補足"
     }
   ],
   "archivedCards": [],
