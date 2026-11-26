@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-web-java-batch-8",
+  "revision": "2026-11-27-approved-db-batch-9",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 135,
+  "nextId": 149,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1359,6 +1359,146 @@
       "explanation": "画面側のチェックは利用者の入力を支援するが、画面側を経由しない要求もあり得るため、サーバー側でも必要な入力検証を行う。",
       "point": "項目ごとの検証条件、業務ルール、異常時のエラー表示、サーバー側の検証、境界値や不正入力のテストを確認する。",
       "origin": "一般知識／system-modernization-anonymized.md 第4章（画面側入力チェック・サーバー側入力検証）／具体例は一般知識による補足"
+    },
+    {
+      "id": "135",
+      "section_no": 5,
+      "category": "DB",
+      "question": "PostgreSQLとは何か？",
+      "answer": "オープンソースのリレーショナルデータベース管理システム（RDBMS）。SQLを利用してデータの検索・登録・更新・削除などを行う。",
+      "explanation": "RDBMSはRelational Database Management System、SQLはStructured Query Languageの略。テーブルや制約、トランザクションなどを利用してデータを管理する。Azure Database for PostgreSQLはPostgreSQLを利用するマネージドサービスであり、DB製品そのものとは区別する。",
+      "point": "移行元とのデータ型、キー、SQL、文字コード、照合順序、トランザクション、性能、運用方式の違いを確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章／modernization-knowledge-map.md 第1章（略語の正式名称は一般知識による補足）"
+    },
+    {
+      "id": "136",
+      "section_no": 6,
+      "category": "DB",
+      "question": "スキーマ（Schema）とは何か？",
+      "answer": "データベースの構造を定義するもの。PostgreSQLではテーブルなどのオブジェクトを論理的にまとめる名前空間でもある。",
+      "explanation": "一般的なDB設計でのスキーマはデータ構造の定義を指す。PostgreSQLでは一つのデータベース内に複数のスキーマを作り、テーブルなどを区分して管理できる。",
+      "point": "旧DBの構造定義と新DBのテーブル定義の対応、スキーマの分割方針、権限、同名オブジェクトの参照先を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（スキーマの概念）／PostgreSQLの名前空間としての意味は一般知識による補足"
+    },
+    {
+      "id": "137",
+      "section_no": 7,
+      "category": "DB",
+      "question": "DDLとは何か？",
+      "answer": "Data Definition Language（データ定義言語）。CREATEやALTERなど、テーブルやデータベースの構造を定義・変更するSQLの分類。",
+      "explanation": "CREATE TABLEでテーブルを作成し、ALTER TABLEで定義を変更するなど、データそのものではなく構造を操作する。DROPなどによる削除も含まれる。",
+      "point": "新旧DBのテーブル定義、データ型、制約、インデックス、DDLの適用順序、変更時のロックや切戻し方法を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（DB構造・移行設計との関連）／DDLの正式名称・操作例は一般知識による補足"
+    },
+    {
+      "id": "138",
+      "section_no": 8,
+      "category": "DB",
+      "question": "DMLとは何か？",
+      "answer": "Data Manipulation Language（データ操作言語）。INSERT、UPDATE、DELETEなど、データを操作するSQLの分類。",
+      "explanation": "INSERTはデータ登録、UPDATEは更新、DELETEは削除に利用される。SELECTをDMLに含める分類もある。データ構造を定義するDDLとは区別する。",
+      "point": "処理対象の条件、更新件数、トランザクション境界、誤更新防止、移行時の処理結果の一致を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（SQL・CRUD）／DMLの正式名称・分類は一般知識による補足"
+    },
+    {
+      "id": "139",
+      "section_no": 9,
+      "category": "DB",
+      "question": "オプティマイザ（Optimizer）とは何か？",
+      "answer": "SQLの実行に必要なコストなどを推定し、効率的な実行計画を選択するデータベースの機能。",
+      "explanation": "テーブルの統計情報やインデックスなどをもとに、検索方法、結合順序、結合方式などの候補を評価する。推定コストと実際の処理時間が一致するとは限らない。",
+      "point": "実行計画、統計情報、データ分布、インデックス、実測性能を確認する。旧DBと同じ検索方法になるとは限らない。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（検索性能・インデックス・DB移行）／オプティマイザの定義・動作は一般知識による補足"
+    },
+    {
+      "id": "140",
+      "section_no": 10,
+      "category": "DB",
+      "question": "コミット（Commit）とは何か？",
+      "answer": "トランザクションで行った変更を確定する処理。",
+      "explanation": "複数の登録や更新を一つの処理単位として扱い、正常終了した時点で変更を確定する。確定済みの変更は通常のロールバックでは取り消せない。",
+      "point": "業務上の確定単位、コミットのタイミング、異常終了時の整合性、バッチの途中再開との関係を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4・5章／modernization-knowledge-map.md 第4-1節（コミット境界）／定義は一般知識による補足"
+    },
+    {
+      "id": "141",
+      "section_no": 11,
+      "category": "DB",
+      "question": "ロールバック（Rollback）とは何か？",
+      "answer": "トランザクションで行った未確定の変更を取り消す処理。",
+      "explanation": "処理途中で異常が発生した場合などに、未コミットのDB変更を取り消す。既に送信した外部メッセージやファイルなどまで自動的に元へ戻るとは限らない。",
+      "point": "ロールバック対象、異常時の処理、コミット済みデータや外部連携の補償処理、再実行時の整合性を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4・5章（トランザクション・データ整合性）／定義・外部処理の例は一般知識による補足"
+    },
+    {
+      "id": "142",
+      "section_no": 12,
+      "category": "DB",
+      "question": "排他制御とは何か？",
+      "answer": "複数の処理が同じデータにアクセスする際に、更新の競合やデータの不整合を防ぐための制御。",
+      "explanation": "同じレコードを複数の利用者が更新する場合などに、ロックや更新時の競合検知を用いる。制御方式によって待機や更新拒否が発生する。",
+      "point": "排他対象、ロック範囲、保持時間、競合時の動作、旧環境の制約の再現、同時更新テストを確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4・5章／modernization-knowledge-map.md 第4-1節"
+    },
+    {
+      "id": "143",
+      "section_no": 13,
+      "category": "DB",
+      "question": "悲観ロック（Pessimistic Locking）とは何か？",
+      "answer": "データの競合が発生することを想定し、処理中にロックを取得して他の処理による競合する操作を制限する方式。",
+      "explanation": "例えば更新対象の行を取得するときにロックし、トランザクションの終了まで競合する更新などを待たせる。通常の参照まで常に禁止するとは限らない。",
+      "point": "ロック対象、取得順序、保持時間、待ち時間、デッドロック時の対応、処理性能を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（排他制御）／具体的なロック動作は一般知識による補足"
+    },
+    {
+      "id": "144",
+      "section_no": 14,
+      "category": "DB",
+      "question": "楽観ロック（Optimistic Locking）とは何か？",
+      "answer": "データの競合が少ないことを想定し、更新時にバージョン番号などを確認して競合を検知する方式。",
+      "explanation": "読み取った時点のバージョン番号などと更新時の値を比較し、他の処理による変更があれば更新を拒否する構成がある。",
+      "point": "競合検知に使う項目、更新条件、競合時の画面表示、再読込み・再試行、二重更新防止を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4章（排他制御）／バージョン番号を利用する例は一般知識による補足"
+    },
+    {
+      "id": "145",
+      "section_no": 15,
+      "category": "DB",
+      "question": "MVCCとは何か？",
+      "answer": "Multi-Version Concurrency Control（多版型同時実行制御）。データの複数のバージョンを管理することで、複数のトランザクションの同時実行を支える仕組み。",
+      "explanation": "PostgreSQLでは各トランザクションが規則に従って参照可能な行のバージョンを判断する。通常の読み取りと書き込みの競合を減らすが、更新競合などのロックが不要になるわけではない。",
+      "point": "トランザクション分離レベル、長時間トランザクション、更新競合、不要になった行の回収や保守処理への影響を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第4・5章（同時更新・トランザクションの関連知識）／MVCCの正式名称・PostgreSQLでの動作は一般知識による補足"
+    },
+    {
+      "id": "146",
+      "section_no": 16,
+      "category": "DB",
+      "question": "WALとは何か？",
+      "answer": "Write-Ahead Log（先行書込みログ）。データファイルへの変更を永続化する前に、対応する変更ログを永続化し、障害復旧などに利用する仕組み。",
+      "explanation": "PostgreSQLではデータファイルへ変更を書き出す前に必要なWALを永続化する。障害後にログを再生して復旧するほか、レプリケーションや指定時点への復旧にも利用される。",
+      "point": "ログの生成量、保存容量、保持・アーカイブ方針、バックアップと復旧の整合、複製の遅延を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（WAL・復旧・同期）／先行書込みの原則と用途の詳細は一般知識による補足"
+    },
+    {
+      "id": "147",
+      "section_no": 17,
+      "category": "DB",
+      "question": "ETLとは何か？",
+      "answer": "Extract（抽出）、Transform（変換）、Load（格納）。移行元などからデータを取り出し、必要な形式に変換して移行先へ登録する一連の処理。",
+      "explanation": "旧DBのデータを抽出し、文字コード、レコード構造、データ型などを変換して新DBへ格納する。変換処理の順序やルールはデータの特性によって設計する。",
+      "point": "抽出範囲、変換ルール、投入順序、エラー処理、件数照合、項目値や参照整合性の確認、再実行方法を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（データ移行）／ETLの正式名称は一般知識による補足"
+    },
+    {
+      "id": "148",
+      "section_no": 18,
+      "category": "DB",
+      "question": "DBアンロードとは何か？",
+      "answer": "データベースに格納されているデータを、外部ファイルなどに取り出す処理。データ移行や外部連携などに利用される。",
+      "explanation": "移行元DBから必要なレコードを抽出し、後続の変換や移行先への登録に利用できる形式で出力する。アンロードとバックアップは目的や出力形式が異なる場合がある。",
+      "point": "抽出条件、抽出時点の整合性、ファイル形式、文字コード、抽出件数、機密情報の保護、後続の取込みとの対応を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（DBアンロード・データ移行）／具体的な処理例は一般知識による補足"
     }
   ],
   "archivedCards": [],
