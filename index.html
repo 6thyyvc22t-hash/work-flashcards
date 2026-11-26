@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>仕事理解用｜デジタル単語帳</title>
+  <link rel="stylesheet" href="styles.css?v=work-v1-20261126">
+  <script src="app.js?v=work-v1-20261126" defer></script>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <p class="eyebrow">仕事理解・IT技術</p>
+    <div class="heroRow"><h1>仕事理解用 単語帳</h1><span class="heroCount" id="deckCount">準備中</span></div>
+    <p class="muted">問題の追加・編集・削除・復元に対応。学習記録は問題IDごとに保持。Firebase認証でiPad・iPhone間の学習記録・メモ・問題の変更を同期。</p>
+  </header>
+  <noscript><div class="alert error">JavaScriptが無効です。GitHub Pagesで公開したURLをSafariから開いてください。</div></noscript>
+  <div id="loadError" class="alert error hidden" role="alert"></div>
+  <div id="syncNotice" class="alert warning hidden" role="status"></div>
+  <div id="saveNotice" class="alert note" role="status">データを読み込んでいます…</div>
+
+  <section id="cloudPanel" class="panel cloudPanel" aria-label="Firebaseクラウド同期">
+    <div class="cloudHeader"><strong><span id="cloudIndicator">◯</span> クラウド同期</strong><span id="cloudUser" class="small">未ログイン</span></div>
+    <p class="small" id="cloudStatus" role="status">Firebase設定を確認中…</p>
+    <p class="small" id="deckCloudStatus" role="status">問題データのクラウド同期を確認中…</p>
+    <div id="cloudAuthPanel" class="hidden">
+      <label>メールアドレス<input id="authEmail" type="email" inputmode="email" autocomplete="username" placeholder="メールアドレス"></label>
+      <label>パスワード<input id="authPassword" type="password" autocomplete="current-password" placeholder="6文字以上"></label>
+      <div class="inlineActions"><button type="button" id="authSignIn">ログイン</button><button type="button" id="authSignUp" class="quiet">初回アカウント作成</button></div>
+      <p class="small">両端末で同じメールアドレスとパスワードを使用します。パスワードをサイトに保存しません。</p>
+    </div>
+    <div id="cloudUserPanel" class="hidden">
+      <div class="inlineActions"><button type="button" id="cloudLogout" class="quiet">ログアウト</button><button type="button" id="cloudMigrate" class="quiet hidden">この端末の以前の成績を移行</button><button type="button" id="cloudExportLegacy" class="quiet hidden">移行前の成績を保存</button><button type="button" id="cloudMigrateNotes" class="quiet hidden">端末メモを初回同期</button><button type="button" id="cloudMigrateDeck" class="quiet hidden">以前の端末下書きをクラウドへ移行</button></div>
+      <p id="cloudMigrationInfo" class="small hidden"></p>
+      <p id="cloudDeckMigrationInfo" class="small hidden"></p>
+    </div>
+    <details id="cloudSetup" class="cloudSetup"><summary>Firebase設定（初回設定時のみ）</summary>
+      <p class="small">仕事専用Firebase（プロジェクトIDは work-flashcards- で始まるもの）のWebアプリ設定JSONを入力します。応用情報版の設定は使用しないでください。設定はブラウザ内に保存されます。全端末で使うには <code>firebase-config.json</code> をGitHubに公開してください。APIキーは公開前提の識別情報ですが、データへのアクセスはFirestoreセキュリティルールで制限します。</p>
+      <label class="fullWidth">Firebase Web設定（JSON）<textarea id="firebaseConfigInput" rows="6" spellcheck="false" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}'></textarea></label>
+      <div class="inlineActions"><button type="button" id="firebaseApplyConfig">この端末に設定して接続</button><button type="button" id="firebaseExportConfig" class="quiet">設定ファイルを書き出す</button><button type="button" id="firebaseClearConfig" class="quiet">端末の設定を解除</button></div>
+    </details>
+  </section>
+
+  <section id="studyApp" class="hidden">
+    <div class="stats" aria-label="学習状況">
+      <div class="stat"><span>登録問題数</span><strong id="sTotal">0</strong></div>
+      <div class="stat"><span>学習済み</span><strong id="sStudied">0</strong></div>
+      <div class="stat"><span>正答率</span><strong id="sAccuracy">—</strong></div>
+      <div class="stat"><span>正解回数</span><strong id="sCorrect">0</strong></div>
+      <div class="stat"><span>不正解回数</span><strong id="sWrong">0</strong></div>
+      <div class="stat"><span>要復習</span><strong id="sMissed">0</strong></div>
+      <div class="stat"><span>メモあり</span><strong id="sMemo">0</strong></div>
+    </div>
+
+    <section class="controls panel" aria-label="出題条件">
+      <label>出題分野<select id="categoryFilter"><option value="ALL">全分野</option></select></label>
+      <label>出題方法<select id="modeFilter"><option value="ordered">順番に出題</option><option value="random">ランダム</option><option value="missed">間違えた問題のみ</option><option value="new">未学習のみ</option></select></label>
+      <div class="jumpGroup" id="jumpGroup">
+        <label for="jumpSelect">開始する問題を選ぶ</label>
+        <div class="jumpRow"><select id="jumpSelect" aria-describedby="jumpHelp"></select><button id="jumpBtn" type="button">ここから開始</button></div>
+        <p id="jumpHelp" class="small" role="status">現在の出題条件に合う問題から選択できます。</p>
+      </div>
+    </section>
+
+    <div class="questionHead"><span id="questionIndex">Q---</span><span id="progressText">0 / 0</span></div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <article class="flash panel" id="card" tabindex="0" role="button" aria-label="カードをタップして答えを表示">
+      <div class="topLine"><span class="chip" id="cardCategory">分野</span><div class="cardTopRight"><div class="cardCounts" aria-label="この問題の累積成績"><span class="cardCountCorrect">✓ 正解 <strong id="cardCorrectCount">0</strong>回</span><span class="cardCountWrong">× 不正解 <strong id="cardWrongCount">0</strong>回</span></div><span class="muted" id="cardSide">表面・問題</span></div></div>
+      <h2 id="questionText"></h2>
+      <div id="answerArea" class="answer hidden">
+        <div class="divider"></div>
+        <p class="answerLabel">正答</p><h3 id="answerText"></h3>
+        <p id="explanationText"></p>
+        <p class="point" id="pointText"></p>
+      </div>
+      <p class="tapHelp" id="tapHelp">タップして答えを表示</p>
+    </article>
+    <div class="gradeButtons">
+      <button class="wrong" id="wrongBtn" type="button" disabled>× 不正解</button>
+      <button class="skip" id="skipBtn" type="button">スキップ</button>
+      <button class="correct" id="correctBtn" type="button" disabled>✓ 正解</button>
+    </div>
+    <div class="cardNav"><button id="prevBtn" type="button">← 前の問題</button><button id="showBtn" type="button">答えを見る</button><button id="nextBtn" type="button">次の問題 →</button></div>
+    <section class="memoPanel panel" id="memoPanel" aria-label="この問題の学習メモ">
+      <div class="memoHeader"><h3>✎ この問題のメモ</h3><span id="memoFlag" class="small">メモなし</span></div>
+      <label class="fullWidth" for="memoText">覚え方・間違えた理由・補足事項など</label>
+      <textarea id="memoText" rows="3" maxlength="2000" placeholder="例：業務処理と実行制御を分けて考える。一般化した知識のみ入力。" spellcheck="false"></textarea>
+      <div class="inlineActions"><button type="button" id="memoSave">メモを保存</button><button type="button" id="memoClear" class="quiet">メモを削除</button><span id="memoStatus" class="small" role="status">端末に自動保存します</span></div>
+      <p class="small">入力するたびに端末に保存します。ログイン中はクラウドにも自動同期します。メモは他の人には公開されません（最大2,000文字）。</p>
+    </section>
+    <div id="emptyMessage" class="panel empty hidden">条件に合う問題はありません。出題分野・方法を変更してください。</div>
+
+    <details class="tools panel" id="memoTools"><summary>メモのバックアップ・復元</summary>
+      <div class="inlineActions"><button type="button" id="exportMemos">メモを保存（JSON）</button><label class="likeButton" for="importMemos">メモを読み込む</label><input type="file" id="importMemos" accept=".json,application/json" class="visuallyHidden"></div>
+      <p class="small">メモは学習記録とは別管理です。JSONからの復元は現在のメモを上書きします。クラウドログイン中は他の端末にも反映されます。</p>
+    </details>
+
+    <details class="tools panel" id="reviewTools"><summary>学習記録のバックアップ・復元</summary>
+      <div class="inlineActions"><button id="exportProgress" type="button">学習記録を保存（JSON）</button><label class="likeButton" for="importProgress">学習記録を読み込む</label><input id="importProgress" type="file" accept=".json,application/json" class="visuallyHidden"><button class="danger" id="resetProgress" type="button">学習記録をリセット</button></div>
+      <p class="small">クラウドログイン中はFirebaseと自動同期されます。ログイン前・オフライン時は端末に保存します。端末を変える前や記録の一括操作前に、JSONバックアップを取ってください。</p>
+    </details>
+
+    <details class="tools panel" id="manageTools"><summary>問題の追加・編集・削除・復元</summary>
+      <p class="small"><strong>ログイン中：</strong>このアカウントでの追加・編集・保管・削除はFirebaseでiPhone・iPad間に自動同期されます。<strong>未ログイン：</strong>端末内の下書きのみです。以前の端末下書きはログイン後に専用ボタンから移行してください。GitHubの公開問題そのものは変更しません。</p>
+      <div class="inlineActions"><button id="addCard" type="button">＋ 新しい問題</button><button id="exportDeck" type="button">問題データを書き出す</button><label class="likeButton" for="importDeck">問題データを読み込む</label><input id="importDeck" type="file" accept=".json,application/json" class="visuallyHidden"><button id="discardDraft" class="danger" type="button">端末の下書きを破棄</button></div>
+      <div class="manageStats"><span id="draftStatus">公開版を使用中</span><span id="archivedCount">保管中：0問</span></div>
+      <label class="fullWidth">管理画面で問題を探す<input id="manageSearch" type="search" placeholder="ID・用語・問題文で検索"></label>
+      <p id="manageResultCount" class="small" aria-live="polite"></p>
+      <div id="manageList" class="manageList"></div>
+      <h3 class="subheading">削除済み（復元／完全削除）</h3>
+      <div id="archiveList" class="manageList"></div>
+      <form class="editor panel hidden" id="editorForm">
+        <h3 id="editorTitle">問題の追加</h3>
+        <input id="editId" type="hidden">
+        <label>分野<select id="editCategory" required></select></label>
+        <label>問題文<textarea id="editQuestion" rows="3" maxlength="400" required></textarea></label>
+        <label>正答<textarea id="editAnswer" rows="2" maxlength="400" required></textarea></label>
+        <label>解説<textarea id="editExplanation" rows="2" maxlength="600"></textarea></label>
+        <label>設計・実務の観点<textarea id="editPoint" rows="2" maxlength="600"></textarea></label>
+        <div class="inlineActions"><button type="submit">保存する</button><button type="button" class="quiet" id="cancelEdit">キャンセル</button></div>
+        <p class="small">※答えの意味が大きく変わる場合、古い問題を削除し新規登録してください。既存成績を誤って引き継がないためです。</p>
+      </form>
+    </details>
+  </section>
+  <footer class="footer">仕事理解用・一般化したIT技術知識。社内機密情報の入力・登録は禁止。GitHub Pagesは共通の問題データを公開し、ログイン中の個人用変更・学習記録・メモはFirebaseに保存します。</footer>
+</main>
+</body>
+</html>
