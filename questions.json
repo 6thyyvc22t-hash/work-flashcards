@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-cross-domain-batch-17",
+  "revision": "2026-11-27-approved-report-products-batch-18",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 184,
+  "nextId": 191,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1849,6 +1849,76 @@
       "explanation": "主リージョンではZRS（Zone-Redundant Storage）により複数の可用性ゾーン間で同期複製し、別のセカンダリリージョンへ非同期複製する。ゾーン障害とリージョン規模の災害の両方に備えられるが、非同期複製のため災害時に直近の更新が失われる可能性がある。セカンダリへの通常時の読み取りには対応サービスでRA-GZRSなどの設定が必要。",
       "point": "対象リージョン・ストレージ種別の対応可否、RPO、フェイルオーバー手順、復旧先のアプリ・ネットワーク構成を確認する。GZRSだけで業務システム全体のDRや誤削除対策が完成するわけではない。",
       "origin": "Microsoft Learn Azure Storage データの冗長性: https://learn.microsoft.com/ja-jp/azure/storage/common/storage-redundancy ／azure-architecture-glossary.md 第4・8章（ZRS・GRS・DRとの関連）"
+    },
+    {
+      "id": "184",
+      "section_no": 15,
+      "category": "帳票",
+      "question": "SVFX-Designerとは何か？",
+      "answer": "SVFで使用する帳票のレイアウト、文字、罫線、データ項目などを設計するウイングアーク1stのツール。",
+      "explanation": "帳票の様式を設計し、業務データを配置するフィールドや印刷時の属性を定義する。作成した様式ファイルをSVFの実行部で使用する。SVFはSuper Visual Formadeの略。SVFXのXに関する正式な展開は確認できていない。",
+      "point": "現行帳票の様式、項目位置、桁数、外字、バーコード、用紙寸法、印刷時の設定が移行先で再現できるか確認する。設計部と実行部の対応バージョンにも注意する。",
+      "origin": "ウイングアーク1st SVFX-Designer: https://www.wingarc.com/product/svf/output/on-premises/lineup/designer.html ／SVF名称: https://corp.wingarc.com/company/history.html ／legacy-host-operation-reference-patterns.md 第10-5・10-7節"
+    },
+    {
+      "id": "185",
+      "section_no": 16,
+      "category": "帳票",
+      "question": "SVF for Java Printとは何か？",
+      "answer": "Java環境で動作し、帳票データとレイアウト定義を組み合わせてプリンターへの出力を行う帳票エンジン。",
+      "explanation": "SVF（Super Visual Formade）の帳票出力実行モジュール。Javaプログラムから様式やデータを指定し、対応プリンターへの印刷を行う。帳票様式を設計するSVFX-Designerや、印刷運用を管理するRDEとは担当する機能が異なる。",
+      "point": "対応プリンター・ドライバー、用紙・給紙トレイ、複写伝票、外字、印字位置、印刷速度、エラー時の動作を確認する。製品の版・ライセンスに応じた機能範囲も確認する。",
+      "origin": "ウイングアーク1st SVF for Java Print 開発者編: https://cs.academy.wingarc.com/course/c00036 ／製品発表: https://corp.wingarc.com/public/200512/news123.html ／legacy-host-operation-reference-patterns.md 第10-5・10-7節"
+    },
+    {
+      "id": "186",
+      "section_no": 17,
+      "category": "帳票",
+      "question": "RDEとは何か？",
+      "answer": "Report Director Enterprise。帳票のスプール、出力先、印刷状況、再印刷などの運用を管理するウイングアーク1stの製品。",
+      "explanation": "帳票を一時蓄積する統合スプールサーバーとして、プリンター管理、印刷順序の変更、再印刷、出力履歴などを集中的に管理する。帳票の様式や内容を生成するエンジンとは役割が異なる。",
+      "point": "帳票の配布先・出力順序、印刷完了の判定方法、異常時の再開・再印刷、重複印刷防止、プリンター機種との対応、スプール保持期間、出力権限を確認する。",
+      "origin": "ウイングアーク1st Report Director Enterprise: https://www.wingarc.com/product/svf/output/on-premises/lineup/report.html ／legacy-host-operation-reference-patterns.md 第10-1・10-5・10-7節"
+    },
+    {
+      "id": "187",
+      "section_no": 18,
+      "category": "帳票",
+      "question": "SVF Archiverとは何か？",
+      "answer": "電子帳票や文書の保管、検索、閲覧、管理などを支援するウイングアーク1stの製品。",
+      "explanation": "2026年4月にinvoiceAgent 文書管理およびinvoiceAgent AI OCRがSVF Archiverへ名称変更された。SVFはSuper Visual Formadeの略。生成された帳票や各種文書を蓄積し、検索・閲覧などに利用する。帳票生成や印刷スプールとは機能が異なる。",
+      "point": "既存電子帳票の移行形式、検索項目、保存期限、アクセス権、操作証跡、改ざん防止、再印刷、旧製品名と新製品名の対応、契約・機能範囲を確認する。",
+      "origin": "ウイングアーク1st SVF Archiver: https://www.wingarc.com/product/svf/archiver/index.html ／ブランド統合: https://corp.wingarc.com/public/202604/news2959.html ／legacy-host-operation-reference-patterns.md 第10-4・10-7節"
+    },
+    {
+      "id": "188",
+      "section_no": 19,
+      "category": "帳票",
+      "question": "Interstage List Creatorとは何か？",
+      "answer": "富士通の帳票作成・出力ミドルウェア。帳票のレイアウト設計、印刷、PDF出力などを支援する。",
+      "explanation": "帳票定義情報と業務アプリケーションから受け取るデータを組み合わせ、帳票を生成する。プリンター出力やPDF（Portable Document Format）などの形式を利用でき、List Worksとの連携による電子保存も可能。対応機能は製品構成に依存する。",
+      "point": "帳票定義資産の移行可否、入力データ形式、文字コード、外字、プリンター対応、帳票の生成性能、List Worksなどとの連携と現新比較を確認する。",
+      "origin": "富士通 Interstage List Creator: https://global.fujitsu/ja-JP/offering/listcreator ／帳票の設計から出力まで: https://resources.global.fujitsu/software/manual/b1x1-0404/06z200/b0404-01-01-01-00.html ／legacy-host-operation-reference-patterns.md 第10-2・10-7節"
+    },
+    {
+      "id": "189",
+      "section_no": 20,
+      "category": "帳票",
+      "question": "Interstage List Worksとは何か？",
+      "answer": "富士通の電子帳票管理ソフトウェア。帳票の保管、検索、閲覧、印刷などを支援し、製品構成によって印刷配信にも対応する。",
+      "explanation": "複数のプラットフォームで出力された帳票を電子化して一元管理する。帳票保管活用機能と印刷配信機能があり、帳票生成を担当するList Creatorとは役割が異なる。List Worksとの連携方法や利用可能な機能は製品構成によって異なる。",
+      "point": "保管済み帳票の移行方法、検索索引、保管フォルダー、利用者権限、保存期限、再印刷、印刷配信の要否、既存帳票の表示品質を確認する。",
+      "origin": "富士通 Interstage List Works: https://global.fujitsu/ja-JP/offering/listworks ／帳票保管活用: https://resources.global.fujitsu/software/manual/b1wd-3585/02z200/b3585-01-01-03-01.html ／legacy-host-operation-reference-patterns.md 第10-4・10-7節"
+    },
+    {
+      "id": "190",
+      "section_no": 21,
+      "category": "帳票",
+      "question": "HOST PRINTとは何か？",
+      "answer": "富士通のメインフレームなどから配信された帳票をWindows環境で印刷するためのソフトウェア。",
+      "explanation": "富士通のHOST PRINT V7.1L10のマニュアルでは、ホストから受信した帳票を対応プリンターに出力し、オーバレイやフォントなどの印刷資源を集中管理する。List CreatorやList Worksなどの関連製品との連携によりPDF出力や電子保存などにも対応する。",
+      "point": "ホスト側の帳票生成・配信方式、FNAやTCP/IP等の実際の接続方式、帳票形式、印刷資源、プリンターの制御方式、電子保管への連携、新基盤で代替すべき機能を確認する。",
+      "origin": "富士通 HOST PRINT V7.1L10 使用手引書 第1章1.1（本文取得で確認、PDFページ画像は取得不可）: https://software.fujitsu.com/jp/manual/manualfiles/M090096/B1WD2778/01Z000/hpusers.pdf ／legacy-host-operation-reference-patterns.md 第10-1・10-7節"
     }
   ],
   "archivedCards": [],
