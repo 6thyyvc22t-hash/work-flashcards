@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-az900-fundamentals-batch-22",
+  "revision": "2026-11-27-approved-azure-definitions-batch-23",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 203,
+  "nextId": 212,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2039,6 +2039,96 @@
       "explanation": "例えばVM（Virtual Machine）、VNet（Virtual Network）、ストレージアカウントはAzureリソースである。一般的なリソースはリソースグループに所属し、ARM（Azure Resource Manager）を通じて作成・変更・削除などを管理する。リソース種別、名前、リソースIDなどで識別できる。",
       "point": "構成図とリソース一覧を照合し、各リソースの役割、配置リージョン、所属するリソースグループ、依存関係、アクセス権、監視、管理責任を確認する。",
       "origin": "Microsoft Learn Azure Resource Managerの概要: https://learn.microsoft.com/ja-jp/azure/azure-resource-manager/management/overview ／azure-architecture-glossary.md 第1・9章／azure-hub-spoke-design-review.md 第5章"
+    },
+    {
+      "id": "203",
+      "section_no": 31,
+      "category": "Azure/クラウド",
+      "question": "App Serviceとは何か？",
+      "answer": "WebアプリケーションやAPI（Application Programming Interface）を実行するためのAzureのマネージド型PaaS（Platform as a Service）。",
+      "explanation": "Javaや.NETなどのWebアプリを配置して実行できる。基盤のOSや実行環境の管理の多くをAzureが担う。App Service Planが利用する計算資源を定め、アプリの通信や認証などは別途設定する。App Serviceは製品名であり略語ではない。",
+      "point": "対応するランタイム、必要な性能とプラン、スケール、受信・送信経路、認証、ログ、アプリと基盤の管理責任を確認する。",
+      "origin": "azure-architecture-glossary.md 第3章／Microsoft Learn: https://learn.microsoft.com/ja-jp/azure/app-service/overview"
+    },
+    {
+      "id": "204",
+      "section_no": 32,
+      "category": "Azure/クラウド",
+      "question": "Azure VMとは何か？",
+      "answer": "Virtual Machine（仮想マシン）。Azure上でWindowsやLinuxなどのOSを稼働させるIaaS（Infrastructure as a Service）の仮想サーバー。",
+      "explanation": "物理サーバーの計算資源を仮想化し、VMごとにゲストOSやミドルウェアを動作させる。Azureは物理基盤を管理するが、利用者はゲストOSやアプリの管理を担う。例えばバッチ処理や既存ミドルウェアの実行環境に利用できる。",
+      "point": "VMサイズ、ディスク性能、OS・ミドルウェアの更新、ネットワーク制御、バックアップ、冗長化、運用責任を確認する。",
+      "origin": "azure-architecture-glossary.md 第3章／Microsoft Learn: https://learn.microsoft.com/en-us/azure/virtual-machines/overview"
+    },
+    {
+      "id": "205",
+      "section_no": 33,
+      "category": "Azure/クラウド",
+      "question": "Azure Service Busとは何か？",
+      "answer": "システム間で信頼性の高い非同期メッセージ連携を行うAzureのマネージド型メッセージブローカー。",
+      "explanation": "送信側がキューにメッセージを登録し、受信側が後から処理できる。トピックとサブスクリプションにより複数の受信先への配信にも対応する。送受信側を疎結合にでき、業務処理の依頼や連携に利用する。製品名であり略語ではない。",
+      "point": "配送保証、再試行、重複処理への対策、順序要件、処理できなかったメッセージの隔離と復旧方法、監視を確認する。",
+      "origin": "azure-architecture-glossary.md 第5章／Microsoft Learn: https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview"
+    },
+    {
+      "id": "206",
+      "section_no": 34,
+      "category": "Azure/クラウド",
+      "question": "Azure Event Hubsとは何か？",
+      "answer": "大量のイベントデータを継続的に取り込み、複数の処理先へ提供するAzureのマネージド型イベントストリーミングサービス。",
+      "explanation": "ログ、センサー情報、DBの変更イベントなどを大量に受け付け、パーティションに分けて一定期間保持する。利用側は独自の読取り位置を管理して処理できる。Apache Kafkaとの互換インターフェースも提供する。製品名であり略語ではない。",
+      "point": "想定データ量、処理能力、保持期間、パーティション単位の順序、読取り遅延、再処理方法、下流の処理能力を確認する。",
+      "origin": "azure-architecture-glossary.md 第5章／system-modernization-anonymized.md 第7章／Microsoft Learn: https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-about"
+    },
+    {
+      "id": "207",
+      "section_no": 35,
+      "category": "Azure/クラウド",
+      "question": "Azure Event Gridとは何か？",
+      "answer": "イベントの発生を契機として、登録された配信先に通知やメッセージを届けるAzureのマネージド型配信サービス。",
+      "explanation": "例えばBlob Storageへのファイル登録をイベントとして検知し、Azure Functionsなどの購読先へ通知して後続処理を開始できる。イベントの発行元と処理先を分離するために利用する。製品名であり略語ではない。",
+      "point": "イベントの発行元・購読先、フィルタ条件、配信失敗時の再試行、重複通知への対策、配信遅延と監視を確認する。",
+      "origin": "azure-architecture-glossary.md 第5章／Microsoft Learn: https://learn.microsoft.com/en-us/azure/event-grid/overview"
+    },
+    {
+      "id": "208",
+      "section_no": 36,
+      "category": "Azure/クラウド",
+      "question": "Private Endpointとは何か？",
+      "answer": "PE（Private Endpoint：プライベートエンドポイント）。VNet内のプライベートIPアドレスを使って、対応するAzureサービスへ接続するための入口。",
+      "explanation": "Azure Private Linkを利用し、VNetのサブネット内に配置されるネットワークインターフェースを通じて、対象サービスにプライベートに接続する。例えばAzure StorageやApp Serviceへの接続に利用する。作成するだけでパブリックアクセスが必ず無効になるわけではない。",
+      "point": "接続先サービス、Private DNSの名前解決、公開アクセス設定、通信経路、ネットワークポリシー、認証・認可を確認する。",
+      "origin": "azure-architecture-glossary.md 第2章／azure-hub-spoke-design-review.md 第2・3章／Microsoft Learn: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview"
+    },
+    {
+      "id": "209",
+      "section_no": 37,
+      "category": "Azure/クラウド",
+      "question": "VNet Integrationとは何か？",
+      "answer": "Virtual Network Integration（仮想ネットワーク統合）。App ServiceなどのアプリからVNetを経由して送信通信を行うための機能。",
+      "explanation": "App ServiceからVNet内のVMやPrivate Endpoint経由のデータベースなどに接続できる。主にアプリからのアウトバウンド通信を実現する機能であり、アプリ自身へのインバウンド通信を非公開にする機能とは異なる。",
+      "point": "統合用サブネット、DNS、ルート、ファイアウォール経由の通信、宛先のアクセス許可、アプリ側の受信経路を別々に確認する。",
+      "origin": "azure-architecture-glossary.md 第2章／azure-hub-spoke-design-review.md 第3章／Microsoft Learn: https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration"
+    },
+    {
+      "id": "210",
+      "section_no": 17,
+      "category": "ネットワーク",
+      "question": "NSGとは何か？",
+      "answer": "Network Security Group。Azureのサブネットやネットワークインターフェースに適用し、通信の許可・拒否を制御する仕組み。",
+      "explanation": "送信元・宛先のIPアドレス、ポート番号、プロトコル、通信方向、優先順位などのルールに基づき通信を制御する。ステートフルなフィルタであり、許可された通信への応答は通常、別の許可ルールを必要としない。通信経路の選択はUDRなどの役割。",
+      "point": "必要な通信のみを許可しているか、適用先、受信・送信ルール、既定ルール、優先順位、他の通信制御との整合性を確認する。",
+      "origin": "azure-architecture-glossary.md 第2章／azure-hub-spoke-design-review.md 第2章／Microsoft Learn: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
+    },
+    {
+      "id": "211",
+      "section_no": 20,
+      "category": "認証/セキュリティ",
+      "question": "Managed Identity（マネージドID）とは何か？",
+      "answer": "Azureが自動管理するMicrosoft Entra IDのID。アプリなどが資格情報を直接保持せず、対応サービスへの認証を行うために利用する。",
+      "explanation": "Azure上のアプリケーションはマネージドIDを用いてアクセストークンを取得し、対応するKey VaultやStorageなどにアクセスできる。リソースに紐付くシステム割当型と独立して作成・割当てできるユーザー割当型がある。認証できても、アクセス権は別途付与する必要がある。",
+      "point": "利用するIDの種類とライフサイクル、対象サービスの対応可否、最小権限、環境ごとのID分離、権限変更・削除時の影響を確認する。",
+      "origin": "azure-architecture-glossary.md 第6章／azure-hub-spoke-design-review.md 第3章／Microsoft Learn: https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview"
     }
   ],
   "archivedCards": [],
