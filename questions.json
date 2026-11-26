@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-db-basics-batch-25",
+  "revision": "2026-11-27-approved-workspace-activitylog-batch-26",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 216,
+  "nextId": 218,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2169,6 +2169,26 @@
       "explanation": "PostgreSQLではDECLAREでカーソルを定義し、FETCHで指定した件数の行を取得し、CLOSEで閉じる。検索結果を一度にすべてクライアントへ取得せず、必要に応じて少しずつ処理できる。通常のSQLカーソルはトランザクション内で利用するが、WITH HOLDを指定するなど例外もある。",
       "point": "大量データを処理する場合の取得件数、処理順序の明示、トランザクションの長期化、DBとアプリ間の通信回数、リソース解放を確認する。ホストのレコード単位の走査を移行する際は、集合単位のSQL処理のほうが適切かも検討する。",
       "origin": "PostgreSQL公式マニュアル（DECLARE・FETCH）: https://www.postgresql.org/docs/current/sql-declare.html ／https://www.postgresql.org/docs/current/sql-fetch.html ／system-modernization-anonymized.md 第5章（移行時の走査・性能確認）"
+    },
+    {
+      "id": "216",
+      "section_no": 39,
+      "category": "Azure/クラウド",
+      "question": "Workspace（ワークスペース）とは何か？",
+      "answer": "Workspace（作業領域）。特定のサービスで使用するデータ、設定、分析環境などをまとめて管理する領域。",
+      "explanation": "Azureのワークスペースは、サービスごとに用途が異なる。例えばLog Analytics Workspaceはログの蓄積・分析、Azure Monitor WorkspaceはPrometheusメトリックの管理、Azure Machine Learning Workspaceは機械学習の資産や実験の管理に用いる。すべてに共通する単一のAzureリソース種別ではない。Workspaceは英単語であり略語ではない。",
+      "point": "構成図ではどのサービスのワークスペースかを特定し、管理対象データ、収集元・利用先、アクセス権、環境分離、保持期間や費用を用途に応じて確認する。",
+      "origin": "azure-architecture-glossary.md 第7章（ログ分析の関連知識）／Microsoft Learn: https://learn.microsoft.com/ja-jp/azure/azure-monitor/logs/log-analytics-workspace-overview ／https://learn.microsoft.com/ja-jp/azure/azure-monitor/metrics/azure-monitor-workspace-overview ／https://learn.microsoft.com/ja-jp/azure/machine-learning/concept-workspace ／一般的な概念整理"
+    },
+    {
+      "id": "217",
+      "section_no": 13,
+      "category": "運用/非機能",
+      "question": "Azureアクティビティログとは何か？",
+      "answer": "Azure Activity Log。Azureリソースの作成・変更・削除など、主に管理操作に関するイベントを記録するログ。",
+      "explanation": "Azureのサブスクリプション単位で参照できるプラットフォームログで、リソースの管理操作やサービス正常性などのイベントを確認できる。例えばVMの作成・削除や設定変更の記録を調査する。通常、既定で90日間保持され、診断設定を使ってLog Analytics Workspaceなどへ転送できる。アプリ内部の処理ログや個々のデータの読み書きを記録するログとは区別する。Activity Logは略語ではない。",
+      "point": "誰がいつ何を変更したか調査できるか、必要な保存期間、転送先、閲覧権限、アラート、監査要件を確認する。アプリ操作やデータアクセスの監査に必要なログは別途収集する。",
+      "origin": "Microsoft Learn（Azure Monitor activity log）: https://learn.microsoft.com/ja-jp/azure/azure-monitor/essentials/activity-log ／azure-architecture-glossary.md 第7章（監視・運用の関連知識）"
     }
   ],
   "archivedCards": [],
