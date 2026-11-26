@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-operations-batch-11",
+  "revision": "2026-11-27-approved-migration-test-batch-12",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 165,
+  "nextId": 167,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1659,6 +1659,26 @@
       "explanation": "対象機器やサービスの稼働状態、CPU使用率、メモリ使用量などの情報を収集し、設定した条件に基づいて異常を検知・通知する。監視対象や情報取得方式は構成によって異なる。",
       "point": "監視対象、情報取得方法、監視間隔、閾値、通知先、監視基盤自体の障害対策、他の監視サービスとの役割分担を確認する。",
       "origin": "一般知識／system-modernization-anonymized.md 第11章／legacy-host-operation-reference-patterns.md 第11-4節（監視・通知）／監視ソフトウェアとしての詳細は一般知識による補足"
+    },
+    {
+      "id": "165",
+      "section_no": 2,
+      "category": "移行/テスト",
+      "question": "データクレンジングとは何か？",
+      "answer": "データの重複、欠損、不正な値、表記の揺れなどを確認し、必要に応じて修正・整理すること。",
+      "explanation": "データ移行前などに、移行元データの品質を確認し、業務上のルールに従って整える。例えば重複レコードや不正な日付を検出する。ただし欠損値や異常値を一律に削除・補完するのではなく、業務上の意味や修正の必要性を確認する。",
+      "point": "修正対象・判断基準、業務部門の承認、修正前後の記録、データ欠損・誤変換の防止、移行後の件数・内容・整合性の照合を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第5章（データ移行・内容比較・整合性確認）／データクレンジング（Data Cleansing）の定義と具体例は一般知識による補足"
+    },
+    {
+      "id": "166",
+      "section_no": 3,
+      "category": "移行/テスト",
+      "question": "カットオーバー（Cutover）とは何か？",
+      "answer": "旧システムから新システムへ業務の稼働先を切り替え、新システムで本番運用を開始すること。",
+      "explanation": "旧環境の更新停止、最終データ移行、移行結果の照合、接続先やジョブの切替、新環境の動作確認などを計画に沿って行う構成がある。一括切替だけでなく段階移行の各工程でも実施される。",
+      "point": "切替手順と所要時間、データ同期、外部インターフェース・ジョブの切替、業務開始条件、切替可否の判断基準、切戻し条件・手順、担当者の責任分界を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第12章（切替・切戻し）／modernization-knowledge-map.md 第2章（テスト・移行）／legacy-host-operation-reference-patterns.md 第8・9章（外部連携と移行）／英語表記・具体的な切替工程は一般知識による補足"
     }
   ],
   "archivedCards": [],
