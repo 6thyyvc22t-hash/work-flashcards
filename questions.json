@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-application-design-batch-34",
+  "revision": "2026-11-27-approved-dasd-integration-batch-35",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 276,
+  "nextId": 282,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2769,6 +2769,66 @@
       "explanation": "例えば頻繁に参照するデータをメモリなどに一時保持し、毎回DBから取得する処理を減らす。ブラウザやアプリケーション、共有キャッシュなど様々な箇所に設けられる。元データの更新により古い値が残る可能性があるため、有効期限や無効化を設計する。",
       "point": "キャッシュ対象、更新・無効化の条件、TTL（Time to Live：有効期間）、データ鮮度、障害時の代替動作、容量、利用者間のデータ分離を確認する。",
       "origin": "一般的なWebアプリケーション・性能設計知識（定義・仕組み）／system-modernization-anonymized.md 第13章（関連する性能・アプリ設計観点）"
+    },
+    {
+      "id": "276",
+      "section_no": 25,
+      "category": "メインフレーム",
+      "question": "DASDとは何か？",
+      "answer": "DASD（Direct Access Storage Device：直接アクセス記憶装置）。メインフレームなどでデータセットやDBを保存するディスク記憶装置。",
+      "explanation": "磁気テープのように先頭から順に読み進める必要がなく、目的の記憶位置に直接アクセスできる。DASD上には順次アクセス用のデータセットも配置できる。DASDは記憶装置の概念であり、通信プロトコルやデータ連携方式そのものではない。",
+      "point": "格納するデータセット、利用するシステム、共有範囲、アクセス方式、容量・性能、バックアップ、移行後のデータ受渡し方式を確認する。",
+      "origin": "IBM z/OS Basic Skills: https://www.ibm.com/docs/en/zos-basic-skills?topic=set-where-are-data-sets-stored ／mainframe-architecture-glossary.md 第3章（ディスク装置）"
+    },
+    {
+      "id": "277",
+      "section_no": 28,
+      "category": "外部IF",
+      "question": "共有DASD連携とは何か？",
+      "answer": "複数のシステムが共通のDASD（Direct Access Storage Device：直接アクセス記憶装置）上のデータセットを利用して、データを受け渡す連携方式。",
+      "explanation": "例えば送信側のジョブが共通の記憶領域にデータを出力し、受信側のジョブが同じデータセットを読み込む。ファイルを別の装置へ転送する方式とは異なる。複数のシステムからアクセスするには適切な共有設定、排他制御、書込み完了の確認などが必要。脱ホストで記憶領域が分離される場合は、共有ストレージやファイル転送、APIなどによる代替を検討する。",
+      "point": "共有データセットの利用者、読書き権限、更新順序、排他、処理完了の通知、障害時の再処理、移行後の連携方式を確認する。DASDが共有されていても安全な同時更新が自動的に保証されるわけではない。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8-2節・第9章（共有領域による連携と代替）／IBM: https://www.ibm.com/docs/en/zos-basic-skills?topic=cmpsot-clustering-technique-basic-shared-direct-access-storage-devices-dasd ／一般的な連携設計知識"
+    },
+    {
+      "id": "278",
+      "section_no": 26,
+      "category": "メインフレーム",
+      "question": "SAMとは何か？",
+      "answer": "SAM（Sequential Access Method：順次アクセス方式）。データを順番に読み書きするアクセス方式。",
+      "explanation": "例えばバッチ処理で入力ファイルのレコードを順番に読み込み、処理結果を順番に出力する。順編成データセットはDASDや磁気テープなどに保存できる。実際のアクセス方式の名称や実装はホストOSによって異なり、IBM z/OSではBSAM（Basic Sequential Access Method）やQSAM（Queued Sequential Access Method）などが用いられる。",
+      "point": "レコードの処理順、固定長・可変長などの形式、文字コード、ブロック化、入出力媒体、後続処理への受渡しを確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第12-3節／IBM: https://www.ibm.com/docs/en/zos-basic-skills?topic=set-what-are-access-methods ／IBM用語集: https://www.ibm.com/docs/en/ds8900/9.4.0?topic=glossary"
+    },
+    {
+      "id": "279",
+      "section_no": 27,
+      "category": "メインフレーム",
+      "question": "ボリュームとは何か？",
+      "answer": "Volume。ストレージ上の記憶領域を管理するための物理的または論理的な単位。",
+      "explanation": "メインフレームではDASDボリュームに複数のデータセットを格納できる。ボリュームを識別する番号やラベルなどを利用して管理する。磁気テープにもボリュームの概念がある。ボリュームはデータセットそのものではなく、格納先の管理単位である。",
+      "point": "ボリュームの識別情報、格納データセット、容量、空き領域、共有範囲、バックアップ・復元の単位、移行後のストレージとの対応を確認する。",
+      "origin": "IBM z/OS Basic Skills: https://www.ibm.com/docs/en/zos-basic-skills?topic=set-what-are-dasd-volumes-labels ／https://www.ibm.com/docs/en/zos-basic-skills?topic=set-where-are-data-sets-stored ／mainframe-architecture-glossary.md 第3章（関連する記憶装置の観点）"
+    },
+    {
+      "id": "280",
+      "section_no": 29,
+      "category": "外部IF",
+      "question": "ファイル連携とは何か？",
+      "answer": "File-based Integration。データをファイルとして出力し、別のシステムに受け渡す方式。",
+      "explanation": "送信元が固定長ファイルやCSV（Comma-Separated Values）などを生成し、FTP（File Transfer Protocol）、転送ミドルウェア、共有ストレージなどを通じて連携先が取り込む。転送と取込みは別の処理であり、受信完了だけで業務処理の成功を保証するわけではない。",
+      "point": "ファイル形式・文字コード、送受信時刻、転送完了の検知、件数・内容照合、暗号化、欠落や重複の防止、再送・再取込み、後続ジョブとの依存を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第5・8-2・9・12章／mainframe-architecture-glossary.md 第5章／system-modernization-anonymized.md 第7章／一般的なファイル連携知識（形式例を補足）"
+    },
+    {
+      "id": "281",
+      "section_no": 30,
+      "category": "外部IF",
+      "question": "DB連携とは何か？",
+      "answer": "Database Integration（データベース連携）。DBの参照・更新やデータ抽出、複製などを通じてシステム間でデータを連携する方式。",
+      "explanation": "例えば一方のシステムがDBから必要なデータを取得して他方へ渡す方式、DBの変更をCDC（Change Data Capture）で検出して配信する方式、共有DBを参照する方式などがある。DB連携という名称だけで、直接接続やリアルタイム連携を意味するとは限らない。",
+      "point": "DBの管理責任、接続方法、対象データ、更新権限、連携タイミング、トランザクション・整合性、負荷、スキーマ変更の影響、再送・障害復旧を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第5・8-2章（DB変更連携）／system-modernization-anonymized.md 第5・7章（DB・CDC）／一般的なDB連携知識（直接参照・抽出等を補足）"
     }
   ],
   "archivedCards": [],
