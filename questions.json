@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-racf-auth-batch-36",
+  "revision": "2026-11-27-approved-character-validation-batch-37",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 288,
+  "nextId": 292,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2889,6 +2889,46 @@
       "explanation": "Webアプリは認証済みの利用者IDを基に権限管理テーブルを参照し、業務操作や対象データへのアクセス可否を判定する構成を取れる。例えば参照担当者には閲覧のみ、更新担当者には更新も許可する。複数の関連テーブルに分ける場合もある。ID基盤の認証やAzureリソースの管理権限とは別の役割を担う。",
       "point": "利用者IDの一意性、ロール、操作・データ単位の権限、未登録時の拒否、異動・退職時の失効、API側での認可、権限変更の監査を確認する。画面ボタンの非表示だけで認可を済ませない。",
       "origin": "system-modernization-anonymized.md 第9章（認証と認可を分離する、レガシー権限の移行）／azure-architecture-glossary.md 第6章（ID・セキュリティ）"
+    },
+    {
+      "id": "288",
+      "section_no": 39,
+      "category": "Web/Java",
+      "question": "禁則文字とは何か？",
+      "answer": "システムの入力・保存・連携などにおいて、使用を禁止している文字。禁止対象はシステムや項目の仕様によって異なる。",
+      "explanation": "例えば外部連携先の文字コードで表現できない文字や、項目の仕様上認められない制御文字を入力時に拒否する場合がある。UTF-8で保存可能な文字でも連携先で扱えるとは限らない。組版の禁則処理とは別の意味である。",
+      "point": "項目ごとに許容文字、入力拒否・置換の方針、エラー表示、外部IFとの整合性を確認する。画面だけでなくサーバー側でも検証する。",
+      "origin": "system-modernization-anonymized.md（文字コード・入力検証）／legacy-host-operation-reference-patterns.md 第8-3節・第9章／一般的な入力制限の設計知識"
+    },
+    {
+      "id": "289",
+      "section_no": 33,
+      "category": "メインフレーム",
+      "question": "文字コード変換テーブルとは何か？",
+      "answer": "変換元と変換先の文字コードの対応関係を定義した一覧。",
+      "explanation": "例えばホスト系日本語文字コードからUnicodeへ変換する際、文字の符号値や符号列の対応を参照する。外字や複数の文字が同じ変換先に対応する場合、単純な一対一変換や逆変換での復元が保証されない。",
+      "point": "変換元・先の文字コードの種類と版、外字の対応、変換不可文字の扱い、往復変換での情報欠落、テストデータを確認する。",
+      "origin": "mainframe-architecture-glossary.md 第2章（文字コード変換）／legacy-host-operation-reference-patterns.md 第8-3節・第9章／一般的な文字コード変換知識"
+    },
+    {
+      "id": "290",
+      "section_no": 40,
+      "category": "Web/Java",
+      "question": "桁数チェックとは何か？",
+      "answer": "入力値が定められた文字数、バイト数、数値の桁数などの制限を満たしているか確認する処理。",
+      "explanation": "例えばUTF-8（Unicode Transformation Format–8-bit）では一般的な日本語漢字1文字は3バイトで表現され、文字数とバイト数は一致しない場合がある。数値では整数部・小数部の桁数も別に扱う。",
+      "point": "画面、API（Application Programming Interface）、DB（Database）、外部IF（Interface）で長さの単位と上限が整合するか確認する。境界値、全角・半角、補助平面の文字、貼り付け入力などをテストする。",
+      "origin": "system-modernization-anonymized.md（画面入力検証・データ移行）／legacy-host-operation-reference-patterns.md 第8-3節・第9章／aim-screen-study.md（画面項目・桁数）"
+    },
+    {
+      "id": "291",
+      "section_no": 41,
+      "category": "Web/Java",
+      "question": "エスケープ処理とは何か？",
+      "answer": "Escape Processing。特殊な意味を持つ文字を、処理先で意図したデータとして正しく扱えるように変換する処理。",
+      "explanation": "例えばHTML（HyperText Markup Language）に文字として表示する小なり記号は &lt; と表現でき、JSON（JavaScript Object Notation）の文字列中の引用符にはバックスラッシュを付ける。必要な処理は出力先の文法や文脈で異なり、文字の削除や入力禁止とは別である。",
+      "point": "出力先ごとに適切なエスケープ・エンコードを行い、二重変換を防ぐ。XSS（Cross-Site Scripting）対策は出力文脈に応じた処理、SQL（Structured Query Language）インジェクション対策は原則としてパラメータ化クエリを用いる。",
+      "origin": "system-modernization-anonymized.md（Webアプリ・入力検証：関連知識）／一般的なHTML・JSONの文字列処理および安全な出力処理の知識"
     }
   ],
   "archivedCards": [],
