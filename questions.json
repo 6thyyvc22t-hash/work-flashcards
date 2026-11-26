@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-report-batch-4",
+  "revision": "2026-11-27-approved-mainframe-batch-5",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 83,
+  "nextId": 96,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -839,6 +839,136 @@
       "explanation": "帳票や帳票データを条件に応じて異なる出力先・配布単位へ振り分ける。帳票の見た目を生成する処理とは異なる。",
       "point": "分類条件、出力先の対応表、判定不能時の処理、誤配布防止、設定変更の承認を確認する。",
       "origin": "一般知識／legacy-host-operation-reference-patterns.md 第10-1・10-5・10-7節"
+    },
+    {
+      "id": "083",
+      "section_no": 3,
+      "category": "メインフレーム",
+      "question": "メインフレームとは何か？",
+      "answer": "大量のオンライン処理やバッチ処理を安定して実行するための大型計算機。",
+      "explanation": "業務プログラムの実行、データ管理、端末通信、ジョブ運行などを支える基盤。長期間運用される基幹業務などで利用される。",
+      "point": "脱ホストではプログラムだけでなく、データ、画面、ジョブ、周辺連携、帳票、運用機能も棚卸しする。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第1章"
+    },
+    {
+      "id": "084",
+      "section_no": 4,
+      "category": "メインフレーム",
+      "question": "論理分割とは何か？",
+      "answer": "物理的な計算機の資源を論理的に分割し、複数の実行環境として利用する仕組み。",
+      "explanation": "一台の物理計算機の処理資源やメモリなどを分け、複数の環境として利用する。LPAR（Logical Partition：論理区画）はその実装例である。",
+      "point": "環境ごとの資源配分、分離範囲、共用資源、障害時の影響範囲を確認する。論理分割だけで物理障害への耐性が確保されるとは限らない。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第1章（LPARの名称・実装例は一般知識による補足）"
+    },
+    {
+      "id": "085",
+      "section_no": 5,
+      "category": "メインフレーム",
+      "question": "チャネル接続とは何か？",
+      "answer": "メインフレームとストレージや周辺装置を接続するための入出力経路。",
+      "explanation": "ホストと周辺装置の間でデータを読み書きするための接続。具体的な接続方式や制御は機種・構成に依存する。",
+      "point": "接続先の装置、経路の冗長性、障害時の影響、移行後の代替接続方式を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第3章"
+    },
+    {
+      "id": "086",
+      "section_no": 6,
+      "category": "メインフレーム",
+      "question": "仮想テープとは何か？",
+      "answer": "ディスク装置などを利用して、磁気テープ装置のような記憶・運用方式を再現する仕組み。",
+      "explanation": "ホストからはテープ装置として扱えるようにしながら、実際のデータをディスクなどに保存する構成がある。",
+      "point": "テープを前提とするジョブ、データの保存期限、復元方法、遠隔保管の有無、移行後の代替機能を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第3・7章"
+    },
+    {
+      "id": "087",
+      "section_no": 7,
+      "category": "メインフレーム",
+      "question": "LTOとは何か？",
+      "answer": "Linear Tape-Open。バックアップや長期データ保管などに利用される磁気テープの規格。",
+      "explanation": "磁気テープ媒体を利用したデータ保存方式の規格。テープライブラリなどで媒体を管理する構成がある。",
+      "point": "媒体の保管期間、読み取り互換性、復元手順、遠隔保管、媒体移行の方針を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第3・7章（正式名称は一般知識による補足）"
+    },
+    {
+      "id": "088",
+      "section_no": 8,
+      "category": "メインフレーム",
+      "question": "LUとは何か？",
+      "answer": "Logical Unit（論理ユニット）。SNAなどのホスト通信において、アプリケーションや利用者が通信するための論理的な接続単位。",
+      "explanation": "SNA（Systems Network Architecture）における論理的な通信の端点。具体的な機能はLUの種類や通信方式によって異なる。",
+      "point": "端末やアプリケーションとの対応、セッションの識別、Web化後に必要な識別情報や通信制御を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第3章（SNA・LUの正式名称と説明は一般知識による補足）"
+    },
+    {
+      "id": "089",
+      "section_no": 9,
+      "category": "メインフレーム",
+      "question": "AIMとは何か？",
+      "answer": "Advanced Information Manager。富士通のメインフレームにおけるオンライン処理やデータ管理を支えるミドルウェア。",
+      "explanation": "オンライン処理の一般例では端末からの要求を受け付け、業務プログラムの実行やデータアクセスにつなげる。AIMは画面そのものを指す名称ではない。",
+      "point": "旧基盤の要求受付、画面制御、業務プログラム起動、データアクセスなどの担当機能を確認し、移行先での代替方式を整理する。",
+      "origin": "一般知識／aim-screen-study.md 結論・動きの一般例"
+    },
+    {
+      "id": "090",
+      "section_no": 10,
+      "category": "メインフレーム",
+      "question": "画面定義体とは何か？",
+      "answer": "ホスト画面の表示項目、入力項目、配置、入出力属性などを定義したもの。",
+      "explanation": "専用の画面定義に基づいて端末への表示や入力を制御する方式がある。画面定義と業務プログラムの責任分担は実装によって異なる。",
+      "point": "画面項目、桁数、入力制約、繰返し明細、画面遷移などがWeb移行後に適切に再現されるか確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第4章／aim-screen-study.md 画面・ジョブ・タスクの概念"
+    },
+    {
+      "id": "091",
+      "section_no": 11,
+      "category": "メインフレーム",
+      "question": "データセットとは何か？",
+      "answer": "メインフレーム上でファイルやデータを管理するための単位。",
+      "explanation": "データの格納・参照方法は順編成や区分編成などの編成方式、媒体、レコード形式によって異なる。",
+      "point": "データセットごとの利用プログラム、編成方式、レコード形式、文字コード、保存期間、移行先を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第2章"
+    },
+    {
+      "id": "092",
+      "section_no": 12,
+      "category": "メインフレーム",
+      "question": "VSAMとは何か？",
+      "answer": "Virtual Storage Access Method。キーによる検索や順次アクセスなどを扱うメインフレームのファイルアクセス方式の一群。",
+      "explanation": "レコードの格納やアクセスを管理する方式であり、キー検索などの利用可否は編成方式によって異なる。",
+      "point": "移行時は編成方式、キー、レコード形式、アクセス順序、更新・排他制御、性能要件を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第2章（正式名称は一般知識による補足）"
+    },
+    {
+      "id": "093",
+      "section_no": 5,
+      "category": "外部IF",
+      "question": "画面ラッピングとは何か？",
+      "answer": "外部システムから既存のホスト画面の操作を仲介し、ホストの業務機能を利用する方式。",
+      "explanation": "例えば外部アプリケーションからの要求を画面連携ミドルウェアが受け付け、ホスト画面への入力や操作、結果の取得を仲介する構成がある。",
+      "point": "画面項目や遷移への依存、異常時の処理、認証・認可、旧画面廃止時の代替APIや連携方式を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第5章／aim-screen-study.md ホストオンライン処理の全体像"
+    },
+    {
+      "id": "094",
+      "section_no": 4,
+      "category": "バッチ/ジョブ",
+      "question": "ジョブネットとは何か？",
+      "answer": "複数のジョブをまとめ、実行順序や依存関係、起動条件などを管理する仕組み。",
+      "explanation": "個々のジョブの前後関係や先行ジョブの実行結果などを定義し、一連の業務処理の実行を制御する。",
+      "point": "先行・後続ジョブ、実行日、ファイル到着条件、異常終了時の停止・再実行条件を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第6章"
+    },
+    {
+      "id": "095",
+      "section_no": 5,
+      "category": "バッチ/ジョブ",
+      "question": "SYSOUTとは何か？",
+      "answer": "System Output。ホスト上のジョブが出力するログやメッセージ、印刷用データなどを扱う出力の指定・分類。",
+      "explanation": "例えばIBMのJCLではSYSOUTパラメータでジョブの出力をシステム出力へ割り当てる。出力はスプールなどを通じて管理される。",
+      "point": "出力クラスや出力先、ジョブログ・帳票の用途、保管期間、監視方法、移行後の代替出力を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md 第6章（正式名称・IBM JCLの例は一般知識による補足）"
     }
   ],
   "archivedCards": [],
