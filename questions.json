@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 2,
+  "deckId": "work-it",
+  "title": "仕事理解用 デジタル単語帳",
+  "revision": "2026-11-26-initial-1",
+  "description": "一般化したIT技術知識。承認された候補のみ追加する。初期サンプル1問。",
+  "nextId": 2,
+  "categories": [
+    "メインフレーム",
+    "Web/Java",
+    "DB",
+    "バッチ/ジョブ",
+    "外部IF",
+    "帳票",
+    "Azure/クラウド",
+    "ネットワーク",
+    "認証/セキュリティ",
+    "運用/非機能",
+    "移行/テスト",
+    "開発/調達"
+  ],
+  "cards": [
+    {
+      "id": "001",
+      "section_no": 1,
+      "category": "メインフレーム",
+      "question": "JCLとCOBOLはそれぞれ何を担当し、システム移行時に何を分けて確認すべきか？",
+      "answer": "JCLはジョブの実行制御、COBOLは業務処理。移行時は実行制御と業務ロジックを分けて確認する。",
+      "explanation": "JCLは実行プログラム、入出力ファイル、実行条件などを定義する。COBOLはデータの計算・編集・業務ルールなどを記述するプログラミング言語。",
+      "point": "設計レビューでは、業務処理の変換だけでなく、ジョブの依存関係、入出力、異常終了時の扱いも確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md"
+    }
+  ],
+  "archivedCards": [],
+  "retiredIds": []
+}
