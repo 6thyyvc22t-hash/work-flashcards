@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-db-batch-9",
+  "revision": "2026-11-27-approved-batch-job-batch-10",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 149,
+  "nextId": 159,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -1499,6 +1499,106 @@
       "explanation": "移行元DBから必要なレコードを抽出し、後続の変換や移行先への登録に利用できる形式で出力する。アンロードとバックアップは目的や出力形式が異なる場合がある。",
       "point": "抽出条件、抽出時点の整合性、ファイル形式、文字コード、抽出件数、機密情報の保護、後続の取込みとの対応を確認する。",
       "origin": "一般知識／system-modernization-anonymized.md 第5章（DBアンロード・データ移行）／具体的な処理例は一般知識による補足"
+    },
+    {
+      "id": "149",
+      "section_no": 6,
+      "category": "バッチ/ジョブ",
+      "question": "バッチ処理（Batch Processing）とは何か？",
+      "answer": "一定量のデータや複数の処理をまとめて実行する方式。日次集計や一括更新、帳票生成などに利用される。",
+      "explanation": "利用者の操作に都度応答するオンライン処理とは異なり、データをまとめて処理する。定時起動だけでなく、ファイル到着や画面操作を契機に起動する構成もある。",
+      "point": "実行契機、対象データ、処理量、所要時間、締切、後続処理との依存関係を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第3・12-1・12-3節"
+    },
+    {
+      "id": "150",
+      "section_no": 7,
+      "category": "バッチ/ジョブ",
+      "question": "バッチウィンドウとは何か？",
+      "answer": "バッチ処理の実行に割り当てられた時間帯。業務開始時刻や他の処理との依存関係などを考慮して設定する。",
+      "explanation": "例えば業務終了後から翌日の業務開始までに一連の処理を完了させる設計がある。バッチが夜間に限られるわけではない。",
+      "point": "処理時間の実測値、データ量の増加、先行・後続処理、障害復旧に必要な余裕、業務開始時刻への影響を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第3・11-4・12-5節（用語の定義は一般知識による補足）"
+    },
+    {
+      "id": "151",
+      "section_no": 8,
+      "category": "バッチ/ジョブ",
+      "question": "チャンク処理（Chunk Processing）とは何か？",
+      "answer": "データを一定件数ごとのまとまりに分けて処理し、トランザクションを確定する方式。",
+      "explanation": "Spring Batchでは読込み・加工・書込みをチャンク単位で行い、コミットする構成がある。例えば1000件単位で処理し、障害時に未確定分をロールバックして保存済みの再開情報から再処理する設計が可能。",
+      "point": "チャンクサイズ、コミット境界、メモリ使用量、再開情報、外部出力を含む整合性、障害時の重複処理防止を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md 第6章／Spring Batch公式: https://docs.spring.io/spring-batch/reference/step/chunk-oriented-processing.html（チャンク処理の詳細）"
+    },
+    {
+      "id": "152",
+      "section_no": 9,
+      "category": "バッチ/ジョブ",
+      "question": "先行ジョブとは何か？",
+      "answer": "対象ジョブより前に実行され、その完了状態などが対象ジョブの起動条件となるジョブ。",
+      "explanation": "例えばデータ抽出ジョブが正常終了した後に、抽出結果を利用する集計ジョブを開始する。単なる時刻順ではなく、定義された依存関係によって起動を制御する。",
+      "point": "先行ジョブの完了条件、終了コード、異常終了時の後続停止・継続条件、複数の先行条件を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第4・12-2・12-7節"
+    },
+    {
+      "id": "153",
+      "section_no": 10,
+      "category": "バッチ/ジョブ",
+      "question": "ジョブの起動条件とは何か？",
+      "answer": "指定時刻、先行ジョブの終了、ファイル到着など、ジョブの実行を開始するための条件。",
+      "explanation": "ジョブスケジューラは定義された起動条件に基づいてジョブを開始する。実行日カレンダーや複数条件の組合せを利用する場合もある。",
+      "point": "時刻、業務日付、休日、先行ジョブの終了判定、ファイルの転送完了・整合性、条件未成立時の対応を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第4・12-2・12-5・12-7節"
+    },
+    {
+      "id": "154",
+      "section_no": 11,
+      "category": "バッチ/ジョブ",
+      "question": "ジョブの多重起動とは何か？",
+      "answer": "同じジョブが、先行する実行の終了前に重複して起動されること。データの二重更新などにつながる場合がある。",
+      "explanation": "同じ処理対象に対する実行が重なると、二重更新や重複送信などが発生し得る。一方、処理対象を分離して意図的に並列実行する設計もある。",
+      "point": "多重起動の判定単位、排他制御、業務日付の追い越し防止、再実行や手動起動との競合を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第12-5・12-8節（並列実行との区別は一般知識による補足）"
+    },
+    {
+      "id": "155",
+      "section_no": 12,
+      "category": "バッチ/ジョブ",
+      "question": "臨時ジョブとは何か？",
+      "answer": "通常の定期運行とは別に、データ補正、移行、障害復旧などのために実行するジョブ。",
+      "explanation": "定期実行とは別の起動条件や対象範囲で動かす処理。実行後の不要な定義の削除・失効管理なども運用上の対象となる。",
+      "point": "実行目的、対象データ、実行承認、通常ジョブとの競合、実行結果、定義の削除・失効を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第12-8節"
+    },
+    {
+      "id": "156",
+      "section_no": 13,
+      "category": "バッチ/ジョブ",
+      "question": "ABENDとは何か？",
+      "answer": "Abnormal End（異常終了）。プログラムやジョブが異常によって正常に完了できず終了すること。",
+      "explanation": "メインフレームなどで用いられる用語。異常終了コードやログを確認して原因や処理済み範囲を調査する。コードの意味は製品・実行環境によって異なる。",
+      "point": "終了コード、ジョブログ、DB更新の確定状況、ファイルや外部連携の出力状況、復旧方法、後続ジョブへの影響を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第12-2・12-4節（ABENDの正式名称・用語の定義は一般知識による補足）"
+    },
+    {
+      "id": "157",
+      "section_no": 14,
+      "category": "バッチ/ジョブ",
+      "question": "ソート処理（Sort）とは何か？",
+      "answer": "データを指定したキーや条件に基づいて、昇順・降順などに並べ替える処理。",
+      "explanation": "大量のデータを集計や後続処理のために整列する。EBCDIC（Extended Binary Coded Decimal Interchange Code）などの旧文字コードの順序と、移行先の文字列比較やDBの照合順序が異なる場合がある。",
+      "point": "ソートキー、昇順・降順、文字の照合順序、同一キーの扱い、処理性能、現新比較結果を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第9-4・12-3・12-5節（EBCDICの正式名称は一般知識による補足）"
+    },
+    {
+      "id": "158",
+      "section_no": 15,
+      "category": "バッチ/ジョブ",
+      "question": "JCLの自動生成とは何か？",
+      "answer": "業務フローやジョブ定義などの情報をもとに、プログラムの実行条件や入出力を指定するJCL（Job Control Language）を自動的に作成する仕組み。",
+      "explanation": "業務フロー定義を生成元として、ホストで実行するジョブ制御定義を生成する構成がある。生成元と生成されたJCLは別々に管理される場合がある。",
+      "point": "生成元と生成物の対応、版管理、入出力・実行条件、変更承認、生成物の検証、新基盤での代替方法を確認する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md 第4・12-2・12-6・12-8節（JCLの正式名称は一般知識による補足）"
     }
   ],
   "archivedCards": [],
