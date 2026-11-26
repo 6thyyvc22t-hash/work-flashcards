@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-26-initial-1",
-  "description": "一般化したIT技術知識。承認された候補のみ追加する。初期サンプル1問。",
-  "nextId": 2,
+  "revision": "2026-11-27-approved-batch-1",
+  "description": "一般化したIT技術知識。承認された候補のみ追加する。",
+  "nextId": 22,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -29,6 +29,206 @@
       "explanation": "JCLは実行プログラム、入出力ファイル、実行条件などを定義する。COBOLはデータの計算・編集・業務ルールなどを記述するプログラミング言語。",
       "point": "設計レビューでは、業務処理の変換だけでなく、ジョブの依存関係、入出力、異常終了時の扱いも確認する。",
       "origin": "一般知識／mainframe-architecture-glossary.md"
+    },
+    {
+      "id": "002",
+      "section_no": 2,
+      "category": "メインフレーム",
+      "question": "COBOLのREDEFINESとは何か？",
+      "answer": "同じ記憶領域を異なるデータ構造として解釈するための記述。",
+      "explanation": "別々のデータ項目を同じ記憶領域に重ねて定義する。利用する項目によって同じバイト列の解釈が変わる。",
+      "point": "移行では元のレコードレイアウト、使用条件、バイト長を確認し、単純に独立した項目へ置換しない。",
+      "origin": "一般知識／mainframe-architecture-glossary.md"
+    },
+    {
+      "id": "003",
+      "section_no": 1,
+      "category": "Web/Java",
+      "question": "ReactとSpring Bootの役割の違いは？",
+      "answer": "Reactは主にブラウザ側のUI、Spring Bootは主にサーバー側の業務処理やAPIを担当する。",
+      "explanation": "一般的なWeb構成ではReactで画面を表示し、APIを通じてSpring Boot側に要求を送る。バックエンドが必要に応じてDBを操作する。",
+      "point": "画面表示・入力補助とサーバー側の入力検証・業務ルール・認可の責任分界を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md"
+    },
+    {
+      "id": "004",
+      "section_no": 2,
+      "category": "Web/Java",
+      "question": "Controller・Service・Repositoryの役割の違いは？",
+      "answer": "Controllerは要求受付、Serviceは業務処理、RepositoryはDBアクセスを担当する。",
+      "explanation": "一般的なJava Webアプリでは、ControllerがHTTP要求を受け付け、Serviceが業務処理を組み立て、Repositoryがデータの永続化・取得を担当する。",
+      "point": "業務ロジックが画面やDBアクセス層に散在していないか、トランザクションの境界が適切かを確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md"
+    },
+    {
+      "id": "005",
+      "section_no": 1,
+      "category": "DB",
+      "question": "ネットワーク型DBとRDBMSの違いは？",
+      "answer": "ネットワーク型DBはレコード間の関係をたどってアクセスし、RDBMSは表とSQLなどを用いてアクセスする。",
+      "explanation": "ネットワーク型DBではOWNER・MEMBER・SET等の関係が用いられる。RDBMSでは表、主キー、外部キーなどによってデータを表現する。",
+      "point": "移行では親子関係、アクセス順序、重複、NULL、性能、更新単位を確認する。単純な自動変換を前提としない。",
+      "origin": "一般知識／system-modernization-anonymized.md; mainframe-architecture-glossary.md"
+    },
+    {
+      "id": "006",
+      "section_no": 2,
+      "category": "DB",
+      "question": "インデックスを設定すると検索が速くなる一方、どのようなデメリットがあるか？",
+      "answer": "データ更新時のインデックス維持処理が増え、追加の記憶容量も必要になる。",
+      "explanation": "インデックスは対象データの探索を効率化するが、INSERT・UPDATE・DELETEに伴う索引の維持が必要になる。すべての検索で必ず有効とは限らない。",
+      "point": "検索条件、更新頻度、実行計画、性能測定結果を基に必要な索引を判断する。",
+      "origin": "一般知識／system-modernization-anonymized.md"
+    },
+    {
+      "id": "007",
+      "section_no": 3,
+      "category": "DB",
+      "question": "トランザクションとは何か？",
+      "answer": "複数の処理を一つの論理的な処理単位として扱い、データの整合性を確保する仕組み。",
+      "explanation": "例えば複数のDB更新を一つのトランザクションで扱い、成功時にコミットし、失敗時にロールバックする。",
+      "point": "移行時には現行と新システムのコミット境界、排他制御、異常終了時の扱いを比較する。",
+      "origin": "一般知識／system-modernization-anonymized.md; modernization-knowledge-map.md"
+    },
+    {
+      "id": "008",
+      "section_no": 1,
+      "category": "バッチ/ジョブ",
+      "question": "Spring Batchとジョブスケジューラの役割の違いは？",
+      "answer": "Spring Batchはバッチ処理の実装を支援し、ジョブスケジューラは起動条件や実行順序、稼働状況を管理する。",
+      "explanation": "Spring BatchはJobとStepなどで処理を構成する。一方、スケジューラは時刻、先行ジョブ、ファイル到着などの条件で実行を制御する。",
+      "point": "業務処理の実装と、ジョブネット・カレンダー・監視・再実行の制御を分けて設計する。",
+      "origin": "一般知識／system-modernization-anonymized.md; mainframe-architecture-glossary.md"
+    },
+    {
+      "id": "009",
+      "section_no": 2,
+      "category": "バッチ/ジョブ",
+      "question": "リランとリスタートの違いは？",
+      "answer": "リランは処理の再実行、リスタートは保存された進捗などを利用した処理の再開。",
+      "explanation": "異常終了後、最初から処理をやり直す場合と、進捗やチェックポイントを利用して途中から再開する場合を区別する。用語の具体的な定義は製品・設計に依存する。",
+      "point": "再実行範囲、コミット済みデータ、二重更新防止、再開条件を確認する。",
+      "origin": "一般知識／system-modernization-anonymized.md"
+    },
+    {
+      "id": "010",
+      "section_no": 1,
+      "category": "外部IF",
+      "question": "CDC（Change Data Capture）とは何か？",
+      "answer": "DBのデータ変更を検知し、他のシステムやデータ基盤へ伝える方式。",
+      "explanation": "DBの更新を変更データとして取得し、下流へ配信する。具体的な取得方法や配信方式は採用技術によって異なる。",
+      "point": "変更の順序、遅延、欠落、重複、再送、障害後の再同期を確認する。",
+      "origin": "一般知識／mainframe-architecture-glossary.md; azure-architecture-glossary.md"
+    },
+    {
+      "id": "011",
+      "section_no": 2,
+      "category": "外部IF",
+      "question": "API連携とファイル連携の違いは？",
+      "answer": "API連携は定義された機能やデータをAPI経由で利用し、ファイル連携はファイルを単位として送受信する。",
+      "explanation": "APIでは要求・応答などのインターフェースを定義する。ファイル連携ではファイル形式、送受信のタイミング、到着確認などを定義する。APIが必ず同期、ファイルが必ず定時とは限らない。",
+      "point": "連携単位、認証、データ量、タイミング、文字コード、異常時の再送と監視を比較する。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md; mainframe-architecture-glossary.md"
+    },
+    {
+      "id": "012",
+      "section_no": 1,
+      "category": "Azure/クラウド",
+      "question": "Hub & Spoke構成におけるHubとSpokeの役割は？",
+      "answer": "Hubは共通接続やセキュリティ機能を集約し、Spokeは個別の業務リソースを配置する。",
+      "explanation": "Hubは共通のネットワーク接続やFirewallなどを担う構成例。Spokeは業務ごとのVNetなどを配置し、必要な通信を設計する。",
+      "point": "Hubを経由する必要のある通信の経路、FW、DNS、冗長化、責任分界を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md; azure-hub-spoke-design-review.md"
+    },
+    {
+      "id": "013",
+      "section_no": 2,
+      "category": "Azure/クラウド",
+      "question": "Private EndpointとVNet Integrationの違いは？",
+      "answer": "Private Endpointはサービスへのプライベート接続口、VNet Integrationは主にアプリからVNetへの送信経路を提供する。",
+      "explanation": "Private EndpointはVNet内のプライベートIPを使って対応サービスに接続する入口。App ServiceのVNet Integrationは主にアプリからVNet側への送信通信を可能にする。",
+      "point": "受信・送信を区別し、Private DNS、公開アクセス設定、経路制御も確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md; modernization-knowledge-map.md"
+    },
+    {
+      "id": "014",
+      "section_no": 3,
+      "category": "Azure/クラウド",
+      "question": "Azure VMとApp Serviceの運用責任の違いは？",
+      "answer": "VMでは利用者がOSなどを管理する。App Serviceでは実行基盤の多くをクラウド事業者が管理する。",
+      "explanation": "VMはIaaSであり、ゲストOSやミドルウェアの管理が利用者側に残る。App ServiceはWebアプリやAPI向けPaaSで、基盤管理の多くをサービス側が担う。",
+      "point": "OS・ランタイムの更新、監視、アプリ・データ・権限の管理責任を整理する。",
+      "origin": "一般知識／azure-architecture-glossary.md"
+    },
+    {
+      "id": "015",
+      "section_no": 4,
+      "category": "Azure/クラウド",
+      "question": "Service Bus・Event Hubs・Event Gridの違いは？",
+      "answer": "Service Busは非同期メッセージ連携、Event Hubsは大量のイベントストリーム取り込み、Event Gridはイベント通知・配信を担当する。",
+      "explanation": "Service Busはキューやトピックによるメッセージ連携、Event Hubsは高スループットのストリーム取り込み、Event Gridはイベント発生に応じた配信に向く。",
+      "point": "連携目的、処理量、順序、重複、再試行、失敗時の処理を比較して方式を選ぶ。",
+      "origin": "一般知識／azure-architecture-glossary.md; azure-hub-spoke-design-review.md"
+    },
+    {
+      "id": "016",
+      "section_no": 1,
+      "category": "ネットワーク",
+      "question": "NSGとUDRの違いは？",
+      "answer": "NSGは通信の許可・拒否を制御し、UDRは通信の経路や次ホップを指定する。",
+      "explanation": "NSGはサブネットやNICに関連付ける主にL3/L4のフィルタ。UDRは通信先のアドレス範囲に応じて次ホップなどを指定するユーザー定義ルート。",
+      "point": "通信できるかと、どの経路を通るかは別に確認する。Firewall経由を要求する場合は経路と許可ルールの両方を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md; azure-hub-spoke-design-review.md"
+    },
+    {
+      "id": "017",
+      "section_no": 2,
+      "category": "ネットワーク",
+      "question": "フォワードプロキシとリバースプロキシの違いは？",
+      "answer": "フォワードプロキシは利用者側の通信を代理し、リバースプロキシはサーバー側の通信を代理する。",
+      "explanation": "前者は利用者から外部への要求を中継し、URL制御や認証・ログなどに使う。後者はサーバーへの要求を受け付け、入口集約やTLS終端などに使う。",
+      "point": "通信方向、TLS終端、検査範囲、プロキシを迂回できないかを確認する。",
+      "origin": "一般知識／network-security-proxy-study.md"
+    },
+    {
+      "id": "018",
+      "section_no": 1,
+      "category": "認証/セキュリティ",
+      "question": "マネージドIDを利用するメリットは？",
+      "answer": "Azure上のアプリなどがパスワードや秘密鍵を直接保持せずに、対応サービスへ認証できる。",
+      "explanation": "Azureが管理するIDを利用して対応サービスへのアクセス用トークンを取得でき、アプリが資格情報を直接保存・更新する負担を減らせる。",
+      "point": "対象サービスの対応可否と、必要最小限の権限付与を確認する。IDの設定だけで操作権限が付与されるわけではない。",
+      "origin": "一般知識／azure-architecture-glossary.md"
+    },
+    {
+      "id": "019",
+      "section_no": 1,
+      "category": "運用/非機能",
+      "question": "可用性ゾーンによる冗長化とDRの違いは？",
+      "answer": "ゾーン冗長化は同一リージョン内の障害対策。DRは広域災害などからの業務復旧を目的とする。",
+      "explanation": "複数ゾーンへの配置で単一ゾーン障害への耐性を高める。DRではリージョン障害なども想定し、別環境への復旧・切替を計画する。",
+      "point": "ゾーン障害と広域障害を別々に想定し、RTO・RPO・切替手順・復旧試験を確認する。",
+      "origin": "一般知識／azure-architecture-glossary.md; modernization-knowledge-map.md"
+    },
+    {
+      "id": "020",
+      "section_no": 2,
+      "category": "運用/非機能",
+      "question": "レプリケーションとバックアップの違いは？",
+      "answer": "レプリケーションはデータ変更を他環境へ複製し、バックアップは復元可能なデータを保管する。",
+      "explanation": "レプリケーションは複製先へ変更を反映する。バックアップは過去の時点などへ復元するために保存する。誤削除や破損が複製先にも伝わる場合がある。",
+      "point": "複製だけでバックアップを代替できると考えず、保持期間、復元方法、復元試験、RPOを確認する。",
+      "origin": "一般知識／modernization-knowledge-map.md; mainframe-architecture-glossary.md"
+    },
+    {
+      "id": "021",
+      "section_no": 1,
+      "category": "移行/テスト",
+      "question": "EBCDICなどのホスト系文字コードからUnicodeへ移行する際の注意点は？",
+      "answer": "外字、文字化け、バイト長、ソート順、全角・半角、外部IFとの文字コードの整合性を確認する。",
+      "explanation": "文字コード体系や照合順序の違いによって、変換結果や比較・並び替えの結果が変わり得る。内部がUnicodeでも外部IFが旧形式のままの場合がある。",
+      "point": "通常文字だけでなく外字、混在文字、空白、桁長、同順・重複キーを含む現新比較テストを行う。",
+      "origin": "一般知識／legacy-host-operation-reference-patterns.md; mainframe-architecture-glossary.md"
     }
   ],
   "archivedCards": [],
