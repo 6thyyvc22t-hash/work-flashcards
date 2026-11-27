@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-44",
+  "revision": "2026-11-28-approved-input-review-batch-45",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 346,
+  "nextId": 353,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3469,6 +3469,76 @@
       "explanation": "例えばWeb APIから業務処理、外部連携へ要求を渡す際に共通の識別子を伝播させ、各処理のログを関連付ける。障害の発生箇所や処理経路の調査に役立つ。分散トレーシングではTrace IDなどが同様の目的で利用される。",
       "point": "IDの生成・伝播ルール、ログへの記録、非同期連携での引継ぎ、外部から受け取るIDの検証、検索方法、個人情報をIDに含めない設計を確認する。",
       "origin": "system-modernization-anonymized.md 第9章（ログ・相関ID）／Microsoft Learn Event-Driven Architecture Style https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven"
+    },
+    {
+      "id": "346",
+      "section_no": 45,
+      "category": "Web/Java",
+      "question": "Webサーバーとは何か？",
+      "answer": "ブラウザなどからHTTP/HTTPSリクエストを受け付け、Webコンテンツの配信やバックエンドへの要求転送などを行うサーバー。",
+      "explanation": "HTTPはHypertext Transfer Protocol、HTTPSはHTTP over TLSによる暗号化通信。WebサーバーはHTML、CSS、画像などを配信し、構成によってはリバースプロキシとしてアプリケーションサーバーへ要求を転送する。NginxやApache HTTP Serverが代表例。",
+      "point": "静的コンテンツの配置、転送先、TLS終端、アクセス制御、タイムアウト、ログ、冗長化を確認する。Webサーバーとアプリケーションサーバーは必ずしも別の機器ではない。",
+      "origin": "system-modernization-anonymized.md（Webアプリ構成）／network-security-proxy-study.md（リバースプロキシ・TLS終端）／一般的なWeb技術知識"
+    },
+    {
+      "id": "347",
+      "section_no": 46,
+      "category": "Web/Java",
+      "question": "アプリケーションサーバーとは何か？",
+      "answer": "業務ロジックを実行し、データベースへのアクセスや処理結果の生成などを担うサーバーまたは実行基盤。",
+      "explanation": "WebシステムではWebサーバーなどから要求を受け付け、入力検証、業務処理、DB参照・更新、結果の返却を行う。JavaではJakarta EE対応のアプリケーションサーバーや、Spring Bootの組込みWebサーバーを利用する構成などがある。",
+      "point": "業務処理の配置、実行環境、DB接続、トランザクション、セッション管理、負荷分散、障害時の動作を確認する。製品によってWebサーバー機能も内包する。",
+      "origin": "system-modernization-anonymized.md 第4章（Web/Java・バックエンド）／一般的なWeb技術知識"
+    },
+    {
+      "id": "348",
+      "section_no": 47,
+      "category": "Web/Java",
+      "question": "Spring Batchとは何か？",
+      "answer": "Javaによるバッチアプリケーションの開発を支援するフレームワーク。大量データの処理、トランザクション管理、実行履歴、再開処理などを支援する。",
+      "explanation": "Job（ジョブ）をStep（ステップ）に分けて実行する。チャンク処理ではItemReaderで読込み、必要に応じItemProcessorで加工し、ItemWriterで出力する。処理単位ごとにコミットし、設定や構成に応じて実行状態の保存と再開を行える。Spring Batchは名称であり略語ではない。",
+      "point": "ジョブスケジューラとの責任分界、コミット単位、再開条件、エラー処理、実行履歴、性能、再処理時の二重更新防止を確認する。",
+      "origin": "system-modernization-anonymized.md（バッチ設計）／Spring Batch公式 Introduction https://docs.spring.io/spring-batch/reference/spring-batch-intro.html ／Domain Language https://docs.spring.io/spring-batch/reference/domain.html"
+    },
+    {
+      "id": "349",
+      "section_no": 48,
+      "category": "Web/Java",
+      "question": "共通ライブラリとは何か？",
+      "answer": "Common Library。複数のプログラムで使用するログ出力、文字変換、入力チェックなどの処理を共通化し、再利用できるようにしたプログラム部品群。",
+      "explanation": "同じ処理を各アプリで個別に実装せず、共通部品を呼び出して利用する。JavaではJAR（Java Archive）などの形式で配布する例がある。重複実装を減らし品質をそろえやすいが、変更の影響が利用先に広がる場合もある。",
+      "point": "共通化の対象、責任者、API仕様、バージョン管理、互換性、変更時の影響範囲、利用先のテストを確認する。",
+      "origin": "mainframe-architecture-glossary.md（プログラムライブラリ・共通部品）／system-modernization-anonymized.md（アプリ設計）／一般的なソフトウェア設計知識"
+    },
+    {
+      "id": "350",
+      "section_no": 37,
+      "category": "外部IF",
+      "question": "プロトコル変換とは何か？",
+      "answer": "Protocol Conversion。異なる通信規約を使用するシステム同士が通信できるように、通信方式やメッセージの形式を変換すること。",
+      "explanation": "例えばホスト固有の通信規約を使用するシステムとHTTPを利用するWebシステムの間で、ゲートウェイなどが通信の手順や応答を仲介する。文字コードやデータ項目の変換は関連処理だが、プロトコル変換と同一とは限らない。",
+      "point": "変換対象のプロトコル、接続方式、認証・暗号化、応答の対応、タイムアウト、順序、再送、障害時の整合性を確認する。",
+      "origin": "mainframe-architecture-advanced-glossary.md（外部IF・プロトコル変換）／legacy-host-operation-reference-patterns.md 第8・9章"
+    },
+    {
+      "id": "351",
+      "section_no": 35,
+      "category": "帳票",
+      "question": "APSのライタ定義とは何か？",
+      "answer": "APS（Advanced Printing Subsystem）で帳票を出力するライタについて、出力先や処理条件などを設定する定義。",
+      "explanation": "ライタ（Writer）はスプール上の帳票データの出力を制御する機能。例えばAPS/NPではライタを定義・起動し、JCLなどで該当ライタを指定することで帳票受信サーバーへの転送を行う構成がある。具体的な定義項目はAPSの製品・構成による。",
+      "point": "ライタ名と出力経路の対応、出力先、印刷属性、帳票の仕分け、起動・停止、障害時の再出力を確認する。帳票レイアウトの定義とは区別する。",
+      "origin": "提供されたAPS補足資料（一般化）／富士通 ホスト帳票受信サービス手引書 2.6 転送環境の構築（APS/NPのライタ定義） https://resources.global.fujitsu/software/manual/j2s0-0489/01z200/j0489-02-02-06-00.html ／ライタの定義情報 https://resources.global.fujitsu/software/manual/b1wd-3585/02z200/b3585-c-02-01.html"
+    },
+    {
+      "id": "352",
+      "section_no": 36,
+      "category": "帳票",
+      "question": "FNAサーバーとは何か？",
+      "answer": "FNA（Fujitsu Network Architecture）によるホスト通信と端末側などの通信を仲介するサーバー。ホスト帳票の分散出力などにも利用される構成がある。",
+      "explanation": "富士通のFNA Serverはホストと端末などの接続を支援する通信ソフトウェア。帳票分散印刷ではHOST PRINTやList Worksなどと組み合わせ、FNA通信でホストの印刷データを受け取る構成例がある。FNA Server自体が帳票生成や印刷制御の全機能を担うわけではない。",
+      "point": "FNA通信の利用範囲、接続先、論理端末LU（Logical Unit）の定義、帳票受信・印刷ソフトとの責任分界、移行後の代替経路、通信障害時の復旧を確認する。",
+      "origin": "提供されたAPS補足資料（一般化）／富士通 FNA Serverの機能 https://resources.global.fujitsu/software/manual/b1fw-6069/02z200/b6069-00-01-02-00.html ／List Works 印刷データの受信環境（FNA） https://resources.global.fujitsu/software/manual/b1wd-3587/01z200/b3587-01-02-10-02.html"
     }
   ],
   "archivedCards": [],
