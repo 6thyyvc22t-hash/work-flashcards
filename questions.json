@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-39",
+  "revision": "2026-11-28-approved-input-review-batch-40",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 313,
+  "nextId": 316,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3139,6 +3139,36 @@
       "explanation": "不要な処理や異常対応時などに、特定のジョブを実行しないよう設定する。スキップ時の終了状態や後続ジョブの起動判定はジョブ管理製品や依存条件によって異なり、必ず正常終了扱いになるとは限らない。",
       "point": "省略による未更新データ・未生成ファイル、後続処理への影響、承認と操作記録、スキップ解除の条件を確認する。",
       "origin": "legacy-host-operation-reference-patterns.md 第12章（ジョブネット管理・運用操作）／提供された一般化Q&A・一般的なジョブ運用知識"
+    },
+    {
+      "id": "313",
+      "section_no": 36,
+      "category": "メインフレーム",
+      "question": "PFDとは何か？",
+      "answer": "Programming Facility for Display Users。富士通メインフレームの対話型プログラム開発支援機能。ソースコードの編集やデータセットの操作などに利用する。",
+      "explanation": "TSS（Time Sharing System）などの対話環境で、メニューや全画面操作を通じてソースプログラム・データの作成と修正、コンパイル、結合編集、実行などの開発・保守作業を支援する。",
+      "point": "脱ホスト時はPFDで行っていた開発・保守作業を棚卸しし、IDE（Integrated Development Environment：統合開発環境）、Git、ビルドツールなどへの代替と権限管理を確認する。",
+      "origin": "mainframe-architecture-glossary.md（関連）／富士通ラーニングメディア OSIV/MSP PFD使用法 https://www.kcc.knowledgewing.com/icm/srv/course-application/init-detail?cd=FLM&cscd=UPO31W&pcd=FLMC ／長崎大学公開資料「PFDシステムのレベルアップについて」 https://nagasaki-u.repo.nii.ac.jp/record/13281/files/IMCR8.pdf"
+    },
+    {
+      "id": "314",
+      "section_no": 37,
+      "category": "メインフレーム",
+      "question": "サブスキーマとは何か？",
+      "answer": "Subschema。データベース全体のスキーマのうち、特定のプログラムから利用するデータ構造や範囲を定義したもの。",
+      "explanation": "ネットワーク型DB（NDB：Network Database）などでは、スキーマがデータベース全体の構造を表し、サブスキーマはプログラムが参照するレコードや関連などを定義する。RDBのビューと概念上似た面があるが、同一の機能ではない。",
+      "point": "NDBからRDBへ移行する際は、プログラムが参照するサブスキーマ、レコード構造、関連、アクセス経路を棚卸しし、テーブル・SQL・データアクセス部品との対応を確認する。サブスキーマだけで認可を保証すると考えない。",
+      "origin": "system-modernization-anonymized.md 第5章（NDB・RDB移行）／TmaxSoft OpenFrame NDBの構造と機能 https://docs.tmaxsoft.com/ja/openframe_ndb/MSP_7.3/ndb-guide/chapter-ndb-structure.html ／富士通 NetCOBOL関連マニュアル https://software.fujitsu.com/jp/manual/manualfiles/M080102/B1WD1291/01Z000/B1WD-1291-01Z0%2800%29.pdf"
+    },
+    {
+      "id": "315",
+      "section_no": 38,
+      "category": "メインフレーム",
+      "question": "ポスト処理とは何か？",
+      "answer": "Post Processing（後処理）。オンライン業務で受け付けたデータの確定・集計・マスタ更新などを後続処理として行うこと。具体的な意味はシステムによって異なる。",
+      "explanation": "オンライン処理の後に、蓄積された受付データをまとめて反映したり、後続のバッチ処理に必要なデータを準備したりする運用例がある。オンライン終了との依存関係や実行時期は個別設計による。ポストは全製品共通の正式な処理分類ではない。",
+      "point": "オンラインからポスト処理、後続バッチへのデータ受渡し、起動・終了条件、更新の確定時点、異常時の再実行や二重更新防止を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第3章・第12章（オンライン・ポスト・バッチ）／提供された一般化Q&A"
     }
   ],
   "archivedCards": [],
