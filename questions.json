@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-38",
+  "revision": "2026-11-28-approved-input-review-batch-39",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 303,
+  "nextId": 313,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3039,6 +3039,106 @@
       "explanation": "Goは続行、No-Goは中止・延期などを意味する。データ移行結果、重大障害の有無、残り時間、業務影響などを評価し、必要に応じて切戻し手順を発動する。",
       "point": "判定時刻、定量的な合格基準、判定責任者、証跡、切戻しに必要な時間と切替後のデータ整合性を事前に定める。",
       "origin": "system-modernization-anonymized.md 第12章／Microsoft Learn Transition to new solutions successfully with the cutover process https://learn.microsoft.com/dynamics365/guidance/implementation-guide/prepare-go-live-cutover-strategy"
+    },
+    {
+      "id": "303",
+      "section_no": 35,
+      "category": "メインフレーム",
+      "question": "カタログ（Catalog）とは何か？",
+      "answer": "データセット名と格納先ボリュームなどの情報を管理し、名前からデータセットにアクセスできるようにする仕組み。",
+      "explanation": "例えばIBM z/OSでは、マスターカタログやユーザーカタログがデータセットの所在を管理する。登録済みデータセットは格納先ボリュームを個別に指定せず、名前で参照できる。VTOC（Volume Table of Contents）は各ディスクボリューム内の配置情報を管理する。",
+      "point": "移行対象のデータセット名、カタログ登録状況、JCLからの参照、世代管理や格納先の依存関係を確認する。製品ごとの管理方式の違いに注意する。",
+      "origin": "mainframe-architecture-glossary.md 第6章（関連）／IBM z/OS Basic Skills: What is a catalog? https://www.ibm.com/docs/en/zos-basic-skills?topic=vtoc-what-is-catalog"
+    },
+    {
+      "id": "304",
+      "section_no": 26,
+      "category": "認証/セキュリティ",
+      "question": "フェデレーションとは何か？",
+      "answer": "Federation（ID・認証連携）。異なる認証基盤や組織間で信頼関係を構築し、認証結果やID情報を連携する仕組み。",
+      "explanation": "利用先のアプリケーションが外部のIdP（Identity Provider）による認証結果を信頼する。SAML（Security Assertion Markup Language）やOIDC（OpenID Connect）などが利用され、各サービスに個別のパスワードを持たずに利用できる構成も可能。",
+      "point": "信頼する発行元、署名検証、対象サービス、属性の対応付け、証明書更新、認証基盤障害時の影響を確認する。認証連携とアカウント同期・業務認可を区別する。",
+      "origin": "system-modernization-anonymized.md 第9章／Microsoft Learn Federated Identity Pattern https://learn.microsoft.com/en-us/azure/architecture/patterns/federated-identity"
+    },
+    {
+      "id": "305",
+      "section_no": 27,
+      "category": "認証/セキュリティ",
+      "question": "mTLSとは何か？",
+      "answer": "Mutual Transport Layer Security（相互TLS認証）。サーバーとクライアントの双方が証明書を使って相手を認証する方式。",
+      "explanation": "通常のHTTPSでは主にクライアントがサーバー証明書を検証する。mTLSではサーバー側もクライアント証明書を検証し、接続主体を確認する。システム間API連携などで用いられる。通信の暗号化や主体認証と、業務上の操作権限の判定は別である。",
+      "point": "信頼する認証局、証明書の有効期限・更新・失効、秘密鍵の保護、TLS終端位置、バックエンドでの認可を確認する。",
+      "origin": "system-modernization-anonymized.md 第9章／Microsoft Learn Set up TLS mutual authentication https://learn.microsoft.com/azure/app-service/app-service-web-configure-tls-mutual-auth"
+    },
+    {
+      "id": "306",
+      "section_no": 28,
+      "category": "認証/セキュリティ",
+      "question": "PAMとは何か？",
+      "answer": "Privileged Access Management（特権アクセス管理）。管理者などの強力な権限の利用を制限・管理し、監視や監査を行う仕組み。",
+      "explanation": "特権アクセスを必要な作業・期間に限定する。製品や運用に応じて、申請・承認、認証情報の保管・貸出、時限的な権限付与、操作記録などを組み合わせる。",
+      "point": "最小権限、承認者と作業者の分離、緊急時のアクセス手順、権限失効、操作ログの保護と定期棚卸しを確認する。",
+      "origin": "system-modernization-anonymized.md 第9章／Microsoft Learn Defender for Identity と PAM サービスの統合 https://learn.microsoft.com/ja-jp/defender-for-identity/integrate-microsoft-and-pam-services"
+    },
+    {
+      "id": "307",
+      "section_no": 32,
+      "category": "外部IF",
+      "question": "イベント駆動とは何か？",
+      "answer": "Event-Driven。データの登録・更新などのイベント発生を契機に、対応する処理を実行する方式。",
+      "explanation": "例えばデータ登録のイベントを発行し、受信側が通知を受けて後続処理を行う。イベント発行元と処理側の間にメッセージング基盤を置く構成では、疎結合化や非同期処理が可能になる。イベント駆動は必ずしも非同期に限定されない。",
+      "point": "イベントの発行条件、配信保証、重複・順序、処理失敗時の再試行や監視、データ整合性を確認する。",
+      "origin": "system-modernization-anonymized.md 第7章（関連）／Microsoft Learn Event-Driven Architecture Style https://learn.microsoft.com/ja-jp/azure/architecture/guide/architecture-styles/event-driven"
+    },
+    {
+      "id": "308",
+      "section_no": 25,
+      "category": "帳票",
+      "question": "A-SPOOLとは何か？",
+      "answer": "ユニリタが提供する帳票統合管理ソフトウェア。帳票データの蓄積・仕分け・出力・再印刷などを管理する。",
+      "explanation": "生成された帳票を蓄積し、帳票内の仕分けキーなどを利用して配布単位に分類し、印刷・保存・転送などの運用につなげる。帳票レイアウトを設計する機能やプリンタの出力制御とは役割を区別する。",
+      "point": "移行時は仕分け条件、保存期間、出力先、再印刷、関連製品との連携、帳票形式の互換性を確認する。製品名のAの正式な展開は確認できないため記載しない。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章／ユニリタ A-SPOOL https://www.unirita.co.jp/products/aspool.html ／機能 https://www.unirita.co.jp/products/aspool/function.html"
+    },
+    {
+      "id": "309",
+      "section_no": 26,
+      "category": "帳票",
+      "question": "SVFとは何か？",
+      "answer": "Super Visual Formade。ウイングアーク１ｓｔが提供する、帳票の設計・生成・出力などを支援する帳票基盤製品群。",
+      "explanation": "帳票の罫線や印字位置を様式として定義し、業務データを組み合わせてPDFやプリンタ出力などを生成する。設計ツール、出力エンジン、運用管理製品などを用途に応じて組み合わせる。",
+      "point": "必要な帳票形式、外字・フォント、出力方式、処理性能、製品構成・ライセンス、再印刷や保管の担当機能を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章／ウイングアーク１ｓｔ 沿革 https://corp.wingarc.com/company/history.html ／SVF30周年 https://www.wingarc.com/product/svf/svf30th/index.html"
+    },
+    {
+      "id": "310",
+      "section_no": 27,
+      "category": "帳票",
+      "question": "SVF for PDFとは何か？",
+      "answer": "帳票の様式定義と業務データを組み合わせ、PDF（Portable Document Format）形式の帳票を生成するSVFの出力エンジン。",
+      "explanation": "アプリケーションなどから受け取った業務データを指定の帳票様式に配置し、PDFファイルとして生成する。帳票設計ツール、印刷管理、電子帳票保管とは役割が異なる。",
+      "point": "フォント・外字の埋め込み、改ページ、印字位置、ファイル容量、大量同時生成時の性能、PDFの保管・閲覧権限を確認する。採用バージョンの仕様を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章／ウイングアーク１ｓｔ SVF for PDF 製品発表 https://corp.wingarc.com/public/200707/news209.html ／Web帳票運用例 https://www.wingarc.com/product/svf/example/web.html"
+    },
+    {
+      "id": "311",
+      "section_no": 28,
+      "category": "帳票",
+      "question": "プレプリント用紙とは何か？",
+      "answer": "Preprinted Form。ロゴや罫線などの固定内容があらかじめ印刷され、後から業務データなどを追加印字する用紙。",
+      "explanation": "固定の書式を事前に印刷した専用用紙を用意し、帳票出力時に氏名や金額などの可変データを所定の位置へ印字する。白紙に固定書式と可変データを同時に印刷する方式とは異なる。",
+      "point": "用紙サイズ、給紙方向、印字位置のずれ、用紙在庫、後加工との適合性、白紙印刷への切替可否を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（関連）／提供された一般化Q&A・一般的な帳票印刷知識"
+    },
+    {
+      "id": "312",
+      "section_no": 22,
+      "category": "運用/非機能",
+      "question": "ジョブのスキップとは何か？",
+      "answer": "Job Skip。指定されたジョブの実行を省略する運用操作。後続ジョブの扱いは製品や設定によって異なる。",
+      "explanation": "不要な処理や異常対応時などに、特定のジョブを実行しないよう設定する。スキップ時の終了状態や後続ジョブの起動判定はジョブ管理製品や依存条件によって異なり、必ず正常終了扱いになるとは限らない。",
+      "point": "省略による未更新データ・未生成ファイル、後続処理への影響、承認と操作記録、スキップ解除の条件を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第12章（ジョブネット管理・運用操作）／提供された一般化Q&A・一般的なジョブ運用知識"
     }
   ],
   "archivedCards": [],
