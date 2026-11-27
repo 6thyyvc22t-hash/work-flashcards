@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-27-approved-character-validation-batch-37",
+  "revision": "2026-11-28-approved-input-review-batch-38",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 292,
+  "nextId": 303,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -2929,6 +2929,116 @@
       "explanation": "例えばHTML（HyperText Markup Language）に文字として表示する小なり記号は &lt; と表現でき、JSON（JavaScript Object Notation）の文字列中の引用符にはバックスラッシュを付ける。必要な処理は出力先の文法や文脈で異なり、文字の削除や入力禁止とは別である。",
       "point": "出力先ごとに適切なエスケープ・エンコードを行い、二重変換を防ぐ。XSS（Cross-Site Scripting）対策は出力文脈に応じた処理、SQL（Structured Query Language）インジェクション対策は原則としてパラメータ化クエリを用いる。",
       "origin": "system-modernization-anonymized.md（Webアプリ・入力検証：関連知識）／一般的なHTML・JSONの文字列処理および安全な出力処理の知識"
+    },
+    {
+      "id": "292",
+      "section_no": 34,
+      "category": "メインフレーム",
+      "question": "MSP（OSIV/MSP）とは何か？",
+      "answer": "富士通のGSシリーズなどで動作するメインフレーム用のOS（Operating System）。",
+      "explanation": "ジョブ実行、記憶領域、入出力装置などのシステム資源を管理し、業務プログラムやミドルウェアの実行基盤となる。前身OSIV/F4 MSPのMSPはMultidimensional System Productsに由来する。",
+      "point": "OSに依存するJCL、ファイル管理、端末制御、帳票、運用機能を棚卸しし、新基盤の代替機能と責任範囲を確認する。",
+      "origin": "mainframe-architecture-glossary.md 第1・4・6章／富士通 Linkexpress Replication manual https://resources.global.fujitsu/software/manual/j2x0-3646/05z200/lxrep01/lxrep022.html ／情報処理学会 コンピュータ博物館 OSIV/F4 MSP https://museum.ipsj.or.jp/computer/os/fujitsu/0010.html"
+    },
+    {
+      "id": "293",
+      "section_no": 22,
+      "category": "認証/セキュリティ",
+      "question": "Kerberos認証とは何か？",
+      "answer": "チケットと呼ばれる認証情報を使い、パスワードそのものを接続先に送らずに認証するプロトコル。",
+      "explanation": "AD（Active Directory）などで利用される。KDC（Key Distribution Center：鍵配送センター）からTGT（Ticket Granting Ticket）を取得し、対象サービス用のチケットを発行してもらい、サービスへ提示する。相互認証にも対応する。Kerberosは略語ではない。",
+      "point": "認証基盤との信頼関係、時刻同期、サービスプリンシパル名、チケットの有効期限を確認する。Web化時にはOIDCなどの認証方式との役割の違いを整理する。",
+      "origin": "system-modernization-anonymized.md 第9章（関連）／Microsoft Learn Kerberos authentication overview https://learn.microsoft.com/en-us/windows-server/security/kerberos/kerberos-authentication-overview"
+    },
+    {
+      "id": "294",
+      "section_no": 23,
+      "category": "認証/セキュリティ",
+      "question": "ABACとは何か？",
+      "answer": "Attribute-Based Access Control（属性ベースアクセス制御）。主体・対象資源・操作・環境などの属性に基づきアクセスの可否を判断する方式。",
+      "explanation": "例えば利用者の所属部門と対象データの管理部門が一致する場合に閲覧を許可する。RBAC（Role-Based Access Control）と組み合わせることもできる。",
+      "point": "属性の正本、更新反映、権限判定ルール、属性欠落時の拒否、サーバー側でのデータアクセス制御を確認する。",
+      "origin": "system-modernization-anonymized.md 第9章／NIST SP 800-162 https://csrc.nist.gov/pubs/sp/800/162/upd2/final"
+    },
+    {
+      "id": "295",
+      "section_no": 24,
+      "category": "認証/セキュリティ",
+      "question": "リフレッシュトークンとは何か？",
+      "answer": "Refresh Token。認可サーバーから新しいアクセストークンを取得するために使うトークン。",
+      "explanation": "OAuth 2.0では、アクセストークンの期限切れなどに際し、クライアントがリフレッシュトークンを認可サーバーに提示して更新できる場合がある。APIへのアクセス自体にはアクセストークンを使用する。",
+      "point": "安全な保管場所、有効期限、失効・ローテーションの方針を確認し、トークンをログに出力しない。再認証が必要になる場合も想定する。",
+      "origin": "system-modernization-anonymized.md 第9章（関連）／Microsoft Learn Tokens and claims overview https://learn.microsoft.com/en-us/azure/active-directory/develop/active-directory-token-and-claims"
+    },
+    {
+      "id": "296",
+      "section_no": 25,
+      "category": "認証/セキュリティ",
+      "question": "IDトークンとは何か？",
+      "answer": "ID Token（Identity Token）。OIDC（OpenID Connect）で発行され、ユーザーの識別子などの認証結果を格納するトークン。",
+      "explanation": "JWT（JSON Web Token）形式でクライアントアプリに発行される。発行者、対象クライアント、ユーザー識別子、有効期限などのクレームを含む。API利用権限を表すアクセストークンとは目的が異なる。",
+      "point": "署名、発行者、対象者、有効期限、必要に応じてnonceを検証する。IDトークンをAPIへの認可用トークンとして使用しない。",
+      "origin": "azure-architecture-glossary.md 第6章／Microsoft Learn Tokens and claims overview https://learn.microsoft.com/en-us/azure/active-directory/develop/active-directory-token-and-claims"
+    },
+    {
+      "id": "297",
+      "section_no": 43,
+      "category": "Azure/クラウド",
+      "question": "Azureのサブスクリプションとは何か？",
+      "answer": "Subscription。Azureリソースの利用・課金・アクセス権限などを管理する論理的な単位。リソースグループを配下に持つ。",
+      "explanation": "Azureの管理階層は管理グループ、サブスクリプション、リソースグループ、リソースの順に構成される。サブスクリプションごとに費用やポリシー、利用上限などを管理できる。",
+      "point": "本番・開発などの分離方針、RBACの適用範囲、Azure Policyの継承、課金管理、サービスクォータを確認する。",
+      "origin": "azure-architecture-glossary.md 第1章／Microsoft Learn Resource management fundamentals https://learn.microsoft.com/en-us/entra/architecture/secure-resource-management"
+    },
+    {
+      "id": "298",
+      "section_no": 31,
+      "category": "外部IF",
+      "question": "トリガーファイルとは何か？",
+      "answer": "Trigger File。データファイルの転送完了などを通知し、受信側の後続処理を起動するためのファイル。",
+      "explanation": "例えば送信側がデータ転送を完了した後、空の完了通知ファイルを配置し、受信側がその存在を検知して取込処理を開始する。フラグファイルや完了ファイルとも呼ばれる場合がある。",
+      "point": "データの確定と通知の順序、ファイル名、再送・重複検知、処理後の削除、通知未着時の監視、整合性検証を取り決める。",
+      "origin": "legacy-host-operation-reference-patterns.md 第5章・第8章・第12章（関連）／提供された一般化Q&A・一般的なファイル連携設計知識"
+    },
+    {
+      "id": "299",
+      "section_no": 22,
+      "category": "帳票",
+      "question": "APSとは何か？",
+      "answer": "Advanced Printing Subsystem。富士通ホスト上の印刷データをプリンタへ出力する際の出力制御を担う帳票管理ソフトウェア。",
+      "explanation": "ホストの業務プログラムが生成したスプールデータなどを印刷装置に送るライタ機能を持つ。帳票の生成、スプール管理、配信、印刷制御は役割が異なり、APS/DSPなどの関連製品と組み合わせる場合がある。",
+      "point": "帳票形式、ライタ・出力先の定義、オーバレイ、通信方式、再印刷の責任範囲を確認する。ほかの帳票管理製品との互換性は実際の仕様・構成で確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（一般化）／富士通 Interstage List Works for Modernization 帳票保管活用機能用語集 APS https://resources.global.fujitsu/software/manual/j2ul-3022/01z201/j3022-z-glossary.html"
+    },
+    {
+      "id": "300",
+      "section_no": 23,
+      "category": "帳票",
+      "question": "APS/DSPとは何か？",
+      "answer": "Advanced Printing Subsystem/Distribution Service Product。APSのオプション製品で、APSやAIMと連携して帳票メッセージを配信するソフトウェア。",
+      "explanation": "対話処理、バッチ、トランザクション処理で生成された帳票メッセージを配信する。APSのプリンタ出力制御と区別して、帳票配信の機能を担う。",
+      "point": "帳票配信先、配信環境、異常時の再送・復旧、プリンタ出力制御との分担を確認する。移行後は配信機能が漏れなく代替されるかを確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（一般化）／富士通 Fujitsu Software APS/DSP 製品資料（2025年11月） https://docs.fujitsu/documents/003298/fujitsu-software-aps-dsp-brochure-ja.pdf"
+    },
+    {
+      "id": "301",
+      "section_no": 24,
+      "category": "帳票",
+      "question": "UCXとは何か？",
+      "answer": "Universal Connect/X。上位システムの帳票用データをSVFに連携し、PDF生成やプリンタ出力を自動化する製品。",
+      "explanation": "CSV、XML、テキストなどの入力を受け取り、設定に従ってSVFの帳票出力処理を起動する。ファイル監視による連携などが可能で、帳票様式を設計するツールや出力エンジン自体とは役割が異なる。",
+      "point": "入力形式、文字コード、監視・起動条件、帳票様式との対応付け、異常時の再実行や二重出力防止を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（一般化）／ウイングアーク１ｓｔ 基幹帳票運用例 https://www.wingarc.com/product/svf/example/key.html ／Web帳票運用サーバ出力例 https://www.wingarc.com/product/svf/example/web.html"
+    },
+    {
+      "id": "302",
+      "section_no": 13,
+      "category": "移行/テスト",
+      "question": "Go/No-Go判定とは何か？",
+      "answer": "システム移行や本番切替において、事前に合意した基準に基づいて、作業を続行するか中止するかを判断すること。",
+      "explanation": "Goは続行、No-Goは中止・延期などを意味する。データ移行結果、重大障害の有無、残り時間、業務影響などを評価し、必要に応じて切戻し手順を発動する。",
+      "point": "判定時刻、定量的な合格基準、判定責任者、証跡、切戻しに必要な時間と切替後のデータ整合性を事前に定める。",
+      "origin": "system-modernization-anonymized.md 第12章／Microsoft Learn Transition to new solutions successfully with the cutover process https://learn.microsoft.com/dynamics365/guidance/implementation-guide/prepare-go-live-cutover-strategy"
     }
   ],
   "archivedCards": [],
