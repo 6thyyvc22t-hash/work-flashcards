@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-40",
+  "revision": "2026-11-28-approved-input-review-batch-41",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 316,
+  "nextId": 321,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3169,6 +3169,56 @@
       "explanation": "オンライン処理の後に、蓄積された受付データをまとめて反映したり、後続のバッチ処理に必要なデータを準備したりする運用例がある。オンライン終了との依存関係や実行時期は個別設計による。ポストは全製品共通の正式な処理分類ではない。",
       "point": "オンラインからポスト処理、後続バッチへのデータ受渡し、起動・終了条件、更新の確定時点、異常時の再実行や二重更新防止を確認する。",
       "origin": "legacy-host-operation-reference-patterns.md 第3章・第12章（オンライン・ポスト・バッチ）／提供された一般化Q&A"
+    },
+    {
+      "id": "316",
+      "section_no": 29,
+      "category": "認証/セキュリティ",
+      "question": "TLS終端とは何か？",
+      "answer": "TLS（Transport Layer Security）による暗号化通信を、ロードバランサーやリバースプロキシなどで終了させ、復号すること。",
+      "explanation": "例えばApplication GatewayがクライアントとのTLS接続を終端し、HTTPの内容を検査したり、バックエンドへの振り分けを行ったりする。バックエンドへは平文HTTPで転送する構成と、別のTLS接続で再暗号化する構成がある。",
+      "point": "TLS終端の位置、証明書の配置・更新、バックエンドまでの暗号化要否、証明書検証、WAFの検査範囲を確認する。",
+      "origin": "network-security-proxy-study.md 第2・4節／azure-hub-spoke-design-review.md 第2節（Application Gateway・TLS終端）"
+    },
+    {
+      "id": "317",
+      "section_no": 44,
+      "category": "Azure/クラウド",
+      "question": "コンテナとは何か？",
+      "answer": "Container。アプリケーションと必要なライブラリなどをまとめ、OSのカーネルを共有しながら分離された環境で実行する仕組み。",
+      "explanation": "一般的なOSレベルのコンテナは、コンテナイメージを基にプロセスを隔離して実行する。VM（Virtual Machine）のように個別のゲストOSを起動する方式とは異なり、軽量な実行環境を構成しやすい。AzureではAKSやAzure Container Appsなどが実行基盤の例となる。",
+      "point": "コンテナの実行基盤、イメージの版管理・脆弱性対策、CPU・メモリの割当て、永続データの保存先、再起動時の動作を確認する。",
+      "origin": "azure-architecture-glossary.md（実行基盤）／system-modernization-anonymized.md 第6節（実行基盤の候補）／一般的なコンテナ技術知識"
+    },
+    {
+      "id": "318",
+      "section_no": 22,
+      "category": "DB",
+      "question": "オブジェクトストレージとは何か？",
+      "answer": "Object Storage。データを識別子やメタデータとともにオブジェクト単位で管理するストレージ方式。Azure Blob Storageなどが該当する。",
+      "explanation": "オブジェクトはデータ本体と識別子、属性情報を持ち、一般にAPIなどを通じて読み書きする。大量の帳票PDF、画像、バックアップ、連携ファイルなどの保存に利用される。通常のファイル共有と同じ操作性があるとは限らない。",
+      "point": "アクセス方式、権限、保存期間、アクセス頻度に応じた階層、ファイル連携方式との互換性、削除・復元方法を確認する。",
+      "origin": "system-modernization-anonymized.md 第10節（ストレージ・帳票）／azure-architecture-glossary.md 第4節（データ・ストレージ）"
+    },
+    {
+      "id": "319",
+      "section_no": 23,
+      "category": "DB",
+      "question": "ファイルストレージとは何か？",
+      "answer": "File Storage。データをフォルダやファイルとして階層的に管理するストレージ方式。Azure Filesなどが該当する。",
+      "explanation": "共有フォルダのようにファイル名やパスでデータを扱う。ネットワーク経由で複数のサーバーから共有できる構成があり、SMB（Server Message Block）やNFS（Network File System）などのプロトコルが使われる。",
+      "point": "既存アプリのファイルパス、対応プロトコル、アクセス権限、同時更新時のロック、通信遅延、バックアップ方式を確認する。",
+      "origin": "system-modernization-anonymized.md 第10節（ストレージ・帳票）／azure-architecture-glossary.md 第4節（データ・ストレージ）"
+    },
+    {
+      "id": "320",
+      "section_no": 24,
+      "category": "DB",
+      "question": "ブロックストレージとは何か？",
+      "answer": "Block Storage。データをブロック単位で読み書きするストレージ方式。仮想マシンのディスクなどに利用される。",
+      "explanation": "OSなどからディスクとして扱われる記憶領域を提供する。ファイルシステムやDBはその上でデータの配置・管理を行う。Azure Managed Diskは代表的な例で、OSディスクやデータディスクに利用される。",
+      "point": "必要容量、IOPS（Input/Output Operations Per Second）、スループット、遅延、接続方式、冗長化、スナップショットや復元方法を確認する。",
+      "origin": "azure-architecture-glossary.md 第4節（データ・ストレージ）／system-modernization-anonymized.md 第10節（関連）／一般的なストレージ技術知識"
     }
   ],
   "archivedCards": [],
