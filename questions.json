@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-43",
+  "revision": "2026-11-28-approved-input-review-batch-44",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 337,
+  "nextId": 346,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3379,6 +3379,96 @@
       "explanation": "封入は帳票を封筒に収める工程、封緘は封を閉じる工程。帳票の仕分け、折り、宛名との照合、封入枚数の確認などと組み合わせて運用する。",
       "point": "宛先と内容の突合、誤封入・二重発送の防止、帳票の順序、枚数、用紙・封筒の適合性、異常時の再処理や配送締切を確認する。",
       "origin": "legacy-host-operation-reference-patterns.md 第10章（物理後工程）／提供Q&A 帳票・印刷方式／一般的な印刷知識"
+    },
+    {
+      "id": "337",
+      "section_no": 42,
+      "category": "メインフレーム",
+      "question": "ホストオンライン処理におけるタスクとは何か？",
+      "answer": "Task。端末からの要求などに応じて実行される処理の管理単位。具体的な定義はOSやオンライン制御製品によって異なる。",
+      "explanation": "オンライン制御基盤が要求を受け付け、対応する業務プログラムを実行する際に、処理をタスクとして管理する構成がある。タスク、端末セッション、トランザクション、バッチジョブは必ずしも一対一ではない。",
+      "point": "タスクの起動・終了条件、同時実行数、状態保持、DB更新の確定単位、異常時の処理を確認する。Web化後のリクエスト処理との対応は製品仕様と実装に基づいて整理する。",
+      "origin": "aim-screen-study.md（画面・ジョブ・タスクの概念）／mainframe-architecture-glossary.md（オンライン制御基盤）／一般的な技術知識"
+    },
+    {
+      "id": "338",
+      "section_no": 43,
+      "category": "Web/Java",
+      "question": "Spring Bootとは何か？",
+      "answer": "Spring Frameworkを利用したJavaアプリケーションの開発を、設定の自動化などによって簡素化する仕組み。",
+      "explanation": "依存ライブラリに応じた自動設定やスターター、組込みWebサーバーなどにより、アプリケーションの構築・起動を容易にする。REST APIやバッチアプリケーションの開発にも利用できる。Spring Bootは製品・プロジェクト名で略語ではない。",
+      "point": "Java・Spring Bootの対応バージョン、依存ライブラリ、設定管理、起動方式、セキュリティ更新、監視方法を確認する。",
+      "origin": "system-modernization-anonymized.md 第4章／Spring Boot公式 Auto-configuration https://docs.spring.io/spring-boot/reference/using/auto-configuration.html"
+    },
+    {
+      "id": "339",
+      "section_no": 44,
+      "category": "Web/Java",
+      "question": "DAOとは何か？",
+      "answer": "Data Access Object（データアクセスオブジェクト）。データベースへの参照・登録・更新などの処理を業務ロジックから分離するための設計パターン。",
+      "explanation": "業務処理側はDAOのインターフェースを通じてデータを操作し、SQLやDB接続などの実装をDAO側に集約する。データアクセスの変更が業務ロジックに与える影響を抑えやすい。Repositoryは関連する概念だが、設計上の責務が必ずしも同じではない。",
+      "point": "SQLの配置、トランザクション境界、例外処理、共通化の範囲、単体テストでの置換可能性を確認する。",
+      "origin": "system-modernization-anonymized.md 第4・5章（DAO／Repository）／一般的な設計パターンの知識"
+    },
+    {
+      "id": "340",
+      "section_no": 35,
+      "category": "外部IF",
+      "question": "ストリーム処理とは何か？",
+      "answer": "Stream Processing。継続的に発生するデータを逐次取り込み、リアルタイムまたはそれに近い形で処理する方式。",
+      "explanation": "例えばKafkaに流れる更新イベントを処理基盤で読み取り、変換・集計して別システムへ渡す。データを一定期間まとめて処理するバッチとは異なり、継続的に処理する。実装によっては短い間隔のマイクロバッチを利用する。",
+      "point": "処理遅延、順序、重複、処理能力、障害時の再開、データの取りこぼし、状態管理を確認する。",
+      "origin": "system-modernization-anonymized.md 第7章／Microsoft Learn Event-Driven Architecture Style https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven"
+    },
+    {
+      "id": "341",
+      "section_no": 36,
+      "category": "外部IF",
+      "question": "Outboxパターンとは何か？",
+      "answer": "Transactional Outbox Pattern。業務データの更新と送信用イベントの記録を同じDBトランザクションで行い、後からイベントを配信することで連携の信頼性を高める設計手法。",
+      "explanation": "DB更新とメッセージ送信を別々に行うと、一方だけ成功する不整合が生じ得る。業務データと送信予定のイベントを同じトランザクションで保存し、別処理がOutboxから読み取って配信する。再送による重複は別途対策が必要。",
+      "point": "トランザクション境界、配信遅延、再試行、受信側の冪等性、送信済み管理、イベント順序、未送信の監視を確認する。",
+      "origin": "system-modernization-anonymized.md 第7章／Microsoft Learn Transactional Outbox pattern https://learn.microsoft.com/en-us/azure/architecture/databases/guide/transactional-out-box-cosmos"
+    },
+    {
+      "id": "342",
+      "section_no": 21,
+      "category": "バッチ/ジョブ",
+      "question": "バッチの実行パラメータとは何か？",
+      "answer": "Execution Parameter（実行パラメータ）。バッチプログラムの起動時に外部から渡す情報。処理対象日、対象範囲、実行モードなどを指定する。",
+      "explanation": "例えば処理対象日をパラメータとして渡せば、同じプログラムを異なる日付の処理に利用できる。Spring BatchではJobParametersなどで起動条件を扱う。ジョブインスタンスの識別に利用するパラメータもある。",
+      "point": "必須項目、型、既定値、業務日付、再実行時に使用する値、入力検証、実行履歴、機密情報をパラメータに含めない設計を確認する。",
+      "origin": "mainframe-architecture-glossary.md（実行パラメータ）／legacy-host-operation-reference-patterns.md 第12章／Spring Batch公式 Running a Job https://docs.spring.io/spring-batch/reference/job/running.html"
+    },
+    {
+      "id": "343",
+      "section_no": 22,
+      "category": "バッチ/ジョブ",
+      "question": "バッチの突き抜けとは何か？",
+      "answer": "予定されたバッチ処理が終了時刻を超過し、翌日のオンライン業務などに影響する状態を指す運用上の表現。",
+      "explanation": "夜間バッチが予定の処理時間帯（バッチウィンドウ）内に完了しない場合、オンライン開始、後続ジョブ、外部連携の締切などに影響し得る。用語や判定時刻の定義はシステムによって異なる。",
+      "point": "終了目標、遅延警告時刻、ボトルネック、後続処理への影響、オンライン開始可否、異常時の中断・継続判断を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第11・12章（ジョブ運行・遅延監視）／提供された一般化Q&A（システム運用・詳細設計）"
+    },
+    {
+      "id": "344",
+      "section_no": 25,
+      "category": "運用/非機能",
+      "question": "静止断面バックアップとは何か？",
+      "answer": "データ更新を停止するなどして、整合性の取れた時点の状態を確保したうえで取得するバックアップ。",
+      "explanation": "更新中に複数のデータを別々に取得すると、復元時に相互の整合性が失われる可能性がある。書込み停止やアプリケーションと連携した静止化などで整合する断面を確保する。必ずしもシステム全体の停止が必要とは限らず、具体的な方式はDBやバックアップ製品による。",
+      "point": "静止化の対象・時刻、未完了トランザクション、複数DB・ファイル間の整合性、業務停止時間、RPO（Recovery Point Objective）、復元試験を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第11章（バックアップ・復旧）／提供された一般化Q&A（システム刷新）／一般的なバックアップ設計知識"
+    },
+    {
+      "id": "345",
+      "section_no": 26,
+      "category": "運用/非機能",
+      "question": "相関IDとは何か？",
+      "answer": "Correlation ID（相関識別子）。複数のサーバーやアプリケーションを経由する一連の処理を関連付け、ログなどから追跡するための識別子。",
+      "explanation": "例えばWeb APIから業務処理、外部連携へ要求を渡す際に共通の識別子を伝播させ、各処理のログを関連付ける。障害の発生箇所や処理経路の調査に役立つ。分散トレーシングではTrace IDなどが同様の目的で利用される。",
+      "point": "IDの生成・伝播ルール、ログへの記録、非同期連携での引継ぎ、外部から受け取るIDの検証、検索方法、個人情報をIDに含めない設計を確認する。",
+      "origin": "system-modernization-anonymized.md 第9章（ログ・相関ID）／Microsoft Learn Event-Driven Architecture Style https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven"
     }
   ],
   "archivedCards": [],
