@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-41",
+  "revision": "2026-11-28-approved-input-review-batch-42",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 321,
+  "nextId": 326,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3219,6 +3219,56 @@
       "explanation": "OSなどからディスクとして扱われる記憶領域を提供する。ファイルシステムやDBはその上でデータの配置・管理を行う。Azure Managed Diskは代表的な例で、OSディスクやデータディスクに利用される。",
       "point": "必要容量、IOPS（Input/Output Operations Per Second）、スループット、遅延、接続方式、冗長化、スナップショットや復元方法を確認する。",
       "origin": "azure-architecture-glossary.md 第4節（データ・ストレージ）／system-modernization-anonymized.md 第10節（関連）／一般的なストレージ技術知識"
+    },
+    {
+      "id": "321",
+      "section_no": 23,
+      "category": "運用/非機能",
+      "question": "アベンド（Abend：Abnormal End）対応とダンプ取得とは？",
+      "answer": "アベンドはプログラムが例外やエラーなどで異常終了すること。原因究明のため、異常終了時などのメモリ状態やレジスタ内容をファイル等に出力・保存する作業をダンプ（Dump）取得と呼ぶ。",
+      "explanation": "ホストでは異常終了コードやジョブログとともにABENDダンプを解析し、障害箇所や原因を調べる。取得される情報はOS・ダンプ種別・設定によって異なり、異常終了時に必ずダンプが生成されるとは限らない。",
+      "point": "ダンプ取得条件、保存先・容量、解析担当、ログとの突合、機密情報のマスキングやアクセス制限を確認する。既存のABENDの意味に加え、障害解析のためのダンプ取得を学ぶ問題。",
+      "origin": "legacy-host-operation-reference-patterns.md 第11・12章（関連）／提供Q&A システム運用 Q14／IBM z/OS ABEND dump https://www.ibm.com/docs/en/zos/2.5.0?topic=aids-abend-dump ／Default contents of ABEND dumps https://www.ibm.com/docs/en/zos/3.1.0?topic=options-default-contents-abend-dumps"
+    },
+    {
+      "id": "322",
+      "section_no": 24,
+      "category": "運用/非機能",
+      "question": "リストア（復元）確認・訓練とは？",
+      "answer": "バックアップデータを実際に別環境等へ復元し、破損がないか、システム障害やデータ破損時に定められた時間内で正常に業務再開できるかを検証する訓練。",
+      "explanation": "Restore（復元）とはバックアップからデータやシステムを復旧する操作。訓練では復元後のデータ整合性、アプリケーションの動作、依存するサービスとの接続、復旧所要時間などを確認する。バックアップ取得の成功だけでは復旧可能性を保証できない。",
+      "point": "RTO（Recovery Time Objective：目標復旧時間）・RPO（Recovery Point Objective：目標復旧時点）、復元手順、担当者、訓練頻度、業務再開判定、結果の記録を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第11章／提供Q&A システム運用 Q18／Microsoft Learn Backup and Recovery https://learn.microsoft.com/en-us/security/benchmark/azure/mcsb-v2-backup-recovery"
+    },
+    {
+      "id": "323",
+      "section_no": 42,
+      "category": "Web/Java",
+      "question": "エミュレータ画面をスクレイピング・操作していたExcelマクロ（VBA）は、新システムでどのように代替できるか？",
+      "answer": "主な代替例は①ブラウザ自動化フレームワーク（Playwright）によるWeb画面操作の自動化、または②バックエンドのREST API直接呼出しへの切り替え。",
+      "explanation": "VBAはVisual Basic for Applications。Playwrightはブラウザ上の画面操作を自動化できるツールで、旧端末の操作をWeb向けに再実装する選択肢となる。REST（Representational State Transfer）API（Application Programming Interface）が提供される場合は画面操作を介さず連携できる。どちらも一般的な代替例で、実際の採用方式ではない。",
+      "point": "既存マクロの機能、公開APIの有無、認証・認可、監査ログ、画面変更による影響、例外処理・再実行、保守担当を確認する。APIを利用できる場合も業務ルールやアクセス権限を守る。",
+      "origin": "system-modernization-anonymized.md 第7・9章（関連）／提供Q&A システム刷新 To-Be Q05／Playwright公式 https://playwright.dev/docs/intro"
+    },
+    {
+      "id": "324",
+      "section_no": 29,
+      "category": "帳票",
+      "question": "帳票の罫線、枠組み、固定タイトル、バーコードなどのレイアウトをGUIで設計するSVF製品は？",
+      "answer": "SVF Web Designer。Webブラウザー上で帳票レイアウトを設計し、XML様式ファイルに文字フォントや改ページ制御などを定義する帳票設計ツール。",
+      "explanation": "SVF（Super Visual Formade）の帳票設計ツール。GUI（Graphical User Interface）で固定文字やフィールド、罫線などの配置を定義する。XML（Extensible Markup Language）形式の様式を利用し、業務データと組み合わせて出力エンジンで帳票を生成する。",
+      "point": "利用する出力エンジンとの互換性、フォント・外字、用紙サイズ、明細の繰返し・改ページ、様式ファイルの版管理、現新比較を確認する。SVFX-Designerなどの設計ツールとの対応も確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章／提供Q&A 詳細設計 Q17／ウイングアーク１ｓｔ SVF Web Designer https://www.wingarc.com/product/svf/output/on-premises/lineup/web_designer.html"
+    },
+    {
+      "id": "325",
+      "section_no": 30,
+      "category": "帳票",
+      "question": "Webブラウザから帳票を出力する際、利用者のPCへPDFファイルをダウンロード・保存させずにプリンタから直接印刷させる機能は？",
+      "answer": "SVF Web Direct Print。Webブラウザーから手元のプリンタへ直接印刷する機能。印刷用ファイルを端末に残さない運用が可能で、情報漏えいリスクの低減に役立つ。",
+      "explanation": "PDFはPortable Document Format。サーバーで生成された印刷データをクライアント側のプリンタへ出力する。利用者がPDFを手動で保存する手順を省けるが、端末に一切の痕跡が残らないことや情報持ち出しの完全防止を保証するものではない。",
+      "point": "端末・ブラウザー・プリンタの対応条件、必要なクライアントソフト、印刷権限、印刷履歴、再印刷、印刷データの一時保存・削除、紙媒体の管理を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章／提供Q&A 詳細設計 Q19／ウイングアーク１ｓｔ SVF PDF Enterprise（マルチOS＆ブラウザ印刷） https://www.wingarc.com/product/svf/output/on-premises/lineup/web_pdf.html"
     }
   ],
   "archivedCards": [],
