@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-42",
+  "revision": "2026-11-28-approved-input-review-batch-43",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 326,
+  "nextId": 337,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3269,6 +3269,116 @@
       "explanation": "PDFはPortable Document Format。サーバーで生成された印刷データをクライアント側のプリンタへ出力する。利用者がPDFを手動で保存する手順を省けるが、端末に一切の痕跡が残らないことや情報持ち出しの完全防止を保証するものではない。",
       "point": "端末・ブラウザー・プリンタの対応条件、必要なクライアントソフト、印刷権限、印刷履歴、再印刷、印刷データの一時保存・削除、紙媒体の管理を確認する。",
       "origin": "legacy-host-operation-reference-patterns.md 第10章／提供Q&A 詳細設計 Q19／ウイングアーク１ｓｔ SVF PDF Enterprise（マルチOS＆ブラウザ印刷） https://www.wingarc.com/product/svf/output/on-premises/lineup/web_pdf.html"
+    },
+    {
+      "id": "326",
+      "section_no": 39,
+      "category": "メインフレーム",
+      "question": "ASMとは何か？",
+      "answer": "ASM（Assemblyの略）。Assembly Language（アセンブリ言語）はCPUの機械語命令に対応した低水準のプログラミング言語。",
+      "explanation": "CPUの命令をニーモニックと呼ばれる記号などで記述し、アセンブラで機械語に変換する。OSやハードウェアに依存する処理などで利用される。ASMは文脈によってアセンブラやアセンブリソースも指す。",
+      "point": "脱ホスト時はCPU・OS依存命令、外部呼出し、データ表現、ソースの有無を確認し、代替機能や手動書換えの必要性を判断する。",
+      "origin": "mainframe-architecture-glossary.md（言語・データ）／提供Q&A メインフレーム・詳細設計／一般的なアセンブリ言語の知識"
+    },
+    {
+      "id": "327",
+      "section_no": 40,
+      "category": "メインフレーム",
+      "question": "WSMGRとは何か？",
+      "answer": "WSMGR（ワークステーションマネージャー／Workstation Manager）。富士通の端末エミュレータ製品で、PCからホストへ接続し業務画面を操作するために利用する。",
+      "explanation": "PC上でホスト端末の表示やキー入力などの機能を再現する。ホスト側の業務プログラム自体をPC上で実行するわけではない。WSMGR for Webはブラウザからホスト端末を利用する関連製品。",
+      "point": "利用している端末機能、キー割当て、画面自動操作、印刷、文字コード、接続・認証方式を棚卸しし、Web化後の代替機能を確認する。",
+      "origin": "aim-screen-study.md（端末接続の関連知識）／富士通 WSMGR使用手引書 https://resources.global.fujitsu/software/manual/b1fw-6070/03z200/b6070-00-00-fmatter.html ／富士通 WSMGR for Web概要 https://resources.global.fujitsu/software/manual/b1fw-6072/07z200/b6072-01-01-01-00.html"
+    },
+    {
+      "id": "328",
+      "section_no": 41,
+      "category": "メインフレーム",
+      "question": "ハイバリュー・ローバリューとは何か？",
+      "answer": "HIGH-VALUE(S)・LOW-VALUE(S)。COBOLの表意定数で、文字の照合順序における最大・最小の文字を表し、検索条件や初期化などに利用される。",
+      "explanation": "英数字データでは使用する照合順序に応じて値が決まる。EBCDICの一般的な照合順ではHIGH-VALUEが16進FF、LOW-VALUEが00となる。数値型の最大値・最小値や一般的なNULLとは異なる。",
+      "point": "文字コード変換やJavaへの移行では、検索範囲の境界値、初期値、ソート順、特殊値の扱いが旧環境と同じ結果になるか確認する。",
+      "origin": "mainframe-architecture-glossary.md（言語・データ）／legacy-host-operation-reference-patterns.md 第9章／IBM COBOL Figurative constants https://www.ibm.com/docs/en/cobol-zos/6.5.0?topic=literals-figurative-constants"
+    },
+    {
+      "id": "329",
+      "section_no": 45,
+      "category": "Azure/クラウド",
+      "question": "Terraformとは何か？",
+      "answer": "HashiCorpが開発したIaC（Infrastructure as Code）ツール。クラウドやオンプレミスのインフラ構成をコードで定義し、構築・変更・管理を自動化する。",
+      "explanation": "リソースの望ましい構成を設定ファイルに宣言し、プロバイダーを介して対象基盤を操作する。planで変更予定を確認し、applyで反映する。stateは構成と実リソースの対応を管理する。Terraformは製品名で略語ではない。",
+      "point": "環境別パラメータ、stateの保護と同時更新対策、変更差分のレビュー、権限、秘密情報の管理、手動変更による構成ドリフトを確認する。",
+      "origin": "azure-architecture-glossary.md 第8章（IaC）／HashiCorp公式 What is Terraform https://developer.hashicorp.com/terraform/intro"
+    },
+    {
+      "id": "330",
+      "section_no": 46,
+      "category": "Azure/クラウド",
+      "question": "Bicepとは何か？",
+      "answer": "Azureリソースの構成を宣言的に記述する専用言語。Azureインフラの構築をコードによって自動化するために使用する。",
+      "explanation": "IaC（Infrastructure as Code）の実装手段。Azure Resource Manager（ARM）を通じてリソースをデプロイする。BicepのコードはARMテンプレートのJSON形式に変換される。Bicepは言語名で略語ではない。",
+      "point": "モジュールの共通化、環境別パラメータ、デプロイ範囲、what-ifによる変更確認、権限・承認、秘密情報の取り扱いを確認する。",
+      "origin": "azure-architecture-glossary.md 第8章（IaC）／Microsoft Learn What is Bicep? https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview"
+    },
+    {
+      "id": "331",
+      "section_no": 33,
+      "category": "外部IF",
+      "question": "ELTとは何か？",
+      "answer": "Extract・Load・Transform（抽出・格納・変換）。データを抽出し、移行先や分析基盤へ格納した後に変換するデータ連携方式。",
+      "explanation": "ETL（Extract・Transform・Load）は格納前に変換するのに対し、ELTは格納先の処理能力を利用して変換する。例えばデータウェアハウスに元データを格納してからSQLなどで加工する。",
+      "point": "元データの保存先、機密情報の保護、変換処理の性能、再処理、処理前後の整合性、格納容量を確認する。",
+      "origin": "system-modernization-anonymized.md 第7章（関連）／Microsoft Learn ETL and ELT https://learn.microsoft.com/azure/architecture/data-guide/relational-data/etl"
+    },
+    {
+      "id": "332",
+      "section_no": 34,
+      "category": "外部IF",
+      "question": "データマッピングとは何か？",
+      "answer": "Data Mapping。連携元と連携先のデータ項目の対応関係や、データ型・文字コード・値の変換ルールを定義すること。",
+      "explanation": "例えばホストの固定長レコードにある項目を新DBの列に対応付け、日付形式、桁数、コード値、欠損値などを変換する。項目の単純な一対一対応だけでなく複数項目の結合・分割も含まれる。",
+      "point": "マッピング表と実装の一致、桁あふれ、丸め、外字、NULL、未定義コード、変換不可時の処理、件数・項目単位の照合を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8・9章／system-modernization-anonymized.md 第5・7章（関連）／提供Q&A 周辺システム連携"
+    },
+    {
+      "id": "333",
+      "section_no": 31,
+      "category": "帳票",
+      "question": "連続帳票用紙（連帳）とは何か？",
+      "answer": "Continuous Form（連続帳票用紙）。複数ページ分の用紙が連続してつながった印刷用紙。用紙送り用の穴や切離し用のミシン目を持つものがある。",
+      "explanation": "大量の帳票印刷に利用される用紙形態。ページを連続して出力し、必要に応じて切断や仕分けなどの後加工を行う。穴やミシン目の有無は用紙方式によって異なる。",
+      "point": "プリンタの給紙方式、ページ長、改ページ、用紙送り、印字位置、切断・後加工との適合性を確認する。カット紙へ変更する場合は配送工程への影響も検証する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（帳票・物理後工程）／提供Q&A メインフレーム・帳票／一般的な印刷知識"
+    },
+    {
+      "id": "334",
+      "section_no": 32,
+      "category": "帳票",
+      "question": "カット紙とは何か？",
+      "answer": "Cut Sheet。A4などの規定サイズに1枚ずつ切断された印刷用紙。一般的なレーザープリンタなどで使用される。",
+      "explanation": "連続した用紙と異なり、個別の用紙を給紙して印刷する。用紙トレイや両面印刷などの機能はプリンタによって異なる。",
+      "point": "用紙サイズ・厚さ、給紙トレイ、両面印刷、印字範囲、印刷速度、仕分け・後加工の要件を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（帳票・用紙・物理後工程）／提供Q&A 帳票／一般的な印刷知識"
+    },
+    {
+      "id": "335",
+      "section_no": 33,
+      "category": "帳票",
+      "question": "圧着はがきとは何か？",
+      "answer": "印刷した用紙を折り畳み、圧着して内容を隠したはがき。請求金額や個人情報などを記載した通知書の送付に利用される。",
+      "explanation": "受取人が圧着面を開いて内部の情報を確認する。用紙や接着方式に対応した印刷・折り・圧着工程が必要となる。圧着は情報を見えにくくするもので、暗号化や完全な秘密保持を保証するものではない。",
+      "point": "用紙・印刷機・圧着機の適合性、折り位置、印字ずれ、接着品質、宛名と通知内容の一致、郵便物の規格を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（物理後工程）／提供Q&A 帳票・印刷方式／一般的な印刷知識"
+    },
+    {
+      "id": "336",
+      "section_no": 34,
+      "category": "帳票",
+      "question": "封入封緘（ふうにゅうふうかん）とは何か？",
+      "answer": "印刷した帳票を封筒に入れ、封をする作業。大量の帳票発送では専用装置によって自動化する場合がある。",
+      "explanation": "封入は帳票を封筒に収める工程、封緘は封を閉じる工程。帳票の仕分け、折り、宛名との照合、封入枚数の確認などと組み合わせて運用する。",
+      "point": "宛先と内容の突合、誤封入・二重発送の防止、帳票の順序、枚数、用紙・封筒の適合性、異常時の再処理や配送締切を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（物理後工程）／提供Q&A 帳票・印刷方式／一般的な印刷知識"
     }
   ],
   "archivedCards": [],
