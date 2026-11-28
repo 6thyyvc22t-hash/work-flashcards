@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-46",
+  "revision": "2026-11-28-approved-input-review-batch-47",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 360,
+  "nextId": 368,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3609,6 +3609,86 @@
       "explanation": "旧DBからアンロードしたデータを必要に応じて文字コードやデータ形式を変換し、新DBに登録する。PostgreSQLではCOPYコマンドなどで一括投入できる。単なる投入だけでなく、制約やデータ整合性の確認も重要となる。DBはDatabaseの略。",
       "point": "投入順序、文字コード、NULL・外字、主キー・外部キー制約、件数・項目照合、エラー時の再投入、処理時間を確認する。",
       "origin": "system-modernization-anonymized.md（DB・データ移行）／legacy-host-operation-reference-patterns.md（データ移行・文字コード）／一般的なDB技術知識"
+    },
+    {
+      "id": "360",
+      "section_no": 47,
+      "category": "Azure/クラウド",
+      "question": "インスタンスとは何か？",
+      "answer": "Instance（インスタンス）。仮想マシンやアプリケーションなどの具体的な実体・実行単位。",
+      "explanation": "例えば同じWebアプリケーションを3つのインスタンスで稼働させる構成では、複数の実行単位に要求を分散できる。Azure App ServiceではApp Service Planの実行資源上でアプリが動作する。インスタンスが指す単位はサービスによって異なる。",
+      "point": "インスタンス数、1インスタンス当たりの性能、負荷分散、セッション管理、冗長性、スケーリング条件を確認する。インスタンス数だけで可用性が保証されるわけではない。",
+      "origin": "azure-architecture-glossary.md 第3章（実行基盤、VMSS、App Service Plan）／一般的なクラウド技術知識"
+    },
+    {
+      "id": "361",
+      "section_no": 48,
+      "category": "Azure/クラウド",
+      "question": "クォータとは何か？",
+      "answer": "Quota（割当上限）。クラウドサービスなどで利用できるリソース数や容量などに設定された上限。",
+      "explanation": "Azureではサブスクリプションやリージョンなどの単位で、仮想CPU（vCPU）数などにクォータが設定される場合がある。引上げを申請できるものもある。サービス固有の変更できない制限や、実際の物理的な供給容量とは区別する。",
+      "point": "本番・開発環境の必要資源、増設時の余裕、リージョンごとの上限、引上げ申請の要否、災害復旧先の容量を確認する。クォータ内でも資源の確保が保証されるとは限らない。",
+      "origin": "azure-architecture-glossary.md（サブスクリプション・クォータ）／一般的なクラウド技術知識"
+    },
+    {
+      "id": "362",
+      "section_no": 22,
+      "category": "ネットワーク",
+      "question": "トンネリングとは何か？",
+      "answer": "Tunneling（トンネリング）。ある通信プロトコルのデータを別のプロトコルで包み、ネットワークを経由して転送する技術。VPNなどで利用される。",
+      "explanation": "元のデータに転送用のヘッダーを追加するカプセル化を行い、トンネルの終点で元のデータを取り出す。VPN（Virtual Private Network：仮想プライベートネットワーク）ではIPsecなどを用いて拠点間通信を保護する構成がある。トンネリング自体が暗号化を意味するわけではない。",
+      "point": "トンネルの始点・終点、通信経路、暗号化・認証の有無、MTU（Maximum Transmission Unit：最大転送単位）、冗長化、切替時の動作を確認する。",
+      "origin": "azure-hub-spoke-design-review.md（VPN・閉域接続）／azure-architecture-glossary.md（VPN Gateway）／一般的なネットワーク技術知識"
+    },
+    {
+      "id": "363",
+      "section_no": 49,
+      "category": "Web/Java",
+      "question": "ミドルウェアとは何か？",
+      "answer": "Middleware。OSと業務アプリケーションの間などで、データ管理、通信、実行制御といった共通機能を提供するソフトウェア。",
+      "explanation": "データベース管理システム、アプリケーションサーバー、メッセージング基盤、ジョブ管理ソフトなどが代表例。業務プログラムが共通機能を個別に実装せず利用できる。OSはOperating Systemの略。分類は文脈によって異なる。",
+      "point": "製品ごとの役割、対応OSや実行環境、バージョン、ライセンス、保守期限、冗長性、クラウド移行後の代替サービスと責任分界を確認する。",
+      "origin": "system-modernization-anonymized.md（ホスト・Web/Java構成）／legacy-host-operation-reference-patterns.md（外部連携・運用）"
+    },
+    {
+      "id": "364",
+      "section_no": 50,
+      "category": "Web/Java",
+      "question": "JARとは何か？",
+      "answer": "Java Archive（Javaアーカイブ）。Javaのクラスファイルや設定ファイルなどを一つにまとめたアーカイブ形式。",
+      "explanation": "ZIP形式を基礎とし、コンパイルされたclassファイルやリソース、マニフェストなどを格納できる。ライブラリの配布やアプリケーションの提供に利用される。実行可能なJARはjava -jarなどで起動できるが、すべてのJARが単独で実行できるわけではない。",
+      "point": "実行用とライブラリ用の区別、依存ライブラリ、Javaの対応バージョン、ビルド成果物の版管理、設定・秘密情報の混入防止を確認する。",
+      "origin": "system-modernization-anonymized.md（Javaアプリケーションの関連知識）／Oracle Java JAR File Specification（公式参照先） https://docs.oracle.com/en/java/javase/21/docs/specs/jar/jar.html"
+    },
+    {
+      "id": "365",
+      "section_no": 38,
+      "category": "外部IF",
+      "question": "中間ファイルとは何か？",
+      "answer": "Intermediate File（中間ファイル）。複数の処理をつなぐために、途中の処理結果を一時的に格納するファイル。バッチ処理やシステム間連携などで利用される。",
+      "explanation": "例えば前段バッチがDBから抽出したデータを中間ファイルに出力し、後段バッチが読み込んで集計・加工する。ホストでは順編成データセットなどを利用する構成もある。障害復旧のために一定期間保持する場合がある。",
+      "point": "生成・参照する処理、レコード形式、格納先、ファイル名、完了判定、アクセス権、保持・削除期間、異常時の再生成や二重取込み防止を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8・12章（ファイル連携・ジョブ入出力）／一般的なバッチ設計知識"
+    },
+    {
+      "id": "366",
+      "section_no": 37,
+      "category": "帳票",
+      "question": "帳票エンジンとは何か？",
+      "answer": "Report Engine（帳票エンジン）。業務データと帳票レイアウトの定義を組み合わせ、PDFや印刷用データなどを生成するソフトウェア。",
+      "explanation": "帳票様式に入力データを当てはめ、文字・罫線・明細・改ページなどを処理して出力内容を生成する。SVF（Super Visual Formade）の出力エンジンなどが例。PDFはPortable Document Formatの略。帳票の生成と、印刷キュー管理や電子帳票の保管・検索は別の役割。",
+      "point": "対応する様式・データ形式、フォント・外字、印刷品質、生成性能、出力形式、帳票基盤やプリントサーバーとの責任分界を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（帳票生成・レンダリング）／提供された帳票・印刷方式のQ&A"
+    },
+    {
+      "id": "367",
+      "section_no": 38,
+      "category": "帳票",
+      "question": "改ページ制御とは何か？",
+      "answer": "Page Break Control（改ページ制御）。帳票の明細件数やデータの区切り、用紙サイズなどに応じて、次のページへ切り替える処理。",
+      "explanation": "例えば明細がページ内に収まらなくなった場合や、配布先などのグループが変わった場合に改ページする。固定行数による制御や、文字の折返しを考慮した自動改ページなどがある。ヘッダー・フッターの繰返しや小計の出力にも関係する。",
+      "point": "旧帳票と新帳票でページ境界、明細の欠落・重複、ヘッダー、小計、ページ番号、用紙サイズが適切か確認する。長い文字列や最大明細件数などの境界条件もテストする。",
+      "origin": "legacy-host-operation-reference-patterns.md 第10章（帳票品質・改ページ）／提供された帳票・印刷方式のQ&A"
     }
   ],
   "archivedCards": [],
