@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-50",
+  "revision": "2026-11-28-approved-input-review-batch-51",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 396,
+  "nextId": 401,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3969,6 +3969,56 @@
       "explanation": "例えば一部のEBCDIC系混在文字コードではSO（Shift Out）とSI（Shift In）を使って文字の解釈モードを切り替える。具体的なコード値や切替規則は文字コード体系・製品仕様による。UTF-8はこの種のシフト状態に依存しない。",
       "point": "変換元の文字コード仕様、シフトコードの有無、文字境界、制御コードを含むバイト長、不正な切替、外字・変換不能文字、固定長レコードへの影響を確認する。",
       "origin": "legacy-host-operation-reference-patterns.md 第9章（ホスト系文字コード・文字変換）／一般的な状態依存文字コードの知識"
+    },
+    {
+      "id": "396",
+      "section_no": 50,
+      "category": "メインフレーム",
+      "question": "JCLとは何か？",
+      "answer": "JCL（Job Control Language：ジョブ制御言語）。実行するプログラム、入出力ファイル、実行条件などを指定するための言語。",
+      "explanation": "メインフレームでバッチ処理などの実行手順を定義する。例えばIBM系JCLではJOB文でジョブを定義し、EXEC文で実行するプログラムやプロシージャを指定し、DD（Data Definition）文で入出力データセットなどを指定する。具体的な文法や機能はOS・製品による。COBOLが業務処理を記述するのに対し、JCLはその実行を制御する。",
+      "point": "移行時は実行順序、入出力定義、実行条件、異常終了時の分岐、パラメータ、ジョブスケジューラとの責任分界を確認する。COBOLの変換だけではJCLの機能を移行したことにはならない。",
+      "origin": "mainframe-architecture-glossary.md（JCL）／system-modernization-anonymized.md（バッチ処理）／legacy-host-operation-reference-patterns.md 第12章（JCL・ジョブネット）"
+    },
+    {
+      "id": "397",
+      "section_no": 51,
+      "category": "メインフレーム",
+      "question": "オブジェクトモジュールとは何か？",
+      "answer": "Object Module。ソースプログラムをコンパイルやアセンブルして生成される、リンク処理などの入力となるプログラム資産。",
+      "explanation": "オブジェクトモジュールには機械語命令、外部シンボルや再配置に必要な情報などが含まれる場合がある。リンケージエディタなどで複数のモジュールや必要なライブラリを結合し、ロードモジュール等の実行形式を生成する。具体的な形式は処理系による。",
+      "point": "ソース、オブジェクトモジュール、ロードモジュールの対応関係と版、コンパイル条件、外部参照、リンク条件、移行時のソース不足を確認する。オブジェクトモジュールが存在しても元のソースを完全に復元できるとは限らない。",
+      "origin": "mainframe-architecture-advanced-glossary.md（ロードモジュール・リンケージエディタ）／mainframe-architecture-glossary.md（プログラム資産の関連知識）／一般的なコンパイル・リンクの知識"
+    },
+    {
+      "id": "398",
+      "section_no": 25,
+      "category": "ネットワーク",
+      "question": "ホスト名とは何か？",
+      "answer": "Host Name（ホスト名）。ネットワーク上のコンピュータやサーバーなどを識別するために付けられた名前。",
+      "explanation": "例えばserver01のような名前で機器を識別する。DNS（Domain Name System）やhostsファイルなどの名前解決機能でIP（Internet Protocol）アドレスに対応付けることがある。FQDN（Fully Qualified Domain Name：完全修飾ドメイン名）はドメインを含めた完全な名前。ホスト名だけで世界中に一意とは限らない。",
+      "point": "命名規則、名前解決の仕組み、FQDNとの区別、本番・検証環境の接続先、Private DNS、IPアドレス変更時の影響、TLS証明書と接続先の名前の整合性を確認する。",
+      "origin": "azure-hub-spoke-design-review.md（名前解決・Private DNS）／azure-architecture-glossary.md（Private DNS Zone）／一般的なネットワーク技術知識"
+    },
+    {
+      "id": "399",
+      "section_no": 26,
+      "category": "ネットワーク",
+      "question": "SSHとは何か？",
+      "answer": "SSH（Secure Shell）。ネットワーク経由で別のコンピュータに安全に接続し、コマンド操作などを行うための通信プロトコル。",
+      "explanation": "通信を暗号化し、サーバーの身元確認やクライアント認証を行う。Linuxサーバーの遠隔管理などに利用され、通常はTCP（Transmission Control Protocol）の22番ポートを使用するが変更可能。SFTP（SSH File Transfer Protocol）などのファイル転送にもSSHが利用される。",
+      "point": "接続元・接続先、認証方式、ホスト鍵の検証、公開鍵管理、最小権限、操作ログ、管理ポートの公開範囲、Azure Bastionなどを経由する管理接続を確認する。",
+      "origin": "system-modernization-anonymized.md（SSH・SFTP）／azure-architecture-glossary.md（Azure Bastion）／RFC 4251（SSH Protocol Architecture） https://www.rfc-editor.org/rfc/rfc4251"
+    },
+    {
+      "id": "400",
+      "section_no": 27,
+      "category": "ネットワーク",
+      "question": "RDPとは何か？",
+      "answer": "RDP（Remote Desktop Protocol）。ネットワーク経由で別のコンピュータのデスクトップ画面を表示し、遠隔操作するための通信プロトコル。",
+      "explanation": "Windowsサーバーなどの遠隔管理に利用される。画面情報とキーボード・マウスの操作情報などをやり取りする。標準的な直接接続では3389番ポートを使用するが、設定や接続構成によって異なる。Azure Bastionなどを介して管理対象VMに接続する構成もある。",
+      "point": "管理ポートをインターネットへ不要に公開しないこと、接続元制限、認証・権限、通信保護、操作ログ、クリップボードやドライブのリダイレクト制御を確認する。",
+      "origin": "azure-architecture-glossary.md（Azure Bastion）／azure-hub-spoke-design-review.md（管理アクセス・管理ポート）／一般的な遠隔管理技術知識"
     }
   ],
   "archivedCards": [],
