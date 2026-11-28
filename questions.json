@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-55",
+  "revision": "2026-11-28-approved-input-review-batch-56",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 416,
+  "nextId": 420,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -4169,6 +4169,46 @@
       "explanation": "スイッチなどでネットワークを論理的に分け、レイヤー2のブロードキャストドメインを分離する。IEEE 802.1QではフレームにVLAN識別情報を付加して複数VLANの通信を同じリンクで運ぶことができる。異なるVLAN間のIP通信にはルーターやレイヤー3スイッチなどによる経路制御が必要となる。",
       "point": "VLAN ID、接続ポート、タグ付き・タグなし通信、VLAN間の経路、ファイアウォールによる通信制御、クラウド接続との境界を確認する。VLANによる分離だけで認証・暗号化や十分なアクセス制御が実現するわけではない。Azure VNetとは異なる概念。",
       "origin": "network-security-proxy-study.md（ネットワーク分離の関連知識）／azure-hub-spoke-design-review.md（ネットワーク境界）／IEEE 802.1Q（Bridges and Bridged Networks）／一般的なLAN技術知識"
+    },
+    {
+      "id": "416",
+      "section_no": 54,
+      "category": "メインフレーム",
+      "question": "ディスパッチャとは何か？",
+      "answer": "Dispatcher。実行可能なタスクなどにCPUを割り当て、処理を実行させるOSの機能。",
+      "explanation": "OS（Operating System）は実行可能なタスクを管理し、スケジューリング方針に基づいてCPU（Central Processing Unit：中央処理装置）で実行するタスクを切り替える。ディスパッチャは選択されたタスクへの実行制御の引渡しなどを担う。具体的な役割分担はOSによって異なる。",
+      "point": "CPU使用率、実行待ち、処理の優先度、同時実行数を確認する。OS内部のタスク実行制御と、業務バッチを起動するジョブスケジューラを区別する。",
+      "origin": "mainframe-architecture-advanced-glossary.md（ディスパッチャ・タスク・CPU）／一般的なOS技術知識"
+    },
+    {
+      "id": "417",
+      "section_no": 55,
+      "category": "Azure/クラウド",
+      "question": "Azure SQL Databaseとは何か？",
+      "answer": "Microsoft SQL Serverのデータベースエンジンを基盤とする、Azureのマネージド型リレーショナルデータベースサービス。",
+      "explanation": "PaaS（Platform as a Service）型のDBサービスで、基盤の保守、パッチ適用、バックアップなどの管理の一部をMicrosoftが担う。SQLはStructured Query Languageの略。利用者はデータ、テーブル定義、SQL、アクセス権限、サービス設定などを管理する。SQL ServerをAzure VMに導入する方式やAzure SQL Managed Instanceとは提供形態・互換性が異なる。",
+      "point": "既存DBとの互換性、SQL方言、必要な機能、接続方式、認証、性能・容量、可用性、バックアップ・復旧、運用責任分界、費用を確認する。製品固有の対応機能は最新の公式仕様で確認する。",
+      "origin": "azure-architecture-glossary.md（Azure SQL Database）／Microsoft Learn（公式参照先）https://learn.microsoft.com/azure/azure-sql/database/sql-database-paas-overview"
+    },
+    {
+      "id": "418",
+      "section_no": 30,
+      "category": "ネットワーク",
+      "question": "パケットとは何か？",
+      "answer": "Packet。ネットワーク上で伝送されるデータの単位。IPパケットには送信元・宛先の情報などと伝送対象のデータが含まれる。",
+      "explanation": "IP（Internet Protocol）パケットは、IPヘッダーとペイロードから構成される。ルーターは主に宛先IPアドレスなどを参照してパケットを転送する。通信階層によって、TCPセグメント、UDPデータグラム、イーサネットフレームなどの呼び方が異なる。パケット自体は略語ではない。",
+      "point": "通信経路、送信元・宛先IP、プロトコル、パケットロス、MTU、ファイアウォールの通信制御を確認する。障害調査時は必要に応じてパケットキャプチャを利用するが、取得データに含まれる機密情報や個人情報の管理に注意する。",
+      "origin": "network-security-proxy-study.md（パケット・通信制御）／azure-hub-spoke-design-review.md（通信経路）／一般的なTCP/IP技術知識"
+    },
+    {
+      "id": "419",
+      "section_no": 30,
+      "category": "DB",
+      "question": "DBのカラムとは何か？",
+      "answer": "Column（列）。リレーショナルデータベースのテーブルにおいて、顧客番号、氏名、登録日などの個々のデータ項目を定義する単位。",
+      "explanation": "例えば顧客テーブルでは顧客番号、氏名、住所などがカラムであり、個々の顧客情報が行（レコード）に相当する。カラムにはデータ型、長さや精度、NULLの許否、既定値、制約などを設定できる。DBはDatabaseの略で、Columnは略語ではない。",
+      "point": "ホストDBからの移行時は、旧データ項目と新DBのカラムとの対応、型、文字数・バイト数、数値の精度、NULL・空文字の扱い、制約、既定値を確認する。項目名の一致だけではデータの意味や互換性を保証できない。",
+      "origin": "system-modernization-anonymized.md 第5章（RDBMS・表・列・データ移行）／legacy-host-operation-reference-patterns.md（データ形式・文字コード変換）"
     }
   ],
   "archivedCards": [],
