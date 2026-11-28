@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-52",
+  "revision": "2026-11-28-approved-input-review-batch-53",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 407,
+  "nextId": 411,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -4079,6 +4079,46 @@
       "explanation": "例えば大量データの集計や移行処理で、中間結果を一時テーブルに格納して後続のSQLから参照する。PostgreSQLではCREATE TEMP TABLEで作成でき、通常はセッション終了時に削除される。ON COMMIT設定によってトランザクション終了時の扱いも指定できる。必ずメモリだけに格納されるわけではない。",
       "point": "保持期間、接続・セッションとの関係、コミット時の動作、接続プール利用時の影響、容量・性能、異常終了後の再処理を確認する。永続テーブルとの区別が重要。",
       "origin": "system-modernization-anonymized.md（PostgreSQL・DB処理の関連知識）／一般的なDB技術知識／PostgreSQL CREATE TABLE公式参照先 https://www.postgresql.org/docs/current/sql-createtable.html"
+    },
+    {
+      "id": "407",
+      "section_no": 53,
+      "category": "メインフレーム",
+      "question": "レコード長とは何か？",
+      "answer": "Record Length（レコード長）。1件のレコードを構成するデータの長さ。ホストのファイルでは通常、バイト数で管理される。",
+      "explanation": "固定長レコードでは各レコードの長さが一定であり、可変長レコードではレコードごとに長さが異なる。文字項目、数値項目、予備領域などの格納形式によって実際の長さが決まる。文字数とバイト数は文字コードによって異なる。レコード管理用の制御情報を長さに含めるかは製品・形式の仕様による。",
+      "point": "送受信双方のレコード長、固定長・可変長の区別、項目ごとのバイト長、文字コード変換後の桁あふれ、FILLERや制御情報の扱いを確認する。レコード長とブロック長を混同しない。",
+      "origin": "mainframe-architecture-advanced-glossary.md（レコード長・ブロック化）／legacy-host-operation-reference-patterns.md（外部IF・データ形式）"
+    },
+    {
+      "id": "408",
+      "section_no": 24,
+      "category": "バッチ/ジョブ",
+      "question": "シェルとは何か？",
+      "answer": "Shell（シェル）。利用者からのコマンドなどを受け付け、プログラムの実行やOSの操作を行うための仕組み。",
+      "explanation": "OS（Operating System：オペレーティングシステム）と利用者の間で、コマンドの解釈やプログラムの起動などを担う。LinuxなどのBash（Bourne Again SHell）やPowerShellが例。コマンドを記述したスクリプトを実行して、ファイル操作やバッチ起動などを自動化することもできる。",
+      "point": "JCL（Job Control Language）の移行先でシェルスクリプトを用いる場合、実行ユーザー、環境変数、作業ディレクトリ、終了コード、標準出力・標準エラー、異常時の処理、ジョブスケジューラとの役割分担を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第12章（JCL・ジョブ運行管理の関連知識）／一般的なOS・シェル技術知識"
+    },
+    {
+      "id": "409",
+      "section_no": 53,
+      "category": "Azure/クラウド",
+      "question": "マネージドサービスとは何か？",
+      "answer": "Managed Service。サーバーやソフトウェアなどの管理作業の一部をサービス提供事業者が担うサービス形態。",
+      "explanation": "例えばAzure App Serviceではアプリケーション実行基盤の管理の一部を、Azure Database for PostgreSQLではDB基盤の管理の一部をMicrosoftが担う。管理対象や責任範囲はサービスごとに異なる。利用者にもアプリケーション、データ、アクセス権限、設定などに関する管理責任が残る。",
+      "point": "OSやミドルウェアの更新、バックアップ、復旧、可用性、監視、セキュリティ、費用について提供事業者と利用者の責任分界を確認する。マネージドサービスを採用しても全運用が不要になるわけではない。",
+      "origin": "azure-architecture-glossary.md（Azureのマネージド実行基盤・DBサービス）／system-modernization-anonymized.md（IaaS／PaaS）／azure-hub-spoke-design-review.md（責任分界）"
+    },
+    {
+      "id": "410",
+      "section_no": 54,
+      "category": "Azure/クラウド",
+      "question": "メタデータとは何か？",
+      "answer": "Metadata。データの内容、作成日時、作成者、形式、属性など、データそのものに関する情報。",
+      "explanation": "例えばPDFファイルに関連付ける帳票種別、作成日、発行元などの情報がメタデータに該当する。Azure Blob Storageなどでもデータに付随する属性情報を管理できる。データ本体とは別に検索・分類・管理・処理判断に利用されることがある。利用できる属性や検索方法は製品によって異なる。",
+      "point": "必要な属性、付与・更新のタイミング、データ本体との整合性、検索性、移行時の引継ぎ、機密情報の扱いを確認する。Azureリソースのタグ、Blobのメタデータ、Blobインデックスタグは用途や仕様が異なるため区別する。",
+      "origin": "azure-architecture-glossary.md（タグ・ストレージ）／legacy-host-operation-reference-patterns.md 第10章（電子帳票の属性管理・検索）／一般的なデータ管理知識"
     }
   ],
   "archivedCards": [],
