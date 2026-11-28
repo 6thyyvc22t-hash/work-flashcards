@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-48",
+  "revision": "2026-11-28-approved-input-review-batch-49",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 377,
+  "nextId": 386,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3779,6 +3779,96 @@
       "explanation": "OAuth 2.0（認可の枠組み）などで認可サーバーがクライアントを識別するために使用する。Microsoft Entra IDではアプリケーション（クライアント）IDが該当する。IDは識別子であって認証用の秘密情報ではなく、クライアントシークレットや証明書等とは区別する。",
       "point": "環境ごとのアプリ登録とIDの対応、テナントIDやオブジェクトIDとの区別、APIアクセス権限、クライアント認証方式、秘密情報管理を確認する。",
       "origin": "azure-architecture-glossary.md（アプリ登録・サービスプリンシパル）／system-modernization-anonymized.md（認証・認可）／RFC 6749 第2.2節 https://www.rfc-editor.org/rfc/rfc6749#section-2.2"
+    },
+    {
+      "id": "377",
+      "section_no": 23,
+      "category": "ネットワーク",
+      "question": "ルートテーブルとは何か？",
+      "answer": "Route Table（経路表）。宛先ネットワークと次の転送先などの情報を管理し、通信経路を決定するために使用する定義表。",
+      "explanation": "ルータなどは宛先IP（Internet Protocol）アドレスに対応する経路を参照し、次ホップへパケットを転送する。AzureではシステムルートやUDR（User Defined Route：ユーザー定義ルート）などが経路選択に関係する。",
+      "point": "宛先プレフィックス、次ホップ、サブネットへの関連付け、有効な経路、ファイアウォール経由の通信、戻り経路を確認する。経路の指定と通信許可・拒否は別の機能。",
+      "origin": "azure-architecture-glossary.md（UDR／ルートテーブル）／azure-hub-spoke-design-review.md（経路制御）"
+    },
+    {
+      "id": "378",
+      "section_no": 24,
+      "category": "ネットワーク",
+      "question": "プライベートIPアドレスとは何か？",
+      "answer": "Private IP Address。インターネット上で直接ルーティングされず、組織内や仮想ネットワーク内などで利用するIPアドレス。",
+      "explanation": "IPはInternet Protocolの略。IPv4ではRFC 1918で10.0.0.0/8、172.16.0.0/12、192.168.0.0/16のアドレス範囲が私的利用向けに定義されている。外部との通信にはNAT（Network Address Translation）などを利用する構成がある。",
+      "point": "VNet・サブネットのアドレス範囲、接続先ネットワークとの重複、名前解決、外部への通信経路を確認する。プライベートIPを使用すること自体は認証や暗号化を保証しない。",
+      "origin": "azure-hub-spoke-design-review.md（アドレス設計・Private Endpoint）／RFC 1918 第3節 https://www.rfc-editor.org/rfc/rfc1918#section-3"
+    },
+    {
+      "id": "379",
+      "section_no": 52,
+      "category": "Web/Java",
+      "question": "スレッドとは何か？",
+      "answer": "Thread（スレッド）。プログラム内で処理を実行する単位。同じプロセス内で複数のスレッドを動作させることができる。",
+      "explanation": "同じプロセス内のスレッドはメモリなどの資源を共有する。JavaのWebアプリケーションでは複数の要求を並行して処理するためにスレッドが利用される構成がある。共有データの同時更新には競合や整合性の問題が生じ得る。",
+      "point": "同時実行数、スレッドプール、DB接続数、共有状態の安全性、処理の待機やタイムアウト、CPU・メモリ使用量を確認する。スレッド数を増やしても必ず性能が向上するとは限らない。",
+      "origin": "system-modernization-anonymized.md（Web/Java・排他制御の関連知識）／一般的なOS・Java並行処理の知識"
+    },
+    {
+      "id": "380",
+      "section_no": 39,
+      "category": "外部IF",
+      "question": "ペイロードとは何か？",
+      "answer": "Payload（ペイロード）。通信メッセージなどに含まれる、実際に相手へ伝送する処理対象のデータ部分。",
+      "explanation": "例えばHTTP APIのリクエストボディに含まれるJSON形式の業務データや、メッセージング基盤で送信されるイベントデータが該当する。ヘッダーなどの通信制御情報とは区別されるが、どの範囲を指すかは通信階層や仕様によって異なる。",
+      "point": "データ項目、型、必須項目、文字コード、サイズ上限、機密情報、形式の互換性、異常データの扱いを確認する。",
+      "origin": "system-modernization-anonymized.md（API・JSON）／legacy-host-operation-reference-patterns.md 第8・9章（連携データ形式）／一般的な通信技術知識"
+    },
+    {
+      "id": "381",
+      "section_no": 40,
+      "category": "外部IF",
+      "question": "HTTPヘッダーとは何か？",
+      "answer": "HTTP Header。HTTP通信において、認証情報、データ形式、キャッシュ制御など、要求や応答に関する付加情報を伝える部分。",
+      "explanation": "HTTPはHypertext Transfer Protocolの略。例えばAuthorizationは認証情報などを伝え、Content-Typeはメッセージ内容のメディアタイプを示す。Cache-Controlはキャッシュの扱いを制御する。業務データを格納するボディとは役割が異なる。",
+      "point": "必要なヘッダー、認証トークン、Content-Type、プロキシ経由時の追加・削除、相関IDの引継ぎ、秘密情報のログ出力防止を確認する。",
+      "origin": "system-modernization-anonymized.md（HTTP・API連携）／RFC 9110 第5節・第8節 https://www.rfc-editor.org/rfc/rfc9110"
+    },
+    {
+      "id": "382",
+      "section_no": 41,
+      "category": "外部IF",
+      "question": "ヘッダーレコードとは何か？",
+      "answer": "Header Record。連携ファイルの先頭などに配置され、作成日、送信元、データ種別などの管理情報を保持するレコード。",
+      "explanation": "連携ファイルがヘッダー、データ明細、トレーラーなどのレコードで構成される場合、ヘッダーでファイル全体やグループの属性を識別する。必須項目や配置は個別のファイル仕様による。CSVの列名行をヘッダーと呼ぶ場合もある。",
+      "point": "レコード種別、作成日時、業務日付、送信元・宛先、文字コード、項目位置、ヘッダーの有無、明細件数との関係をIF仕様書で確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8・9章（データ形式・ファイル連携）／一般的なファイル連携設計知識"
+    },
+    {
+      "id": "383",
+      "section_no": 27,
+      "category": "DB",
+      "question": "マスタデータとは何か？",
+      "answer": "Master Data。顧客、商品、組織など、複数の業務処理で共通して参照される基本情報。",
+      "explanation": "例えば商品マスタに商品コード、商品名、単価などを保持し、受注や在庫管理で参照する。業務の基準となる情報であり、更新頻度が比較的低いことも多いが、更新されないデータという意味ではない。",
+      "point": "管理元システム、識別キー、重複・欠落、更新権限、有効期間、他システムへの同期方法、移行順序、参照整合性を確認する。",
+      "origin": "system-modernization-anonymized.md（DB・データ移行の関連知識）／一般的なデータ管理知識"
+    },
+    {
+      "id": "384",
+      "section_no": 28,
+      "category": "DB",
+      "question": "トランザクションデータとは何か？",
+      "answer": "Transaction Data。受注、支払い、申請など、日々の業務活動によって発生する取引や処理の記録。",
+      "explanation": "例えば受注番号、商品コード、数量、受注日時などを受注データとして保持する。マスタデータを参照する構成が多い。DBのトランザクション（複数の処理を一つの確定単位として扱う仕組み）とは区別する。",
+      "point": "データ量の増加、保存期間、参照するマスタとの整合性、業務履歴、移行対象期間、差分移行、件数・金額などの照合を確認する。",
+      "origin": "system-modernization-anonymized.md（DB・トランザクション・データ移行の関連知識）／一般的なデータ管理知識"
+    },
+    {
+      "id": "385",
+      "section_no": 14,
+      "category": "移行/テスト",
+      "question": "移行対象資産とは何か？",
+      "answer": "新システムへの移行や変換が必要となるプログラム、データベース、JCL、帳票定義、外部IF定義などの資産。",
+      "explanation": "現行システムの資産を棚卸しし、新環境へ移行・変換・代替するものを特定する。ソースだけでなく、実行モジュール、共通部品、設定、ジョブ定義、データ、運用手順なども検討対象となる。JCLはJob Control Language、IFはInterfaceの略。",
+      "point": "資産一覧と実稼働状況の一致、依存関係、版の整合性、利用有無、移行・廃止・代替の判定根拠、変換方法、テスト範囲、対象漏れを確認する。",
+      "origin": "system-modernization-anonymized.md（ホスト資産・システム移行）／legacy-host-operation-reference-patterns.md（移行影響・資産整理）"
     }
   ],
   "archivedCards": [],
