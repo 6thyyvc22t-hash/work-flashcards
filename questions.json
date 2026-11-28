@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-53",
+  "revision": "2026-11-28-approved-input-review-batch-54",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 411,
+  "nextId": 413,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -4119,6 +4119,26 @@
       "explanation": "例えばPDFファイルに関連付ける帳票種別、作成日、発行元などの情報がメタデータに該当する。Azure Blob Storageなどでもデータに付随する属性情報を管理できる。データ本体とは別に検索・分類・管理・処理判断に利用されることがある。利用できる属性や検索方法は製品によって異なる。",
       "point": "必要な属性、付与・更新のタイミング、データ本体との整合性、検索性、移行時の引継ぎ、機密情報の扱いを確認する。Azureリソースのタグ、Blobのメタデータ、Blobインデックスタグは用途や仕様が異なるため区別する。",
       "origin": "azure-architecture-glossary.md（タグ・ストレージ）／legacy-host-operation-reference-patterns.md 第10章（電子帳票の属性管理・検索）／一般的なデータ管理知識"
+    },
+    {
+      "id": "411",
+      "section_no": 58,
+      "category": "Web/Java",
+      "question": "CSSとは何か？",
+      "answer": "CSS（Cascading Style Sheets）。Webページの文字サイズ、色、配置などの見た目を定義するためのスタイルシート言語。",
+      "explanation": "HTML（HyperText Markup Language）がページの構造を定義するのに対し、CSSは表示方法を指定する。例えば入力欄の幅、文字色、余白、画面サイズに応じた配置を制御する。Reactで構築した画面にもCSSを適用できる。Cascadingは複数のスタイル指定が競合した際に、優先順位などに基づいて適用する仕組みに由来する。",
+      "point": "ホスト画面のWeb化では文字色、入力欄の幅、明細の配置、画面サイズによる表示崩れ、ブラウザ間の差、アクセシビリティ、共通スタイルによる画面の統一を確認する。CSSによる表示制御は入力値の検証や認可の代替にはならない。",
+      "origin": "aim-screen-study.md（ホスト画面とWeb画面・画面項目）／system-modernization-anonymized.md（フロントエンド）／一般的なWeb標準技術知識"
+    },
+    {
+      "id": "412",
+      "section_no": 47,
+      "category": "外部IF",
+      "question": "ディレクトリとは何か？",
+      "answer": "Directory。ファイルや別のディレクトリを階層的に整理・管理するための単位。一般にフォルダとも呼ばれる。",
+      "explanation": "ファイルシステムではディレクトリを階層化してファイルの位置をパスで表す。例えば連携ファイルの受信、処理済み、エラーなどで格納先を分ける設計がある。WindowsやLinuxではパス表記や大文字・小文字の扱いが異なる場合がある。オブジェクトストレージでは階層が名前のプレフィックスで表現される場合もある。Directoryは略語ではない。",
+      "point": "送受信先のディレクトリ、パスの指定方式、アクセス権限、ファイル命名規則、処理済みファイルの移動、保存期間、障害時の再処理を確認する。ストレージの種類によってディレクトリの実体や操作仕様が異なることに注意する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8・9章（ファイル連携・データ受渡し）／azure-architecture-glossary.md（Blob Storage・Azure Files）／一般的なファイルシステムの知識"
     }
   ],
   "archivedCards": [],
