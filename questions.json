@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-56",
+  "revision": "2026-11-28-approved-input-review-batch-57",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 420,
+  "nextId": 422,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -4209,6 +4209,26 @@
       "explanation": "例えば顧客テーブルでは顧客番号、氏名、住所などがカラムであり、個々の顧客情報が行（レコード）に相当する。カラムにはデータ型、長さや精度、NULLの許否、既定値、制約などを設定できる。DBはDatabaseの略で、Columnは略語ではない。",
       "point": "ホストDBからの移行時は、旧データ項目と新DBのカラムとの対応、型、文字数・バイト数、数値の精度、NULL・空文字の扱い、制約、既定値を確認する。項目名の一致だけではデータの意味や互換性を保証できない。",
       "origin": "system-modernization-anonymized.md 第5章（RDBMS・表・列・データ移行）／legacy-host-operation-reference-patterns.md（データ形式・文字コード変換）"
+    },
+    {
+      "id": "420",
+      "section_no": 56,
+      "category": "Azure/クラウド",
+      "question": "vCPUとは何か？",
+      "answer": "vCPU（Virtual Central Processing Unit：仮想CPU）。仮想マシンなどに割り当てられる論理的なCPUの処理単位。",
+      "explanation": "仮想化基盤が物理CPUの処理資源を仮想マシンに割り当て、ゲストOSからCPUとして利用できるようにする。Azure VMではサイズによってvCPU数やメモリ容量などが異なる。vCPU数と物理CPUのコア数が常に一対一で対応するわけではない。実際の性能はCPUの世代、構成、処理特性などにも左右される。",
+      "point": "VMサイズ選定時はvCPU数だけでなく、CPU使用率、メモリ、ストレージI/O、同時実行数、バッチの処理時間、費用を確認する。ホストのCPU性能と単純に同じ数値で比較せず、実測や性能試験を基にサイジングする。",
+      "origin": "azure-architecture-glossary.md（Azure VM・VMSS・コンピュート資源）／mainframe-architecture-advanced-glossary.md（CPU）／一般的な仮想化技術知識"
+    },
+    {
+      "id": "421",
+      "section_no": 39,
+      "category": "帳票",
+      "question": "グリフとは何か？",
+      "answer": "Glyph（字形）。文字や記号を画面上や紙面上に表現する際の具体的な字形。文字コードが同じでもフォントによって字形が異なることがある。",
+      "explanation": "文字コードは文字を識別するための数値などを定め、グリフは実際に表示・印刷される形状を表す。フォントはグリフの形状や文字との対応情報などを持つ。例えば同一の漢字でもフォントや異体字の扱いによって形状が異なることがある。Glyphは略語ではない。",
+      "point": "ホストからWeb画面やPDF帳票へ移行する際は文字コード変換だけでなく、外字・異体字のグリフ、フォントの対応、PDFへのフォント埋め込み、端末やプリンタでの実際の表示・印刷結果を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第9・10章（文字コード・外字・帳票出力）／system-modernization-anonymized.md（文字コード移行）／一般的なフォント・文字表現の知識"
     }
   ],
   "archivedCards": [],
