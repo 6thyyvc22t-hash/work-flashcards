@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-45",
+  "revision": "2026-11-28-approved-input-review-batch-46",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 353,
+  "nextId": 360,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3539,6 +3539,76 @@
       "explanation": "富士通のFNA Serverはホストと端末などの接続を支援する通信ソフトウェア。帳票分散印刷ではHOST PRINTやList Worksなどと組み合わせ、FNA通信でホストの印刷データを受け取る構成例がある。FNA Server自体が帳票生成や印刷制御の全機能を担うわけではない。",
       "point": "FNA通信の利用範囲、接続先、論理端末LU（Logical Unit）の定義、帳票受信・印刷ソフトとの責任分界、移行後の代替経路、通信障害時の復旧を確認する。",
       "origin": "提供されたAPS補足資料（一般化）／富士通 FNA Serverの機能 https://resources.global.fujitsu/software/manual/b1fw-6069/02z200/b6069-00-01-02-00.html ／List Works 印刷データの受信環境（FNA） https://resources.global.fujitsu/software/manual/b1wd-3587/01z200/b3587-01-02-10-02.html"
+    },
+    {
+      "id": "353",
+      "section_no": 43,
+      "category": "メインフレーム",
+      "question": "システムコンソールとは何か？",
+      "answer": "System Console。OSやジョブの稼働状況の確認、システムメッセージの監視、管理コマンドの実行などを行う操作端末や画面。",
+      "explanation": "メインフレームの運用担当者がシステムからの通知を確認し、必要に応じて応答や管理操作を行うためのインターフェース。一般利用者が業務を行う端末とは役割が異なる。OSはOperating System（オペレーティングシステム）の略。",
+      "point": "コンソールで監視するメッセージ、操作権限、操作履歴、異常時の対応手順、新基盤の監視・管理機能への移行範囲を確認する。",
+      "origin": "mainframe-architecture-advanced-glossary.md（システムコンソール）／legacy-host-operation-reference-patterns.md（運用・監視）"
+    },
+    {
+      "id": "354",
+      "section_no": 18,
+      "category": "ネットワーク",
+      "question": "アプリケーションプロキシとは何か？",
+      "answer": "Application Proxy。HTTPなどのアプリケーション層の通信内容を理解し、通信の代理・中継やアクセス制御を行う仕組み。",
+      "explanation": "OSI参照モデルの第7層に相当する通信規約を理解し、要求や応答に応じた制御を行う。フォワードプロキシやリバースプロキシとして実装される場合がある。HTTPはHypertext Transfer Protocolの略。一般的な方式名であり、Microsoft Entra Application Proxyという特定製品を指すとは限らない。",
+      "point": "中継の対象・方向、対応プロトコル、認証、アクセス制御、TLS終端の有無、ログ、障害時の影響を確認する。構成図の名称だけで製品や実装を断定しない。",
+      "origin": "network-security-proxy-study.md 第3章（プロキシサーバーとアプリケーションプロキシ）"
+    },
+    {
+      "id": "355",
+      "section_no": 19,
+      "category": "ネットワーク",
+      "question": "閉域網とは何か？",
+      "answer": "一般のインターネットから分離され、接続できる利用者や拠点が限定されたネットワーク。閉域接続だけで通信の暗号化が保証されるわけではない。",
+      "explanation": "専用線や通信事業者の閉域ネットワークなどを用いて、許可された拠点やシステム間の通信経路を構成する。クラウドとのプライベート接続も利用例の一つ。閉域網であっても接続先の認証、通信制御、暗号化は別途検討する必要がある。",
+      "point": "接続可能な拠点、インターネットへの出口、経路制御、アクセス権、暗号化、冗長化、障害時の代替経路を確認する。",
+      "origin": "system-modernization-anonymized.md 第9章（閉域網とセキュリティ充足）／azure-hub-spoke-design-review.md（閉域接続）"
+    },
+    {
+      "id": "356",
+      "section_no": 20,
+      "category": "ネットワーク",
+      "question": "ルーティングとは何か？",
+      "answer": "Routing。宛先IPアドレスなどに基づいて、データをどのネットワーク経路へ転送するかを決定すること。",
+      "explanation": "IPはInternet Protocolの略。ルータなどがルーティングテーブルを参照し、宛先ネットワークに応じて次の転送先（Next Hop）を選択する。AzureではシステムルートやUDR（User Defined Route：ユーザー定義ルート）などが経路選択に関係する。",
+      "point": "通信元・宛先、ルートテーブル、次ホップ、戻り経路、ファイアウォール通過の有無、障害時の経路切替を確認する。通信の許可・拒否とは区別する。",
+      "origin": "azure-architecture-glossary.md（UDR／ルートテーブル）／azure-hub-spoke-design-review.md（経路制御）／一般的なネットワーク技術知識"
+    },
+    {
+      "id": "357",
+      "section_no": 21,
+      "category": "ネットワーク",
+      "question": "ゲートウェイとは何か？",
+      "answer": "Gateway。異なるネットワークや通信方式などの境界に位置し、それらの間の通信を仲介する機器や機能。",
+      "explanation": "例えばデフォルトゲートウェイは端末から別ネットワークへの通信の出口として利用される。VPN GatewayはVPN接続を担い、Application GatewayはWeb通信の中継・負荷分散を担う。ゲートウェイという名称だけでは機能や通信階層は特定できない。VPNはVirtual Private Networkの略。",
+      "point": "接続するネットワーク、対象プロトコル、通信方向、経路制御、認証・暗号化、負荷分散の有無、冗長構成を確認する。",
+      "origin": "mainframe-architecture-advanced-glossary.md（ゲートウェイ）／azure-architecture-glossary.md（VPN Gateway・Application Gateway）"
+    },
+    {
+      "id": "358",
+      "section_no": 25,
+      "category": "DB",
+      "question": "マウントとは何か？",
+      "answer": "Mount。ディスクや共有ファイルシステムなどをOSのファイル管理体系に接続し、プログラムや利用者からアクセスできる状態にすること。",
+      "explanation": "Linuxなどではファイルシステムをディレクトリ（マウントポイント）に関連付け、ファイルを読み書きできるようにする。ネットワーク上の共有ファイルシステムをマウントすることもある。ディスクを接続することと、ファイルシステムをマウントすることは別の操作。",
+      "point": "マウント先、アクセス権、読取り専用設定、再起動時の自動マウント、ネットワーク障害時の動作、アプリケーション起動順序を確認する。",
+      "origin": "azure-architecture-glossary.md（Managed Disk・Azure Files関連）／一般的なOS・ファイルシステム技術知識"
+    },
+    {
+      "id": "359",
+      "section_no": 26,
+      "category": "DB",
+      "question": "DBロードとは何か？",
+      "answer": "Database Load。外部ファイルなどからデータを読み込み、データベースへ登録する処理。システム移行時の初期データ投入などに利用される。",
+      "explanation": "旧DBからアンロードしたデータを必要に応じて文字コードやデータ形式を変換し、新DBに登録する。PostgreSQLではCOPYコマンドなどで一括投入できる。単なる投入だけでなく、制約やデータ整合性の確認も重要となる。DBはDatabaseの略。",
+      "point": "投入順序、文字コード、NULL・外字、主キー・外部キー制約、件数・項目照合、エラー時の再投入、処理時間を確認する。",
+      "origin": "system-modernization-anonymized.md（DB・データ移行）／legacy-host-operation-reference-patterns.md（データ移行・文字コード）／一般的なDB技術知識"
     }
   ],
   "archivedCards": [],
