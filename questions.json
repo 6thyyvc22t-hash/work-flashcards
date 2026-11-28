@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-51",
+  "revision": "2026-11-28-approved-input-review-batch-52",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 401,
+  "nextId": 407,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -4019,6 +4019,66 @@
       "explanation": "Windowsサーバーなどの遠隔管理に利用される。画面情報とキーボード・マウスの操作情報などをやり取りする。標準的な直接接続では3389番ポートを使用するが、設定や接続構成によって異なる。Azure Bastionなどを介して管理対象VMに接続する構成もある。",
       "point": "管理ポートをインターネットへ不要に公開しないこと、接続元制限、認証・権限、通信保護、操作ログ、クリップボードやドライブのリダイレクト制御を確認する。",
       "origin": "azure-architecture-glossary.md（Azure Bastion）／azure-hub-spoke-design-review.md（管理アクセス・管理ポート）／一般的な遠隔管理技術知識"
+    },
+    {
+      "id": "401",
+      "section_no": 52,
+      "category": "メインフレーム",
+      "question": "サブルーチンとは何か？",
+      "answer": "Subroutine。メインプログラムなどから呼び出され、特定の処理を実行するプログラムのまとまり。",
+      "explanation": "共通の計算やチェック処理などを独立した処理単位にまとめ、必要な箇所から呼び出す。呼出し元へ処理結果や制御を返す。COBOLではPERFORMによる内部処理の実行やCALLによる別プログラムの呼出しなどがある。具体的な呼出し規約は言語や処理系による。",
+      "point": "呼出し元・呼出し先の依存関係、引数や戻り値、共有データの更新、異常時の処理、移行後の共通部品化、テスト範囲を確認する。",
+      "origin": "mainframe-architecture-glossary.md（PERFORM・CALL）／一般的なプログラム設計知識"
+    },
+    {
+      "id": "402",
+      "section_no": 54,
+      "category": "Web/Java",
+      "question": "クラスとは何か？",
+      "answer": "Class。オブジェクト指向プログラミングにおいて、データの構造や処理を定義したオブジェクトの設計図。",
+      "explanation": "例えば顧客クラスに顧客番号や氏名を保持するフィールドと、情報を取得・変更するメソッドを定義できる。その定義に基づいて個別の顧客オブジェクトを生成する。Javaではコンストラクタや静的メンバーなどもクラスに定義できる。",
+      "point": "クラスごとの責務、データの保持範囲、他クラスへの依存関係、再利用性、テストのしやすさを確認する。業務ロジックと画面・DBアクセスの責務を適切に分離する。",
+      "origin": "system-modernization-anonymized.md（Web/Java・アプリケーション構成の関連知識）／一般的なJava・オブジェクト指向の知識"
+    },
+    {
+      "id": "403",
+      "section_no": 55,
+      "category": "Web/Java",
+      "question": "オブジェクトとは何か？",
+      "answer": "Object。データとそれを扱う処理を一つにまとめたもの。Javaではクラスに基づいて生成された実体などを指す。",
+      "explanation": "例えば顧客クラスから生成した顧客Aと顧客Bのオブジェクトは、同じクラスの定義に従いながら、それぞれ異なる氏名や顧客番号を保持できる。Javaでは配列もオブジェクトである。クラスは定義、オブジェクトは実体という関係で理解できる。",
+      "point": "オブジェクトの生成・破棄、状態の保持、共有範囲、参照の扱い、同時処理時の安全性、メモリ使用量を確認する。DTOなどのデータ受渡し用オブジェクトと業務処理を担うオブジェクトの役割も整理する。",
+      "origin": "system-modernization-anonymized.md（Web/Java・DTOの関連知識）／一般的なJava・オブジェクト指向の知識"
+    },
+    {
+      "id": "404",
+      "section_no": 56,
+      "category": "Web/Java",
+      "question": "メソッドとは何か？",
+      "answer": "Method。クラスなどに定義される処理のまとまり。呼出し時に引数を受け取り、処理結果を返すことができる。",
+      "explanation": "例えば顧客情報を取得するgetNameや、金額を計算するcalculateTotalなどの処理をメソッドとして定義する。Javaでは引数や戻り値を持たないメソッドもあり、インスタンスメソッドと静的メソッドがある。",
+      "point": "メソッドの役割、引数・戻り値の型、例外、呼出し元への影響、データ更新などの副作用、トランザクションの範囲、単体テストを確認する。",
+      "origin": "system-modernization-anonymized.md（Web/Java・業務ロジックの関連知識）／一般的なJavaプログラム設計知識"
+    },
+    {
+      "id": "405",
+      "section_no": 57,
+      "category": "Web/Java",
+      "question": "アノテーションとは何か？",
+      "answer": "Annotation。プログラムに付加情報を与えるための記述。JavaのSpring Frameworkでは処理の設定や役割の指定などに利用される。",
+      "explanation": "Javaでは@で始まる記述を用い、クラスやメソッドなどにメタデータを付与する。例えば@Overrideはメソッドのオーバーライドをコンパイラに確認させる。Springの@Serviceはサービス部品の識別、@Transactionalはトランザクション管理の設定に利用される。実際の動作はフレームワークの設定や適用条件による。",
+      "point": "アノテーションが指定する機能、適用範囲、設定条件、フレームワークのバージョン、トランザクション境界や例外時の動作を確認する。記述しただけで必ず期待どおり動作するとは限らない。",
+      "origin": "system-modernization-anonymized.md（Spring Framework・Web/Javaの関連知識）／一般的なJava・Spring技術知識"
+    },
+    {
+      "id": "406",
+      "section_no": 29,
+      "category": "DB",
+      "question": "テンポラリテーブルとは何か？",
+      "answer": "Temporary Table。一時的なデータや処理途中の結果を格納するためのテーブル。保持期間はDB製品や設定によって異なる。",
+      "explanation": "例えば大量データの集計や移行処理で、中間結果を一時テーブルに格納して後続のSQLから参照する。PostgreSQLではCREATE TEMP TABLEで作成でき、通常はセッション終了時に削除される。ON COMMIT設定によってトランザクション終了時の扱いも指定できる。必ずメモリだけに格納されるわけではない。",
+      "point": "保持期間、接続・セッションとの関係、コミット時の動作、接続プール利用時の影響、容量・性能、異常終了後の再処理を確認する。永続テーブルとの区別が重要。",
+      "origin": "system-modernization-anonymized.md（PostgreSQL・DB処理の関連知識）／一般的なDB技術知識／PostgreSQL CREATE TABLE公式参照先 https://www.postgresql.org/docs/current/sql-createtable.html"
     }
   ],
   "archivedCards": [],
