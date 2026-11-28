@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-49",
+  "revision": "2026-11-28-approved-input-review-batch-50",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 386,
+  "nextId": 396,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3869,6 +3869,106 @@
       "explanation": "現行システムの資産を棚卸しし、新環境へ移行・変換・代替するものを特定する。ソースだけでなく、実行モジュール、共通部品、設定、ジョブ定義、データ、運用手順なども検討対象となる。JCLはJob Control Language、IFはInterfaceの略。",
       "point": "資産一覧と実稼働状況の一致、依存関係、版の整合性、利用有無、移行・廃止・代替の判定根拠、変換方法、テスト範囲、対象漏れを確認する。",
       "origin": "system-modernization-anonymized.md（ホスト資産・システム移行）／legacy-host-operation-reference-patterns.md（移行影響・資産整理）"
+    },
+    {
+      "id": "386",
+      "section_no": 48,
+      "category": "メインフレーム",
+      "question": "COBOLのPIC句とは何か？",
+      "answer": "PIC（PICTURE）句。データ項目の文字種、桁数、小数点の位置などを定義するための記述。",
+      "explanation": "COBOL（Common Business-Oriented Language）では、PIC X(10)は英数字項目10文字分、PIC 9(5)は数字5桁、PIC 9(5)V99は整数5桁・小数2桁の数値項目の例。Vは仮想小数点を示す。実際の格納形式やバイト数はUSAGE句などにも依存する。",
+      "point": "Javaへの変換時は文字数とバイト数、符号、小数点位置、数値の精度、丸め、格納形式を確認する。PIC句だけから物理的なレコード長を断定しない。",
+      "origin": "mainframe-architecture-glossary.md（PIC句）／system-modernization-anonymized.md（文字コード・データ移行）"
+    },
+    {
+      "id": "387",
+      "section_no": 49,
+      "category": "メインフレーム",
+      "question": "COBOLのFILLERとは何か？",
+      "answer": "FILLER。データ構造の中で、名前を付けずに領域を確保するための記述。固定長ファイルの予備領域などに利用される。",
+      "explanation": "例えばFILLER PIC X(5)は名前を持たない5文字分の英数字領域を定義する。項目間の空き領域や固定値の格納などにも使用される。通常は個別の項目名で参照できないが、集団項目の処理やレコード入出力には影響する。FILLERは略語ではない。",
+      "point": "移行時はFILLERの位置・長さ・初期値・固定値の意味を確認する。不要な予備領域と決めつけて削除すると、後続項目の位置や外部IFの互換性が崩れる可能性がある。",
+      "origin": "mainframe-architecture-glossary.md（FILLER）／legacy-host-operation-reference-patterns.md（連携データ形式）"
+    },
+    {
+      "id": "388",
+      "section_no": 53,
+      "category": "Web/Java",
+      "question": "ヒープメモリとは何か？",
+      "answer": "Heap Memory。Javaなどで生成されたオブジェクトを格納するためのメモリ領域。",
+      "explanation": "JVM（Java Virtual Machine）のヒープは、クラスのインスタンスや配列の割当てに使用される共有メモリ領域。GC（Garbage Collection）が到達不能になったオブジェクトなどのメモリを回収する。ヒープはプロセスが使用するメモリ全体と同一ではない。",
+      "point": "ヒープの初期・最大サイズ、同時処理数、メモリ使用量、GCによる停止時間、メモリ不足、コンテナやVMのメモリ上限を確認する。大量データを一度に保持しない設計も重要。",
+      "origin": "system-modernization-anonymized.md（Java実行環境・性能設計の関連知識）／一般的なJVM技術知識／Java Virtual Machine Specification 第2.5.3節（Heap）"
+    },
+    {
+      "id": "389",
+      "section_no": 51,
+      "category": "Azure/クラウド",
+      "question": "Azure Portalとは何か？",
+      "answer": "WebブラウザからAzureのリソースの作成、設定変更、監視などを行うための管理画面。",
+      "explanation": "Azure PortalはGUI（Graphical User Interface）を通じて仮想マシン、ネットワーク、ストレージなどを管理するためのWebベースのインターフェース。利用できる操作は付与された権限やリソース設定によって異なる。Portalは略語ではない。",
+      "point": "操作権限、対象サブスクリプション、環境の取り違え防止、操作ログ、変更承認を確認する。IaC（Infrastructure as Code）で管理する構成では、手動変更と定義ファイルの不一致に注意する。",
+      "origin": "azure-architecture-glossary.md（Azureリソース管理の関連知識）／Microsoft Learn Azure portal overview（公式参照先） https://learn.microsoft.com/azure/azure-portal/azure-portal-overview"
+    },
+    {
+      "id": "390",
+      "section_no": 52,
+      "category": "Azure/クラウド",
+      "question": "Azure CLIとは何か？",
+      "answer": "Azure CLI（Azure Command-Line Interface）。コマンドを入力してAzureリソースの作成・設定・管理などを行うためのツール。",
+      "explanation": "azコマンドを使用してAzureリソースの情報取得、作成、変更などを行う。スクリプトやCI/CDから呼び出すことで操作の自動化にも利用できる。操作には適切な認証と権限が必要で、Azure Portalと同じ管理対象を操作する場合がある。",
+      "point": "実行アカウントの権限、対象サブスクリプション、コマンドのバージョン、実行ログ、エラー時の扱い、秘密情報の管理、再実行時の影響を確認する。",
+      "origin": "azure-architecture-glossary.md（Azureリソース管理・IaCの関連知識）／Microsoft Learn Azure CLI overview（公式参照先） https://learn.microsoft.com/cli/azure/what-is-azure-cli"
+    },
+    {
+      "id": "391",
+      "section_no": 42,
+      "category": "外部IF",
+      "question": "レコードとは何か？",
+      "answer": "Record。ファイルやデータベースなどにおける、複数のデータ項目から構成される1件分のデータ。",
+      "explanation": "例えば顧客番号、氏名、住所をまとめた1件の顧客情報がレコードに相当する。RDBでは一般にテーブルの1行、ホストのファイルでは一定のレコード形式で格納されたデータ単位を指す。1レコードが常にテキストの1行とは限らない。",
+      "point": "レコード種別、固定長・可変長、文字コード、項目の位置や長さ、レコードの区切り、件数、異常データの扱いを確認する。",
+      "origin": "system-modernization-anonymized.md（レコード・データセット）／legacy-host-operation-reference-patterns.md（外部IF・データ形式）"
+    },
+    {
+      "id": "392",
+      "section_no": 43,
+      "category": "外部IF",
+      "question": "レコードレイアウトとは何か？",
+      "answer": "Record Layout。1件のレコードに含まれる項目名、位置、長さ、データ型などを定義したもの。",
+      "explanation": "固定長ファイルでは項目ごとの開始位置やバイト長などを定義してデータを解釈する。COBOLのCOPY句で取り込むデータ定義がレコードレイアウトを表す場合もある。文字コード、数値形式、符号、FILLERなども重要な構成要素。",
+      "point": "送受信双方の仕様が一致しているか、バイト位置、文字数、符号、小数点、予備領域、複数レコード種別、仕様変更時の互換性を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8・9章（連携データ形式・文字コード）／mainframe-architecture-glossary.md（PIC句・FILLER）"
+    },
+    {
+      "id": "393",
+      "section_no": 44,
+      "category": "外部IF",
+      "question": "パディングとは何か？",
+      "answer": "Padding（埋め文字・埋めデータ）。固定長データなどで所定の長さに合わせるため、空白やゼロなどの文字・バイトを補うこと。",
+      "explanation": "例えば5桁の数字項目に123を格納するとき、仕様によって先頭にゼロを補って00123とする。文字列の末尾を空白で埋める場合もある。埋める位置、値、単位はデータ形式によって異なる。",
+      "point": "左埋め・右埋め、空白・ゼロの区別、文字コード、文字数とバイト長、変換時の切捨て、空白除去による情報の欠落を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8・9章（固定長・空白埋め・文字コード）"
+    },
+    {
+      "id": "394",
+      "section_no": 45,
+      "category": "外部IF",
+      "question": "バイナリファイルとは何か？",
+      "answer": "Binary File。文字として読むことを前提とせず、所定のバイト形式でデータを格納したファイル。",
+      "explanation": "画像、実行ファイル、圧縮ファイル、バイナリ数値を含むレコードなどが例。テキストとして文字コード変換すると内容が壊れることがある。テキストファイルも物理的にはバイト列であり、違いはデータの解釈方法にある。",
+      "point": "転送時に内容を変更しない方式、データ形式、バイト順、数値の格納形式、変換対象項目、ファイルの完全性を確認する。固定長レコードにも文字項目とバイナリ項目が混在する場合がある。",
+      "origin": "legacy-host-operation-reference-patterns.md 第8・9章（ファイル連携・数値形式・文字コード）／一般的なファイル形式の知識"
+    },
+    {
+      "id": "395",
+      "section_no": 46,
+      "category": "外部IF",
+      "question": "シフトコードとは何か？",
+      "answer": "Shift Code。文字コード体系によって、1バイト文字と複数バイト文字などの解釈を切り替えるために使用される制御コード。",
+      "explanation": "例えば一部のEBCDIC系混在文字コードではSO（Shift Out）とSI（Shift In）を使って文字の解釈モードを切り替える。具体的なコード値や切替規則は文字コード体系・製品仕様による。UTF-8はこの種のシフト状態に依存しない。",
+      "point": "変換元の文字コード仕様、シフトコードの有無、文字境界、制御コードを含むバイト長、不正な切替、外字・変換不能文字、固定長レコードへの影響を確認する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第9章（ホスト系文字コード・文字変換）／一般的な状態依存文字コードの知識"
     }
   ],
   "archivedCards": [],
