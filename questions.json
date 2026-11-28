@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-54",
+  "revision": "2026-11-28-approved-input-review-batch-55",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 413,
+  "nextId": 416,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -4139,6 +4139,36 @@
       "explanation": "ファイルシステムではディレクトリを階層化してファイルの位置をパスで表す。例えば連携ファイルの受信、処理済み、エラーなどで格納先を分ける設計がある。WindowsやLinuxではパス表記や大文字・小文字の扱いが異なる場合がある。オブジェクトストレージでは階層が名前のプレフィックスで表現される場合もある。Directoryは略語ではない。",
       "point": "送受信先のディレクトリ、パスの指定方式、アクセス権限、ファイル命名規則、処理済みファイルの移動、保存期間、障害時の再処理を確認する。ストレージの種類によってディレクトリの実体や操作仕様が異なることに注意する。",
       "origin": "legacy-host-operation-reference-patterns.md 第8・9章（ファイル連携・データ受渡し）／azure-architecture-glossary.md（Blob Storage・Azure Files）／一般的なファイルシステムの知識"
+    },
+    {
+      "id": "413",
+      "section_no": 48,
+      "category": "外部IF",
+      "question": "ASCIIとは何か？",
+      "answer": "ASCII（American Standard Code for Information Interchange）。英数字、記号、制御文字などを7ビットで表現する文字コード規格。",
+      "explanation": "7ビットで128種類のコードを表現できる。例えば大文字のAは16進数41、数字の0は30で表す。ASCIIの文字はUTF-8でも同じ1バイトの値で表現されるが、EBCDICでは異なるコード値が使われる。ASCII単体では日本語を表現できない。",
+      "point": "ホストからの移行ではEBCDIC・JEF・ASCII・UTF-8などの文字コードを区別し、送受信双方の仕様、制御文字、文字化け、バイト長を確認する。英数字だけのデータでも変換が必要な場合がある。",
+      "origin": "system-modernization-anonymized.md（文字コード・データ移行）／legacy-host-operation-reference-patterns.md 第9章（文字コード変換）／RFC 20（ASCII format for Network Interchange）"
+    },
+    {
+      "id": "414",
+      "section_no": 28,
+      "category": "ネットワーク",
+      "question": "レイテンシとは何か？",
+      "answer": "Latency（遅延時間）。データ送信や処理要求などに伴って発生する時間的な遅延。",
+      "explanation": "ネットワークではデータの伝送、機器での処理、待ち行列などによって生じる遅延を指す。片道遅延とRTT（Round-Trip Time：往復時間）は区別する。帯域が広くても遅延が小さいとは限らず、アプリケーションの応答時間にはサーバーやDBの処理時間も含まれる。",
+      "point": "オンプレミスとAzure間の通信、APIやDBの遠隔呼出し、ファイアウォール経由の通信などで遅延を測定する。測定区間、片道・往復、平均値とパーセンタイル、負荷条件を明確にし、業務の応答時間要件を満たせるか確認する。",
+      "origin": "azure-hub-spoke-design-review.md（接続経路・性能設計の関連知識）／system-modernization-anonymized.md（性能・非機能要件）／一般的なネットワーク性能の知識"
+    },
+    {
+      "id": "415",
+      "section_no": 29,
+      "category": "ネットワーク",
+      "question": "VLANとは何か？",
+      "answer": "VLAN（Virtual Local Area Network：仮想LAN）。物理的なネットワークを論理的に分割し、複数の独立したLANを構成する技術。",
+      "explanation": "スイッチなどでネットワークを論理的に分け、レイヤー2のブロードキャストドメインを分離する。IEEE 802.1QではフレームにVLAN識別情報を付加して複数VLANの通信を同じリンクで運ぶことができる。異なるVLAN間のIP通信にはルーターやレイヤー3スイッチなどによる経路制御が必要となる。",
+      "point": "VLAN ID、接続ポート、タグ付き・タグなし通信、VLAN間の経路、ファイアウォールによる通信制御、クラウド接続との境界を確認する。VLANによる分離だけで認証・暗号化や十分なアクセス制御が実現するわけではない。Azure VNetとは異なる概念。",
+      "origin": "network-security-proxy-study.md（ネットワーク分離の関連知識）／azure-hub-spoke-design-review.md（ネットワーク境界）／IEEE 802.1Q（Bridges and Bridged Networks）／一般的なLAN技術知識"
     }
   ],
   "archivedCards": [],
