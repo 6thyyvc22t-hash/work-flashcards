@@ -2,9 +2,9 @@
   "schemaVersion": 2,
   "deckId": "work-it",
   "title": "仕事理解用 デジタル単語帳",
-  "revision": "2026-11-28-approved-input-review-batch-47",
+  "revision": "2026-11-28-approved-input-review-batch-48",
   "description": "一般化したIT技術知識。承認された候補のみ追加する。",
-  "nextId": 368,
+  "nextId": 377,
   "categories": [
     "メインフレーム",
     "Web/Java",
@@ -3689,6 +3689,96 @@
       "explanation": "例えば明細がページ内に収まらなくなった場合や、配布先などのグループが変わった場合に改ページする。固定行数による制御や、文字の折返しを考慮した自動改ページなどがある。ヘッダー・フッターの繰返しや小計の出力にも関係する。",
       "point": "旧帳票と新帳票でページ境界、明細の欠落・重複、ヘッダー、小計、ページ番号、用紙サイズが適切か確認する。長い文字列や最大明細件数などの境界条件もテストする。",
       "origin": "legacy-host-operation-reference-patterns.md 第10章（帳票品質・改ページ）／提供された帳票・印刷方式のQ&A"
+    },
+    {
+      "id": "368",
+      "section_no": 44,
+      "category": "メインフレーム",
+      "question": "PL/Iとは何か？",
+      "answer": "PL/I（Programming Language One）。科学技術計算や事務処理などに対応するプログラミング言語。メインフレームの業務システムでも利用される。",
+      "explanation": "数値計算、文字列処理、構造化データ、ファイル入出力、例外処理などを扱える汎用言語。ホストのオンライン処理やバッチ処理に使用される場合がある。",
+      "point": "Java等へ移行する際は、固定小数点演算の精度・丸め、データ型、文字コード、ファイル入出力、例外処理、外部プログラム呼出しの互換性を確認する。",
+      "origin": "mainframe-architecture-glossary.md（ホスト言語の関連知識）／一般的なPL/I技術知識"
+    },
+    {
+      "id": "369",
+      "section_no": 45,
+      "category": "メインフレーム",
+      "question": "PFキーとは何か？",
+      "answer": "PF（Program Function）キー。ホスト端末などで、画面遷移や検索、登録といった特定の操作を実行するためのファンクションキー。",
+      "explanation": "端末からPFキーの操作をホストへ通知し、業務プログラムが対応する処理を実行する。PF1からPF24などのキーが使われる端末もある。キーの割当てはアプリケーションやエミュレータの設定によって異なる。",
+      "point": "現行のキー割当て、画面ごとの操作、入力内容の保持、Web化後のボタン・キーボード操作への対応、誤操作防止を確認する。",
+      "origin": "aim-screen-study.md（ファンクションキー・画面操作）／mainframe-architecture-advanced-glossary.md（オンライン制御）"
+    },
+    {
+      "id": "370",
+      "section_no": 46,
+      "category": "メインフレーム",
+      "question": "プログラムライブラリとは何か？",
+      "answer": "Program Library。ソースプログラムや実行可能なロードモジュールなどのプログラム資産を格納・管理する領域。",
+      "explanation": "ホストでは用途別のデータセットやライブラリにプログラム資産を格納する構成がある。ソース、オブジェクト、ロードモジュールは異なる資産であり、格納場所や管理方法はOS・製品による。",
+      "point": "資産の種類、格納場所、ソースと実行モジュールの版の一致、参照順序、更新権限、移行対象の漏れを確認する。",
+      "origin": "mainframe-architecture-glossary.md（プログラムライブラリ）／legacy-host-operation-reference-patterns.md 第12章（JCL・資源管理）"
+    },
+    {
+      "id": "371",
+      "section_no": 47,
+      "category": "メインフレーム",
+      "question": "ジャーナルとは何か？",
+      "answer": "Journal。データの更新内容や処理の履歴などを記録した情報。障害復旧や更新内容の追跡などに利用される。",
+      "explanation": "DB更新前後の情報や処理履歴を記録する仕組みがあり、製品や方式によって復旧、監査、変更データ連携などに利用できる。すべてのジャーナルが同じ情報や復旧機能を持つわけではない。",
+      "point": "記録対象、更新順序、確定済みデータの識別、保存期間、機密情報の保護、復旧・連携への利用可否を確認する。一般的な操作ログやWAL（Write-Ahead Log）との役割の違いも整理する。",
+      "origin": "legacy-host-operation-reference-patterns.md 第11章（オンライン入力／更新ジャーナル）／system-modernization-anonymized.md（DB変更・復旧の関連知識）"
+    },
+    {
+      "id": "372",
+      "section_no": 23,
+      "category": "バッチ/ジョブ",
+      "question": "ジョブスケジューラとは何か？",
+      "answer": "Job Scheduler。定められた時刻や先行ジョブの終了などを条件として、ジョブの起動や実行状況の管理を行うソフトウェア。",
+      "explanation": "ジョブネット、運用カレンダー、先行条件などに従ってジョブを起動し、実行結果や異常終了を管理する。A-AUTOやSystemwalker Operation Managerなどが例。業務処理そのものを実装するSpring Batchとは役割が異なる。",
+      "point": "ジョブの依存関係、起動条件、休日、終了判定、遅延監視、再実行、強制起動の権限、障害時の後続処理を確認する。",
+      "origin": "mainframe-architecture-glossary.md（ジョブスケジューラ）／legacy-host-operation-reference-patterns.md 第12章（ジョブ運行管理）"
+    },
+    {
+      "id": "373",
+      "section_no": 51,
+      "category": "Web/Java",
+      "question": "コンフィグファイルとは何か？",
+      "answer": "Configuration File（設定ファイル）。アプリケーションやミドルウェアの接続先、動作条件、ログ設定などを記述するファイル。",
+      "explanation": "プログラム本体と設定を分離することで、環境ごとに動作条件を切り替えられる。Spring Bootではapplication.propertiesやapplication.ymlなどを利用できる。環境変数や外部の設定管理サービスと組み合わせる場合もある。",
+      "point": "本番・検証・開発環境ごとの設定差分、設定の優先順位、変更承認、版管理、反映方法、パスワード等の秘密情報を平文で保存しない設計を確認する。",
+      "origin": "system-modernization-anonymized.md（Web/Java・アプリ設計の関連知識）／一般的なアプリケーション設定管理の知識"
+    },
+    {
+      "id": "374",
+      "section_no": 49,
+      "category": "Azure/クラウド",
+      "question": "ワークロードとは何か？",
+      "answer": "Workload。システム上で実行されるアプリケーションや業務処理、またはそれらを構成するリソースのまとまり。",
+      "explanation": "例えば受注管理を担うWebアプリ、DB、バッチ、連携機能などを一つのワークロードとして扱うことがある。クラウド設計では業務目的や処理特性に応じて構成・運用・性能・セキュリティを検討する。処理負荷そのものを指す場合もある。",
+      "point": "対象範囲、業務上の重要度、依存サービス、性能・可用性要件、共通基盤との責任分界、運用・コストの管理単位を確認する。",
+      "origin": "azure-hub-spoke-design-review.md（業務ワークロードと共通基盤）／azure-architecture-glossary.md（実行基盤）"
+    },
+    {
+      "id": "375",
+      "section_no": 50,
+      "category": "Azure/クラウド",
+      "question": "Azureのタグとは何か？",
+      "answer": "Tag（タグ）。Azureリソースなどに付与する名前と値の組み合わせ。環境、管理担当、コストなどの分類に使用する。",
+      "explanation": "例えばEnvironment=Production、CostCenter=001のように属性を付与して、リソースを分類・検索したり費用管理に活用したりする。タグはすべてのリソース種類で同様に利用できるとは限らず、親階層のタグが自動継承されるわけでもない。",
+      "point": "タグの命名・必須項目・値のルール、付与漏れの検出、Azure Policy等による統制、費用集計への利用、秘密情報を記載しない運用を確認する。",
+      "origin": "azure-architecture-glossary.md（タグ・リソース管理）／一般的なAzureリソース管理の知識"
+    },
+    {
+      "id": "376",
+      "section_no": 30,
+      "category": "認証/セキュリティ",
+      "question": "クライアントIDとは何か？",
+      "answer": "Client ID（クライアント識別子）。認証基盤などに登録されたアプリケーションを識別するためのID。通常、それ自体は秘密情報ではない。",
+      "explanation": "OAuth 2.0（認可の枠組み）などで認可サーバーがクライアントを識別するために使用する。Microsoft Entra IDではアプリケーション（クライアント）IDが該当する。IDは識別子であって認証用の秘密情報ではなく、クライアントシークレットや証明書等とは区別する。",
+      "point": "環境ごとのアプリ登録とIDの対応、テナントIDやオブジェクトIDとの区別、APIアクセス権限、クライアント認証方式、秘密情報管理を確認する。",
+      "origin": "azure-architecture-glossary.md（アプリ登録・サービスプリンシパル）／system-modernization-anonymized.md（認証・認可）／RFC 6749 第2.2節 https://www.rfc-editor.org/rfc/rfc6749#section-2.2"
     }
   ],
   "archivedCards": [],
